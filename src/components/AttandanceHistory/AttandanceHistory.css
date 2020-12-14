@@ -1,0 +1,38 @@
+
+
+
+
+
+.attandance-history-top{
+    font-size: 1.6rem;
+    font-weight: 600;
+    color:rgba(128, 128, 128, 0.63);
+}
+
+/* dir-Add_user */
+.generate-report-dropdown{
+    font-size: 1.8rem;
+    color: rgba(26, 25, 25, 0.815);
+}
+
+.generate-report,
+.time-period,
+.select-perticular-user{
+    padding-top: .2rem;
+}
+
+.collection-small-card{
+    margin-top: 6rem;
+    margin-left: 3rem;
+}
+
+button.edit-attandance{
+    padding: .5rem !important;
+    width: auto !important;
+    height: auto !important;
+}
+
+.in-AH-take-attandnce{
+    margin-left: 1.8rem;
+    width: 96rem;
+}

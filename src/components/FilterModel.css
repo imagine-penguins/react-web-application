@@ -1,0 +1,33 @@
+
+
+
+
+
+#filterModel{
+    width: 28%;
+    height: auto;
+}
+
+.inside-filter{
+    display: grid;
+    grid-template-columns: auto;
+}
+
+#apply-filter >button {
+    border-radius: 1.0rem;
+    justify-content: end;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+}
+
+#apply-filter >input {
+    margin: 2.0rem 0;
+    outline: none;
+    font-size: 1.6rem;
+    padding-top: 1.0rem;
+    padding-bottom: 1.0rem;
+    font-weight: 1.0rem;
+    border-radius: 1.0rem;
+
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+
+}

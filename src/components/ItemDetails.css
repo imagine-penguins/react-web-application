@@ -1,0 +1,26 @@
+
+
+
+
+
+/* .user-details{
+    height: 4.5rem;
+    box-shadow: 0 0 .8rem 0 rgba(0, 0, 0, 0.08), 0 0 2.0rem 0 rgba(59, 42, 42, 0.08);
+} */
+
+.item-details{
+    height: 5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding-top: .75rem;
+    color: rgba(88, 88, 88, 0.781);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+    margin-right: 3.5rem;
+    margin-left: 3.3rem;
+}
+
+input.item-detail-checkbox{
+    margin-top: .42rem !important;
+    width: 1.4rem !important;
+    height: 1.4rem !important;
+}

@@ -1,0 +1,39 @@
+
+
+
+
+
+
+
+
+.leave-reaquest-right{
+    width: 65rem;
+    height: 31rem;
+    border-radius: 1.5rem;
+    background-color: white;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+}
+
+.leave-request-right-buttons >button{
+    width: 9rem;
+    height: 2.5rem;
+    padding: .5rem;
+    font-weight: 800;
+    font-size: 1rem;
+    color: rgba(128, 128, 128, 0.808);
+    border: none;
+    background-color: white;
+}
+
+.leave-request-right-buttons >button:focus{
+    background-color: rgba(20, 20, 20, 0.904);
+    border-radius: 1rem;
+    color: white;
+    outline: none;
+}
+
+/* ......................... */
+.recharts-responsive-container.bar-container-chart{
+    width: 100% !important;
+    height: 18rem !important;
+}

@@ -1,0 +1,49 @@
+
+
+
+
+
+.heading-list{
+    height: 5rem;
+    padding: 1rem 0.5rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: rgba(128, 128, 128, 0.726);
+    margin-right: 3.6rem;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+}
+
+
+.user-attandance-card{
+    height: 7rem;
+    padding: .5rem;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+    margin-right: 3.6rem;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2rem rgba(0, 0, 0, 0.08);
+    font-weight: 500;
+}
+
+.user-attandance-card-name{
+    color: #3b5ef7f1;
+    font-weight: 700;
+}
+
+.user-attandance-card-rollno{
+    font-weight: 700;
+    color: rgba(128, 128, 128, 0.726);
+}
+
+input.list-check-box {
+    width: 2.6rem; 
+    height: 1.4rem;
+} 
+
+
+span.attandance-slider:before {
+    content: "absent" !important;
+}
+
+input:checked + span.attandance-slider:before {
+    content: "present" !important;
+}

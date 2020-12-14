@@ -1,0 +1,119 @@
+
+
+
+
+
+.inside-apply-modal{
+    width: 50rem;
+    height: 38rem;
+    border-radius: 1rem;
+    background-color: white;
+    margin-top: 2.5rem;
+    padding: 1rem 2rem 2rem 2rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05), 0 0 1rem rgba(0, 0, 0, 0.05);
+}
+
+.inside-apply-modal input{
+    font-weight: 700;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+    border: none;
+}
+
+.apply-leave-calander-icon{
+    position: absolute;
+    color: grey;
+    margin-top: 3.4rem;
+    margin-left: 38%;
+    cursor: pointer;
+}
+
+
+.apply-leave-calander-input{
+    padding-right: 4.5rem !important;
+    font-size: 1.15rem !important;
+    width: 52% !important;
+}
+
+
+.apply-leave-modal-title{
+    width: 80% !important;
+}
+
+/* ........Text Area........................... */
+.inside-apply-modal textarea{
+    font-size: 1.5rem;
+    font-weight: 700;
+    height: 70%;
+    resize: none;
+    padding: 1.5rem;
+    border: none;
+    box-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+}
+
+.inside-apply-modal input{
+    font-size: 1.5rem;
+    height: 4rem;
+}
+
+.apply-leave-calander i{
+    padding-top: 0.1rem;
+    font-size: 2.5rem;
+}
+
+
+
+.apply-leave-modal-span{
+    font-size: 1.5rem;
+    position: absolute;
+    font-weight: 700;
+    color: grey;
+    padding-left: 1.5rem;
+    transition: 0.2s ease all;
+    z-index: 1;
+}
+
+.span-first{
+    padding-top: 3.8rem;
+}
+
+.span-second{
+    padding-top: 3.8rem;
+}
+
+.span-third{
+    padding-top: 3.6rem;
+    padding-left: 1.8rem;
+}
+
+.apply-leave-request-model{
+    margin-left: 35rem !important;
+}
+
+/* .........On focus/Blur event.................. */
+
+.inside-apply-modal input:focus ~ .span-first,
+.apply-blur-title{
+    padding-top: 1.4rem;
+    padding-left: .5rem;
+    color: rgba(128, 128, 128, 0.411);
+}
+
+.inside-apply-modal input:focus ~ .span-second,
+.apply-blur-calander{
+    padding-top: 1.4rem;
+    padding-left: .5rem;
+    color: rgba(128, 128, 128, 0.411);
+}
+
+.inside-apply-modal textarea:focus ~ .span-third,
+.apply-blur-description{
+    padding-top: 1.4rem;
+    padding-left: .8rem;
+    color: rgba(128, 128, 128, 0.411);
+    border: none !important;
+}
+
+.inside-apply-modal input:focus,
+textarea:focus{
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2rem rgba(0, 0, 0, 0.08);
+}

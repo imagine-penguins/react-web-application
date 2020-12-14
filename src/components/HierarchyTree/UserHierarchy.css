@@ -1,0 +1,130 @@
+
+
+
+
+
+
+.org-hierarchy{
+    background-color: white;
+    border-radius: 1rem;
+    height: 10.7rem;
+    width: 25.7rem;
+    padding-top: 1rem;
+    padding-left: 1.6rem;
+    box-shadow: 0 0 .8rem rgba(202, 149, 149, 0.08), 0 0 2rem rgba(0, 0, 0, 0.08);
+    transition: transform 200ms;
+}
+
+
+.org-hierarchy-card-img{
+  width: 5.5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 80%;
+}
+
+.org-hierarchy-card-name{
+  color:#6F87EE;
+  padding-top: 1.0rem;
+  margin-bottom: .1rem;
+  font-size: 1.3rem;
+  font-weight: 10rem;
+}
+
+.org-hierarchy-card-text{
+  color: rgb(153, 149, 149);
+  font-size: 0.9rem;
+  font-weight: 620;
+  padding-left: 1.8rem;
+}
+
+.org-hierarchy:hover{
+  transform: scale(1.07);
+}
+
+
+/* ....................For small top cards........................................ */
+.smallCard-Hierarchy{
+    border-radius: 1.0rem;
+    height: 3rem;
+    width: 12.5rem;
+    padding-top: .4rem;
+    padding-left: 1.2rem;
+    background-color: white;
+    opacity: 0.6;
+    
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+    transition: transform 200ms;
+}
+
+.smallCard-Hierarchy-card-img{
+  width: 2.6rem;
+  height: 2.6rem;
+  object-fit: cover;
+  border-radius: 100%;
+}
+
+.smallCard-Hierarchy-card-name{
+    color:#6F87EE;
+    padding-top: .7rem;
+    font-size: 0.99rem;
+    font-weight: 5rem;
+    padding-left: 1.5rem;
+  }
+
+.smallCard-Hierarchy:hover{
+  transform: scale(1.05);
+  }
+
+/* ....................For small bottom cards........................................ */
+.smallCard-Hierarchy-down{
+    border-radius: 1.0rem;
+    height: 3.9rem;
+    width: 12.7rem;
+    padding-top: 1.0rem;
+    padding-left: .5rem;
+    background-color: #ffffff;
+    
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+    transition: transform 200ms;
+}
+
+.smallCard-Hierarchy-down-card-img{
+  width: 4rem;
+  height: 4rem;
+  margin: 0.35rem 0.5rem 0.5rem 0.8rem;
+  object-fit: cover;
+  border-radius: 100%;
+  border: .1rem solid rgba(128, 128, 128, 0.295);
+}
+
+.smallCard-Hierarchy-down-card-name{
+    color:#6F87EE;
+    padding-top: .4rem;
+    font-size: 0.85rem;
+    font-weight: 10rem;
+    padding-left: .5rem;
+  }
+
+.smallCard-Hierarchy-down-card-text{
+    color: rgba(153, 147, 147, 0.87);
+    font-size: 0.7rem;
+    padding-left: .5rem;
+  }
+
+.smallCard-Hierarchy-down:hover{
+    transform: scale(1.05);
+  }
+
+
+/* ...........Overlay............... */
+.overlay{
+  width: 100%;
+  height: 56.0rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.overlay::-webkit-scrollbar{
+  display: none;
+}

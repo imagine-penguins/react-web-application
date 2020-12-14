@@ -1,0 +1,23 @@
+
+
+
+
+
+
+.combine-past-applied{
+    width: 100%;
+}
+
+.past-leave-requests{
+    width: 70rem;
+    padding-bottom: 2rem;
+    border-radius: 1.5rem;
+    background-color: white;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+}
+
+.added-name-past-requests{
+    margin-left: 4rem;
+    padding-top: .5rem;
+    padding-right: 8rem;
+}

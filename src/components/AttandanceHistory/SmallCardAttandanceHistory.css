@@ -1,0 +1,74 @@
+
+
+
+
+
+
+.small-card-attandance-history{
+    width: 23rem;
+    height: 14rem;
+    padding: 1.5rem 1.2rem 1.2rem 1.5rem;
+    border-radius: 1.6rem;
+    background-color: white;
+    margin-top: 6rem;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.08), 0 0 20px rgba(0, 0, 0, 0.08);
+}
+
+p.small-card-attandance-history-heading{
+    color: rgba(20, 20, 20, 0.553);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+hr.underline-small-card{
+    color: rgba(107, 107, 212, 0.466);
+    margin: 0 0 1rem 0;
+}
+
+p.small-card-attandance-history-text{
+    font-weight: 700;
+    margin-bottom: .5rem;
+    color: rgba(128, 128, 128, 0.534);
+}
+
+.round-circle-small-card-history{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 100%;
+}
+
+/* ...........Small sapan colorful circles........................... */
+.round-circle-small-card-history.red{
+    background-color: rgba(243, 34, 34, 0.65);
+}
+
+.round-circle-small-card-history.blue{
+    background-color: rgba(40, 98, 255, .65);
+}
+
+
+.round-circle-small-card-history.voilet{
+    background-color: rgba(94, 143, 199, 0.65);
+}
+
+
+.small-card-attandance-history-days{
+    font-size: 2rem;
+    font-weight: 700;
+    color:rgba(20, 20, 20, 0.553);
+}
+
+
+/* ...........history fa and text last........................... */
+i.card-small-history-icon{
+    font-size: 1.2rem;
+    opacity: .5;
+    padding-top: .5rem;
+}
+
+.history-small-card-attandance-history{
+    opacity: .5;
+    font-weight: 600;
+    padding-top: .3rem;
+}

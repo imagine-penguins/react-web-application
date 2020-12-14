@@ -1,0 +1,47 @@
+
+
+
+
+
+p.Add-New-personal-heading{
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-top: 5.0rem;
+    margin-bottom: 2.5rem;
+    margin-left: 0;
+    color: rgb(109, 108, 108);
+}
+
+.Add-New input{
+    width: 30rem !important;
+}
+
+
+i.fa-user-circle{
+    font-size: 10rem;
+    color: rgba(128, 128, 128, 0.849);
+    margin-bottom: 2.0rem;
+}
+
+p.Add-New-text{
+    font-size: 1.2rem;
+    color: rgba(128, 128, 128, 0.849);
+}
+
+p.Add-New-text:first-child{
+    width: 15rem;
+}
+
+i.fa-upload:nth-child(1){
+    margin-left: 6.3rem;
+    margin-top: 7.0rem;
+    position: absolute;
+    font-size: 3.0rem;
+}
+
+i.fa-upload{
+    margin-left: 19.6rem;
+    margin-top: 7.0rem;
+    position: absolute;
+    font-size: 3.0rem;
+}

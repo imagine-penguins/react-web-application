@@ -1,0 +1,120 @@
+
+
+
+
+
+.filter-search .form-control {
+    padding-left: 4.4rem;
+    width: 25rem;
+    height: 3rem;
+    border: none;
+    border-bottom: .1rem solid rgba(63, 243, 228, 0.527);
+    color: #808080;
+    background-color: rgba(82, 188, 250, 0.1);
+    border-radius: 2.0rem;
+}
+
+.filter-search .search-icon {
+    position: absolute;
+    font-size: 2.0rem;
+    padding-left: 1.5rem;
+    padding-top: .6rem;
+    z-index: 2;
+    display: block;
+    line-height: 1.8rem;
+    pointer-events: none;
+    color: #D3D3D3;
+    background-color: rgb(211,211,211,0.009);
+}
+
+.filter-text{
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: rgba(128, 128, 128, 0.637);
+}
+
+/* .............Paginations........................ */
+.pagination > button{
+    width: 3.5rem;
+    height: 2.8rem;
+    font-size: 1.5rem;
+    padding: .6rem;
+    padding-inline: 1rem;
+    line-height: 0rem;
+}
+
+.pagination > button:focus {
+    box-shadow: none !important;
+}
+
+.pagination > button:hover{
+    color: gray;
+}
+
+.pagination-text{
+    font-size: 1.5rem !important;
+    font-weight: 500;
+    color: rgba(128, 128, 128, 0.541);
+}
+
+/* ..........Dropdown...................... */
+.dropdown > button:focus {
+    box-shadow: none !important;
+}
+
+.filter-dropdown1{
+    position: fixed !important;
+    left: 6.5% !important;
+    top: 15.5% !important;
+}
+
+.dropdown-item > p {
+    color:  rgba(80, 79, 79, 0.767) !important;
+    margin-bottom: 0;
+    padding-top: .3rem;
+    font-size: 1.38rem;
+    font-weight: 500;
+}
+
+p.dropdown-item{
+    font-size: 1.53rem;
+    font-weight: 500;
+}
+
+.dropdown-menu input{
+    cursor: pointer;
+    margin-top: 1.0rem;
+}
+
+.filter-dropdown1 input[type=checkbox]{
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    padding-right: .1rem !important;
+}
+
+.filter-dropdown1 label{
+    padding-left: .8rem;
+    cursor: pointer;
+}
+
+.browse .dropdown-menu{
+    top: 11.5rem !important;
+    margin-left: 1rem;
+}
+
+#dropdownMenuButton{
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding-left: .3rem !important;
+}
+
+.user-type-dropdown .dropdown-item{
+    padding-right: 6rem;
+    padding-left: 2rem;
+}
+
+input[type=checkbox].error-check-box{
+    width: 3rem !important;
+    height: 1.5rem !important;
+}
+

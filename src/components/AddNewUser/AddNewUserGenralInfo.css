@@ -1,0 +1,86 @@
+
+
+
+
+.Add-New{
+    background-color: rgb(211, 211, 211, 0.01);
+}
+
+
+.input-width input{
+    width: 35rem !important;
+}
+
+.Add-New-genral-heading{
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    margin-left: 0;
+    color: rgb(109, 108, 108);
+}
+
+input.Add-New-input{
+    width: 22rem;
+    height: 3.8rem;
+    padding-left: 3.0rem;
+    margin-top: .6rem 0;
+    border: 0;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: .8rem;
+
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+
+}
+
+input.Add-New-input:focus{
+    outline: none;
+}
+
+button.Add-New-input-button-save{
+    background-color: #748ae9;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 12.0rem;
+    height: 4.2rem;
+    border-radius: 1.0rem;
+    border: 0;
+    align-items: top;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.219);
+}
+
+button.Add-New-input-button-save:focus{
+    outline: 0;
+}
+
+button.Add-New-input-button-cencel{
+    background-color: white;
+    color: rgba(128, 128, 128, 0.918);
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 9.0rem;
+    height: 4.2rem;
+    border-radius: 1.0rem;
+    border: .1rem rgba(128, 128, 128, 0.733);
+    align-items: top;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.219);
+
+}
+
+button.Add-New-input-button-cencel:focus{
+    outline: 0;
+}
+
+/* ......................Place Holders Inputs................................................ */
+input.Add-New-input::placeholder {
+    color: rgba(128, 128, 128, 0.726);    /* Firefox */
+}
+  
+input.Add-New-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color: rgba(128, 128, 128, 0.733);
+}
+  
+input.Add-New-input::-ms-input-placeholder { /* Microsoft Edge */
+   color: rgba(128, 128, 128, 0.733);
+}

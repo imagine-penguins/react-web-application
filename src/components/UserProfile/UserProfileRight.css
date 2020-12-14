@@ -1,0 +1,56 @@
+
+
+
+
+
+.User-Detailed-Profile{
+    width: 77%;
+    border-radius: 1.2rem;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+}
+
+p.User-Detailed-Profile-text{
+    padding-left: 2.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 0;
+    color: rgb(95, 93, 93);
+}
+
+p.User-Detailed-Profile-name{
+    padding-left: 2.5rem;
+    font-size: 1.3rem;
+    margin-bottom: .0rem;
+    color: rgba(128, 128, 128, 0.829);
+}
+
+.User-Detailed-Profile-heading{
+    font-size: 1.7rem;
+    font-weight: 600;
+    padding-left: 1.2rem;
+    color: rgb(31, 30, 30);
+}
+
+button.User-Detailed-Profile-button{
+    margin-left: 2.5rem;
+    padding: .5rem;
+    background-color: rgba(211, 211, 211, 0.103);
+    color: grey;
+    font-size: 1.2rem;
+    font-weight: 630;
+    width: 18rem;
+    height: 2.8rem;
+    border-radius: 1.0rem;
+    border: .001rem solid;
+    border-color: rgba(128, 128, 128, 0.3);
+}
+
+button.User-Detailed-Profile-button:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #748ae9;
+    color: white;
+}
+
+.User-Detailed-Profile-button:hover{
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+}

@@ -1,0 +1,162 @@
+
+
+
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(211,211,211,0.2);
+}
+
+i{
+    cursor: pointer;
+}
+
+
+/* Right column (page content) */
+.right {
+    width: 95%;
+    background-color: rgb(211,211,211,0.2);
+    min-height: 100vh;
+}
+
+.left{
+    width: 5%;
+    box-shadow: 0.6rem -1rem 2rem -0.6rem rgba(0, 0, 0, 0.12);
+}
+
+
+/* Style the navigation menu inside the left column */
+#leftNavIcon {
+    list-style-type: none;
+    padding: .1rem .1rem;
+}
+
+
+#leftNavIcon >li >i {
+    width: 4.5rem;
+    margin-top: 1.3rem;
+    margin-inline: 1.0rem;
+    font-size: 2.5rem;
+    text-align: center;
+    padding: .5rem .5rem;
+    text-decoration: none;
+    color: rgba(128, 128, 128, 0.781);
+    display: block;
+    border-radius: .5rem;
+}
+
+#leftNavIcon li i::after {
+    background-color: #eee;
+}
+
+
+.top-sticky-bar{
+    padding: 1rem;
+}
+
+a.company-name:hover{
+    text-decoration: none;
+}
+
+
+/* ......Button add user...................... */
+button.add-user-top{
+    font-size: 1.5rem;
+    padding-left: 2.8rem;
+    height: 3.2rem;
+    border-radius: .8rem;
+    line-height: 0rem;
+    padding-right: 1rem;
+    color: #FFFFFF;
+    background-color: #6F87EE;
+}
+
+button.add-user-top:hover{
+    color: white;
+    background-color: #637be683;
+}
+
+.plus-button{
+    position: absolute;
+    transform: translate(-2.3rem, -0.25rem);
+    font-size: 2.7rem;
+}
+
+.profile-img_icon{
+    width: 4.5rem;
+    height: 4.2rem;
+    border-radius: 50%;
+}
+
+
+
+/* .........Dropdown...................... */
+.attandance-dropdown {
+    position: relative;
+    display: flex;
+}
+
+.attandance-dropdown-content {
+    list-style-type: none;
+    width: 28.0rem;
+    height: 19.0rem;
+    position: absolute;
+    margin-left: 7.5rem;
+    background-color: white;
+    min-width: 20.0rem;
+    border-radius: .8rem;
+    z-index: 1;
+    visibility: hidden;
+    transition: 0.05s 0.05s;
+}
+
+.attandance-dropdown-content > div > p{
+    cursor: pointer;
+}
+
+.attandance-dropdown-content > p {
+    font-size: 2.0rem;
+    padding-top: 1.0rem;
+    padding-left: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.attandance-dropdown-content p {
+    color: rgba(145, 143, 143, 0.897);
+    text-decoration: none;
+    font-weight: 600;
+    display: block;
+}
+
+/* .........Small triangle at right top............................... */
+.attandance-dropdown-content:after {
+    position: absolute;
+    transform: translateX(-100%);
+    top: 1.5rem;
+    width: 0;
+    height: 0;
+    content: '';
+    border-top: 1rem solid transparent;
+    border-left: 1rem solid transparent;
+    border-right: 1.2rem solid white;
+    border-bottom: 1rem solid transparent;
+  }
+
+.attandance-dropdown-content .fas{
+    line-height: inherit !important;
+    color: rgba(145, 143, 143, 0.897);
+}
+
+.attandance-dropdown:hover .attandance-dropdown-content {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+
+/* ........Div at last..................... */
+.last-div{
+    display: flex;
+    height: 8.0rem;
+    background-color: rgb(211,211,211,0.01);
+}

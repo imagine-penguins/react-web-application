@@ -1,0 +1,55 @@
+
+
+
+
+
+
+.combine-recieved-applied-chart{
+    width: 100%;
+}
+
+.combine-applied-chart{
+    padding-right: 2rem;
+    margin-right: .5rem;
+}
+
+
+.recieved-leaves{
+    width: 30rem;
+    margin-left: 3rem;
+    margin-top: 2.5rem;
+    padding: 1rem 2.2rem;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.085), 0 0 1rem rgba(0, 0, 0, 0.085);
+}
+
+.recieved-leaves-names{
+    color: rgba(51, 100, 216, 0.74);
+    line-height: 1.8rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.recieved-leaves-time{
+    color: rgba(112, 111, 111, 0.589);
+    line-height: 1.8rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.recieved-leaves-all-names:hover{
+    padding-top: 0.5rem;
+    background-color:  rgba(96, 133, 218, 0.233);
+    border-radius: 1.5rem;
+    cursor: pointer;
+}
+
+.active-status{
+    position: absolute;
+    margin: .5rem;
+    width: .7rem;
+    height: .7rem;
+    border-radius: 100%;
+    background-color: rgb(115, 219, 115);
+}

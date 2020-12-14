@@ -1,0 +1,32 @@
+
+
+
+
+
+/* .ReactModal__Overlay{
+    background-color: transparent !important;
+} */
+
+
+/* ........Every Close button of Modal.............. */
+.modal-close-div{
+    position: absolute;
+    right: 0;
+    padding-right: 2rem;
+}
+
+.modal-close-button{
+    width: 6.5rem;
+    height: 4.0rem;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.671);
+    font-size: 4.0rem;
+    font-weight: 900;
+    line-height: 0;
+    padding-bottom: 1.2rem;
+    border: 0;
+}
+
+.modal-close-button:focus{
+    outline: 0;
+}

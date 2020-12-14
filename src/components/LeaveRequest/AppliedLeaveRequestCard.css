@@ -1,0 +1,83 @@
+
+
+
+
+
+.inside-eye-filter{
+    width: 48rem;
+    height: 28rem;
+    border-radius: 1rem;
+    background-color: white;
+    margin-top: 1.5rem;
+    padding: 4rem 2rem 2rem 3rem;
+    box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.05), 0 0 1rem rgba(0, 0, 0, 0.05);
+}
+
+.inside-eye-filter-with-header{
+    width: 48rem;
+    height: 28rem;
+    border-radius: 1rem;
+    background-color: white;
+    margin-top: 1.5rem;
+    padding: 1rem 2rem 2rem 3rem;
+    box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.05), 0 0 1rem rgba(0, 0, 0, 0.05);
+}
+
+.eye-filter-text{
+    font-size: 1.2rem;
+    font-weight: 650;
+    color: rgba(112, 111, 111, 0.788);
+    margin-bottom: .7rem;
+    padding-top: .5rem;
+}
+
+.eye-filter-text:first-child{
+    font-size: 1.1rem !important;
+    text-align: end;
+    margin-right: 2rem;
+}
+
+.eye-filter-name{
+    font-size: 1.55rem;
+    color: rgba(51, 101, 216, 1);
+    font-weight: 700;
+    padding-top: .1rem;
+}
+
+/* ...........Description Area.................. */
+.area-for-text{
+    color: rgba(112, 111, 111, 0.788);
+    font-size: 1rem;
+    font-weight: 700;
+    max-height: 9rem;
+    padding: 1.8rem 1.8rem 4rem 1.8rem;
+    margin-top: 2rem;
+    margin-right: 7.0rem;
+    border: 0.1rem solid rgba(128, 128, 128, 0.685);
+    border-radius: 2.0rem;
+    overflow: hidden;
+}
+
+/* ..........Buttons decline/Accept.................... */
+
+.eye-filter-button-bottom{
+    margin-left: 20rem;
+}
+
+.eye-filter-button-bottom >button{
+    background-color: white;
+    color: rgba(128, 128, 128, 0.918);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1rem 3rem 1rem 3rem;
+    border-radius: 1.5rem;
+    border: .1rem rgba(128, 128, 128, 0.733);
+    box-shadow: 0 0 .2rem rgba(0, 0, 0, 0.08), 0 0 .5rem rgba(0, 0, 0, 0.119);
+
+}
+
+.eye-filter-button-bottom >button:focus{
+    outline: 0;
+    background-color: #748ae9;
+    color: white;
+}

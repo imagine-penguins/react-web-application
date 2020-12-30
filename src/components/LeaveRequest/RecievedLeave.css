@@ -21,7 +21,7 @@
     padding: 1rem 2.2rem;
     border-radius: 1rem;
     background-color: white;
-    box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.085), 0 0 1rem rgba(0, 0, 0, 0.085);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .recieved-leaves-names{
@@ -41,7 +41,7 @@
 .recieved-leaves-all-names:hover{
     padding-top: 0.5rem;
     background-color:  rgba(96, 133, 218, 0.233);
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     cursor: pointer;
 }
 

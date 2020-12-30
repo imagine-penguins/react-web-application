@@ -10,7 +10,7 @@
     background-color: white;
     margin-top: 1.5rem;
     padding: 4rem 2rem 2rem 3rem;
-    box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.05), 0 0 1rem rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .inside-eye-filter-with-header{
@@ -20,7 +20,7 @@
     background-color: white;
     margin-top: 1.5rem;
     padding: 1rem 2rem 2rem 3rem;
-    box-shadow: 0 0 .3rem rgba(0, 0, 0, 0.05), 0 0 1rem rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .eye-filter-text{
@@ -54,30 +54,36 @@
     margin-top: 2rem;
     margin-right: 7.0rem;
     border: 0.1rem solid rgba(128, 128, 128, 0.685);
-    border-radius: 2.0rem;
+    border-radius: 1rem;
     overflow: hidden;
 }
 
 /* ..........Buttons decline/Accept.................... */
 
 .eye-filter-button-bottom{
-    margin-left: 20rem;
+    margin-left: 25rem;
 }
 
 .eye-filter-button-bottom >button{
-    background-color: white;
+    background-color: rgba(230, 228, 228, 0.171);
     color: rgba(128, 128, 128, 0.918);
     font-size: 1.2rem;
     font-weight: 600;
-    padding: 1rem 3rem 1rem 3rem;
-    border-radius: 1.5rem;
-    border: .1rem rgba(128, 128, 128, 0.733);
-    box-shadow: 0 0 .2rem rgba(0, 0, 0, 0.08), 0 0 .5rem rgba(0, 0, 0, 0.119);
-
+    padding: .8rem 2rem .8rem 2rem;
+    border-radius: 1rem;
+    border: .1rem solid rgba(128, 128, 128, 0.685);
+    /* box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 .8rem rgba(0, 0, 0, 0.119); */
 }
 
 .eye-filter-button-bottom >button:focus{
     outline: 0;
     background-color: #748ae9;
+    color: white;
+}
+
+
+.eye-filter-button-bottom >button:hover{
+    outline: 0;
+    background-color: #8795d691;
     color: white;
 }

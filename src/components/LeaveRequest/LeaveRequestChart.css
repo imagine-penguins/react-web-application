@@ -9,9 +9,9 @@
 .leave-reaquest-right{
     width: 65rem;
     height: 31rem;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     background-color: white;
-    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .leave-request-right-buttons >button{

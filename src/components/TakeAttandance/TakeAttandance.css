@@ -44,6 +44,30 @@ span.attandance-slider:before {
     content: "absent" !important;
 }
 
-input:checked + span.attandance-slider:before {
-    content: "present" !important;
+
+button.attandance-list-button-save{
+    margin-left: 55rem;
+    margin-top: 3rem;
+    background-color: white;
+    color: rgba(128, 128, 128, 0.918);
+    font-size: 1.5rem;
+    font-weight: 500;
+    width: 9.0rem;
+    height: 4.2rem;
+    border-radius: 1.0rem;
+    border: .1rem rgba(128, 128, 128, 0.733);
+    align-items: top;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.219);
+}
+
+button.attandance-list-button-save:hover{
+    outline: 0;
+    background-color:  #8795d691;
+    color: white;
+}
+
+button.attandance-list-button-save:focus{
+    outline: 0;
+    background-color:  #748ae9;
+    color: white;
 }

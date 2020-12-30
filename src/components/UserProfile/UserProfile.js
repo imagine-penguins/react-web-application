@@ -3,12 +3,42 @@
 
 
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ApiCalls from '../ApiCalls';
+import axios from '../axios';
 import "./UserProfile.css";
 import UserProfileLeft from "./UserProfileLeft";
 import UserProfileRight from './UserProfileRight';
 
 function UserProfile() {
+
+        // ...................................UserProfile Api Call.......................................................
+        const [userProfile, changeuserProfile] = useState([]);
+    
+        useEffect(() => {
+    
+            async function getData() {
+                try {
+                    const res = await axios.get(ApiCalls.usersProfile).then(responce => {
+                        console.log("User Profile responce", responce);
+                        changeuserProfile(responce.data);
+                        console.log("setting userProfile:", responce.data);
+                    })
+                        .catch(error => {
+                            console.log("Something went wrong with Profile Api", error);
+                        });
+                }
+                catch (error) {
+                    changeuserProfile([]);
+                    console.log("Error catched while calling Profile Api", error);
+                }
+            }
+            
+            console.log("userProfile is :", userProfile);
+            getData();
+            
+    
+        }, []);
 
 
 
@@ -25,10 +55,10 @@ function UserProfile() {
             <div className="d-flex mt-2 pt-1">
 
                 {/* .........................Left Part of User Profile............................................... */}
-                <UserProfileLeft />
+                <UserProfileLeft data={userProfile} />
 
                 {/* ....................Right side of User Profile.................................... */}
-                <UserProfileRight />
+                <UserProfileRight data={userProfile} />
 
             </div>
 

@@ -10,8 +10,9 @@
     padding: .1rem .1rem;
 
 }
+*/
 
-#leftNavIcon li i {
+/* #leftNavIcon li i {
     margin-top: .5rem;
     font-size: 2.0rem;
     text-align: center;
@@ -20,9 +21,15 @@
     color: grey;
     display: block;
     border-radius: .5rem;
-}
+} */
+
 
 #leftNavIcon li i:hover {
-    background-color: #eee;
-} */
+    background-color:  #8795d64d;
+}
+
+.focusNow{
+    background-color:  #748ae9;
+    color: white !important;
+}
 

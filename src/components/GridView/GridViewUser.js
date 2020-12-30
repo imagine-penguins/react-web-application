@@ -27,16 +27,18 @@ function GridViewUser(props) {
 
 
     return (
-        <> 
-        <div class="grid-container">
+        <>
 
-            { props.data.map((userdata, index) => (
-                <div key={index} className="grid-item">
-                    <CardGrid data={userdata} />
-                 </div>     
-        ))}
-        
-        </div>
+            <div class="grid-container ml-5 mt-5">
+
+                {props.paginationData.map((userdata, index) => (
+                    <div key={index} className="grid-item">
+                        <CardGrid data={userdata} />
+                    </div>
+                ))}
+
+            </div>
+
         </>
     );
 }

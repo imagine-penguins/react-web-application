@@ -7,28 +7,20 @@ import React, {useState} from 'react';
 import "./CalanderApplyLeave.css";
 import SingleCalendar from "react-single-calendar";
 
-function CalanderApplyLeave(props) {
+var intialDate = new Date().toISOString().split("T")[0];
 
-    const [Dates, setDates] = useState(new Date());
+function CalanderApplyLeave(props) {
+    
+    const [date, filterDate] = useState("");
     // const [endDate, setendDate] = useState(new Date());
 
-    // const selectionRange = {
-    //     startDate : startDate,
-    //     endDate : endDate,
-    //     key : "selection"
-    // }
-
-    // const handelSelect = (ranges) => {
-    //     setstartDate(ranges.selection.startDate);
-    //     setendDate(ranges.selection.endDate);
-    // }
-    props.obtainDates(Dates);
+    props.obtainDates(date);
 
     return (
         <div className="calander-div">
             <div className="d-flex">
                 <span className="d-flex calander-text">Calander</span>
-                <SingleCalendar className="d-flex calander-apply-leave" selectedDate={setDates} range={true} minDate={Dates} />
+                <SingleCalendar className="d-flex calander-apply-leave" selectedDate={filterDate} range={true} />
             </div>
         </div>
     )

@@ -4,7 +4,9 @@
 
 
 const ApiCalls = {
-    login : "auth/login",
+
+    listUsers : "/users/dir",
+    usersProfile : "/users",
 
     attendanceUsers : "attendance/users",
     saveAttendance : "attendance",
@@ -18,6 +20,7 @@ const ApiCalls = {
     updateAppliedRequests : "/leave-requests/{leaveRequestId}",
     ApproveRecievedLeaves : "/leave-requests/{leaveRequestId}/status/{status}{&reason(only if status is R which is Rejected)}",
     
+    login : "/auth/login",
     refreshToken : "auth/token"             //.......Takes refresh Token.........
 };
 

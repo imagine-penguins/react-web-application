@@ -6,7 +6,7 @@
 .User-Profile{
     width: 21.5rem;
     border-radius: 1.2rem;
-    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .User-Profile-img{
@@ -68,7 +68,7 @@
     margin: 1rem 1.6rem;
     background-color: #ffffff;
     transition: transform 450ms;
-    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2rem rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .smallCard-User-Profile:hover{

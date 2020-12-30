@@ -2,8 +2,12 @@ import './App.css';
 
 
 
+
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, Link, Router } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link, Router, Redirect } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 // import NavbarUser from "./components/NavbarUser";
 import LoginModel from './components/Login/LoginModel';
 import Navbar from './components/TopNavBar/Navbar';
@@ -31,6 +35,7 @@ import AttandanceHistory from './components/AttandanceHistory/AttandanceHistory'
 import LeftSideBar from './components/LeftSideBar';
 
 
+
 function App() {
 
 
@@ -41,92 +46,93 @@ function App() {
 
   useState(() => {
 
-    if(localStorage.getItem("storedData"))  {
+    if (localStorage.getItem("storedData")) {
 
       setcheckLogin(false);
       console.log("window.location.pathname inside useState : ", checkLogin);
-  
+
     }
 
   }, []);
-  
+
 
   console.log("window.location.pathname outSide useState : ", checkLogin);
-  
+
 
 
   return (
-    
-    
-    
-      checkLogin ? <LoginModel showLogin={() => setcheckLogin(true)} hideLogin={() => setcheckLogin(false)} />
+
+
+    <Provider store={store}>
+      {checkLogin ? <LoginModel showLogin={() => setcheckLogin(true)} hideLogin={() => setcheckLogin(false)} />
 
         :
 
         <BrowserRouter>
 
-        <div className="d-flex wrap">
+          <div className="d-flex wrap">
 
-          {/* <!--........................Left NavBar.............................--> */}
-          <LeftSideBar />
-
-
-          {/* <!--........................Right Side.............................--> */}
-          <div className="right">
-
-            {/* .......................Top NavBar.......................... */}
-            <Navbar login={() => setcheckLogin(true)} />
-
-            {/* .......................Switch Statements.......................... */}
-
-            <div className="toFill">
-
-              <Switch>
-
-                <Route exact path="/users/users-list">
-                  <> <DirPath /> <FilterBar listOrGrid={toogleListGrid} toogleListGrid={() => settoogleListGrid(!toogleListGrid)} /> <ItemDetails /> <ListViewUser /> </>
-                </Route>
-
-                <Route exact path="/users/hierarchy">
-                  <UserHierarchy hierarchyData={hierarchyData} />
-                </Route>
-
-                <Route exact path="/attandance/take-attandance">
-                  <> <ToShowTopPath path={"Attandance / Take Attandance"} /> <FilterBar hideGridView={true} /> <TakeAttandance /> </>
-                </Route>
-
-                <Route exact path="/attandance/leave-request">
-                  <> <ToShowTopPath path={"Attandance / Leave Request"} /> <LeaveRequest /> </>
-                </Route>
-
-                <Route exact path="/attandance/history">
-                  <> <ToShowTopPath path={"Attandance / Attandance History"} /> <AttandanceHistory /> </>
-                </Route>
-
-                <Route exact path="/addnew">
-                  <AddNew />
-                </Route>
-
-                <Route exact path="/profile">
-                  <UserProfile />
-                </Route>
+            {/* <!--........................Left NavBar.............................--> */}
+            <LeftSideBar />
 
 
-              </Switch>
+            {/* <!--........................Right Side.............................--> */}
+            <div className="right">
+
+              {/* .......................Top NavBar.......................... */}
+              <Navbar login={() => setcheckLogin(true)} />
+
+              {/* .......................Switch Statements.......................... */}
+
+              <div className="toFill">
+
+                <Switch>
+
+                  <Route exact path="/users/users-list">
+                    <> <DirPath /> <FilterBar listOrGrid={toogleListGrid} toogleListGrid={() => settoogleListGrid(!toogleListGrid)} takeAttandance={false} /> </>
+                  </Route>
+
+                  <Route exact path="/users/hierarchy">
+                    <UserHierarchy hierarchyData={hierarchyData} />
+                  </Route>
+
+                  <Route exact path="/attandance/take-attandance">
+                    <> <ToShowTopPath path={"Attandance / Take Attandance"} /> <FilterBar hideGridView={true} takeAttandance={true} /> </>
+                  </Route>
+
+                  <Route exact path="/attandance/leave-request">
+                    <> <ToShowTopPath path={"Attandance / Leave Request"} /> <LeaveRequest /> </>
+                  </Route>
+
+                  <Route exact path="/attandance/history">
+                    <> <ToShowTopPath path={"Attandance / Attandance History"} /> <AttandanceHistory /> </>
+                  </Route>
+
+                  <Route exact path="/addnew">
+                    <AddNew />
+                  </Route>
+
+                  <Route exact path="/profile">
+                    <UserProfile />
+                  </Route>
 
 
-              {/* <!--............Last Div at end............--> */}
-              <div className="last-div" />
+                </Switch>
+
+
+                {/* <!--............Last Div at end............--> */}
+                <div className="last-div" />
+
+              </div>
 
             </div>
-
           </div>
-        </div>
 
 
         </BrowserRouter>
+      }
 
-
+    </Provider>
 
   );
 }

@@ -4,11 +4,27 @@
 
 /* .........image icon.............. */
 .list-img-icon{
-  width: 3.0rem;
-  height: 3.0rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
   object-fit: cover;
   border: .1px solid rgba(128, 128, 128, 0.5);
+}
+
+.user-card{
+  padding: .4rem .3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color:rgba(87, 86, 86, 0.596);
+}
+
+.form-user-list{
+  padding-top: 1.2rem;
+}
+
+.list-names{
+  color: #6F87EE !important;
+  font-weight: 700 !important;
 }
 
 /* .........check-box.............. */
@@ -63,7 +79,7 @@ span.slider:before {
   width: 8.0rem;
   left: .3rem;
   bottom: .4rem;
-  top: .18rem;
+  top: .23rem;
   background-color: #ffffffdc;
   -webkit-transition: .08s;
   transition: .08s;

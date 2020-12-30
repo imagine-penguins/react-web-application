@@ -32,8 +32,13 @@ i{
     padding: .1rem .1rem;
 }
 
+.attandance-dropdown >Link >i{
+    display: none;
+}
 
-#leftNavIcon >li >i {
+
+#leftNavIcon >li >i,
+.attandance-dropdown >a >i {
     width: 4.5rem;
     margin-top: 1.3rem;
     margin-inline: 1.0rem;
@@ -109,6 +114,7 @@ button.add-user-top:hover{
     z-index: 1;
     visibility: hidden;
     transition: 0.05s 0.05s;
+    box-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.19), 0 0 1.8rem rgba(0, 0, 0, 0.2);
 }
 
 .attandance-dropdown-content > div > p{

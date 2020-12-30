@@ -23,6 +23,7 @@ function LeaveRequest() {
     const [showRecievedLeave, setshowRecievedLeave] = useState(true);
     const [showAppliedLeave, setshowAppliedLeave] = useState(false);
     const [showPendingRequest, setshowPendingRequest] = useState(false);
+    const [showDropdown, setshowDropdown] = useState("");
 
 
     const [barGraphData, setbarGraphData] = useState([]);
@@ -92,8 +93,8 @@ function LeaveRequest() {
         <>
             {/* .......................Buttons on top............................................. */}
             <div className="d-flex leave-request ml-4 my-4">
-                <button className="leave-request-button" onClick={() => {setshowRecievedLeave(true); setshowAppliedLeave(false); setshowPendingRequest(false);}}>Recieved Leaves</button>
-                <button className="leave-request-button" onClick={() => {setshowAppliedLeave(true); setshowRecievedLeave(false); setshowPendingRequest(false);}}>Applied Leaves</button>
+                <button className={`leave-request-button ${showRecievedLeave && `focusCss`}`} onClick={() => {setshowRecievedLeave(true); setshowAppliedLeave(false); setshowPendingRequest(false);}}>Recieved Leaves</button>
+                <button className={`leave-request-button ${showAppliedLeave && `focusCss`}`} onClick={() => {setshowAppliedLeave(true); setshowRecievedLeave(false); setshowPendingRequest(false);}}>Applied Leaves</button>
                 <button className="leave-request-button ml-auto" onClick={() => setshowApplyLeaveModal(true)}>Apply Leave</button>
                 <button className="leave-request-button mr-5">...</button>
 
@@ -105,9 +106,26 @@ function LeaveRequest() {
             {/* ..............Show Browse.................... */}
             {showRecievedLeave && 
             <div className="d-flex browse-recieved-leaves mt-2 ml-4">
-                <span className="browse-text pl-3">Browse</span>
-                <span className="test-pending-request ml-3 pl-1 pr-1" onClick={() => setshowPendingRequest(!showPendingRequest)}>{showPendingRequest ? `Past Leave Requests` : `Pending Requests (45)`}</span>
-                <span className="triangle-icon-at-bottom"></span>
+                <span className="browse-text pl-3 mr-3">Browse</span>
+                <div className="dropdown">
+                    <button className="btn btn-lg btn-outline-none p-0 align-top dropdown-toggle" type="button" id="dropdownMenuButtonLeaveRequest" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {showPendingRequest ? `Past Leave Requests` : `Pending Requests (45)`}
+                    </button>
+                    <div className="dropdown-menu filter-dropdown3" aria-labelledby="dropdownMenuButton">
+                        <label className="dropdown-item" onClick={() => setshowPendingRequest(true)} aria-disabled><p>Past Leave Requests</p></label>
+                        <label className="dropdown-item" onClick={() => setshowPendingRequest(false)} aria-disabled><p>Pending Requests</p></label>
+                    </div>
+                </div>
+                {/* <span className="browse-text pl-3">Browse</span>
+                <button className="test-pending-request attandance-dropdown ml-3 pl-1 pr-1">{showPendingRequest ? `Past Leave Requests` : `Pending Requests (45)`}</button>
+                <div className="attandance-dropdown-content" style={{ fontSize: "1.6rem" }}>
+
+                    // ...........Browse Bropdown............
+                    <p className="mb-2 mt-3 ml-3 mr-3 p-1 pl-2" >Past Leave Requests</p>
+                    <p className="m-2 ml-3 mr-3 p-1 pl-2" >Pending Requests</p>
+
+                </div> */}
+                {/* <span className="triangle-icon-at-bottom"></span> */}
             </div>}
 
 

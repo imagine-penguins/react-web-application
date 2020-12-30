@@ -29,19 +29,19 @@ p.Add-New-text{
 }
 
 p.Add-New-text:first-child{
-    width: 15rem;
+    width: 12rem;
 }
 
 i.fa-upload:nth-child(1){
-    margin-left: 6.3rem;
-    margin-top: 7.0rem;
+    margin-left: 3.3rem;
+    margin-top: 4rem;
     position: absolute;
     font-size: 3.0rem;
 }
 
 i.fa-upload{
-    margin-left: 19.6rem;
-    margin-top: 7.0rem;
+    margin-left: 19rem;
+    margin-top: 4rem;
     position: absolute;
     font-size: 3.0rem;
 }

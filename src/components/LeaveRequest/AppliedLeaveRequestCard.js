@@ -37,12 +37,16 @@ function AppliedLeaveRequestCard(props) {
 
     const applyChanges = (e) => {
         e.preventDefault();
-        console.log("data-id :", e.target.name);
+        console.log("data-id :", e.target.getAttribute("data-id"));
 
-        axios.put(ApiCalls.leaveRequests + `/${e.target.name}` + `/status` + `/A`);
+        const name = e.target.name;
+        const param = name === "accept" ? "/A" : "/R";
+        console.log("name, param :", name, param);
+
+        axios.put(ApiCalls.leaveRequests + `/${e.target.name}` + `/status` + param);
         props.disable();
         setdisable(true);
-        alert("Application has been approved.");
+        alert(`Application has been ${name === "accept"? `Approved.` : `Rejected.`}`);
     }
 
     console.log("disabled in recieved :", disable);
@@ -85,8 +89,8 @@ function AppliedLeaveRequestCard(props) {
                 </span>
 
                 {props.button && <span className="d-flex eye-filter-button-bottom mt-3 pt-3">
-                    <button className="eye-filter-decline-button mr-3">Decline</button>
-                    <button className="eye-filter-approve-button mr-5" name={data.id} onClick={applyChanges}>Accept</button>
+                    <button className="eye-filter-decline-button mr-3" name="decline" data-id={data.id} onClick={applyChanges}>Decline</button>
+                    <button className="eye-filter-approve-button mr-5" name="accept" data-id={data.id} onClick={applyChanges}>Accept</button>
                 </span> }
 
             </div>

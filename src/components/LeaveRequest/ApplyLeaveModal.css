@@ -10,10 +10,11 @@
     background-color: white;
     margin-top: 2.5rem;
     padding: 1rem 2rem 2rem 2rem;
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.05), 0 0 1rem rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .inside-apply-modal input{
+    color: grey;
     font-weight: 700;
     box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
     border: none;

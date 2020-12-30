@@ -25,7 +25,7 @@ function AddNewPersonalInfo() {
                 </div>
 
 
-                <div className="d-flex pt-1 mb-4 ml-2"><input className="Add-New-input" placeholder="Display Name" /></div>
+                <div className="d-flex mt-2 mb-4 ml-2"><input className="Add-New-input" placeholder="Display Name" /></div>
                 <div className="d-flex pt-1 ml-2">
                     <input className="Add-New-input mr-5" placeholder="Gnder" />
                     <input className="Add-New-input ml-5 pl-5" placeholder="Blood Grop" />

@@ -91,18 +91,18 @@ function AttandanceHistory() {
 
             {/* .................Filter bar.................................... */}
             <div className="mt-5 mb-2">
-                <FilterBar hideGridView={true} />
+                <FilterBar hideGridView={true} takeAttandance={true} />
             </div>
 
             {/* .................Take Attandance.................................... */}
-            <div className="d-flex">
+            {/* <div className="d-flex">
                 <div className="in-AH-take-attandnce">
                     <TakeAttandance />
                 </div>
                 <div className="in-AH-button">
                     <button className="dir-Add_user btn btn-outline-secondary p-0 ml-3 mt-4 mr-5 edit-attandance">Edit Attandance</button>
                 </div>
-            </div>
+            </div> */}
 
         </>
     )

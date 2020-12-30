@@ -6,7 +6,7 @@
 
 import React from 'react';
 import './CardGrid.css';
-import enums from './enums';
+import enums from '../enums';
 
 function CardGrid(props) {
 

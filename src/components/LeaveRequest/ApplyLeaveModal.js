@@ -25,6 +25,12 @@ function ApplyLeaveModal(props) {
         descriptionBlur : ""
     });
 
+    const filterDate = (date) => {
+        console.log("date : ", date);
+        // let obtainedDate = new Date(date);
+        // const newDate = obtainedDate.toLocaleDateString();
+        // console.log("obtainedDate : ", obtainedDate, newDate);
+    }
 
     return (
         <>
@@ -46,7 +52,7 @@ function ApplyLeaveModal(props) {
                     }
                 }
             }
-        >   
+        >
             {/* ....................Modal close Button...................................... */}
             <div className="modal-close-div">
                 <button className="modal-close-button" onClick={props.hide}>&times;</button>
@@ -63,7 +69,7 @@ function ApplyLeaveModal(props) {
                     <i className="fas fa-calendar-alt apply-leave-calander-icon pt-1" onClick={() => setshowCalander(!showCalander)} />
                     <input className="form-control apply-leave-calander-input mt-5 mb-4" type="text" name="calander" value={leaveInputDate} onChange={(e) => {setleaveInputDate(e.target.value)}} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, dateBlur : e.target.name}) : setonblurEvent({...onblurEvent, dateBlur : ""})}} />
                     <span className={`apply-leave-modal-span span-second apply-blur-${onblurEvent.dateBlur}`}>Time Period</span>
-                    {showCalander && <div className=""><CalanderApplyLeave obtainDates={(date) => setleaveInputDate(date)} /></div>}
+                    {showCalander && <div className=""><CalanderApplyLeave obtainDates={(date) => filterDate(date)} /></div>}
                 </span>
                 <div className="d-flex">
                     <textarea className="form-control apply-leave-calander-description mt-5" name="description" value={leaveInputDescription} onChange={(e) => {setleaveInputDescription(e.target.value)}} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, descriptionBlur : e.target.name}) : setonblurEvent({...onblurEvent, descriptionBlur : ""})}} />
@@ -74,7 +80,7 @@ function ApplyLeaveModal(props) {
                 </span>
                 
             </div>
-
+            
         </Modal>
 
         </>

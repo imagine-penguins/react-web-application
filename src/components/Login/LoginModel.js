@@ -38,11 +38,6 @@ function LoginModel(props) {
     myFunction();
 
 
-    // if (){
-    //     history.push("/home");
-    // }
-
-
 
     const submitHandel = async e => {
         e.preventDefault();
@@ -54,9 +49,9 @@ function LoginModel(props) {
 
         //...........Getting Token from login Api........................................
         try {
-            const loginResponse = await axios.post("http://ec2-52-66-248-229.ap-south-1.compute.amazonaws.com:8083/auth/login", sendLoginData);
+            const loginResponse = await axios.post("http://ec2-13-126-215-181.ap-south-1.compute.amazonaws.com:8083/auth/login", sendLoginData);
             const jwt_key = loginResponse.data.token;
-            // console.log('jwt_key :', jwt_key);
+            console.log('loginResponse :', loginResponse);
 
             var myHour = new Date();
             myHour.setHours(myHour.getHours() + 1); //one hour from now
@@ -73,7 +68,7 @@ function LoginModel(props) {
             props.hideLogin();
 
         } catch (e) {
-            console.log('error occured while SignIn with SignIn_data', sendLoginData);
+            console.log('error occured while SignIn with SignIn_data', e);
             alert(`Wrong username or pasword, Please Try again.!`);
             setshowLoginModel(true);
         }

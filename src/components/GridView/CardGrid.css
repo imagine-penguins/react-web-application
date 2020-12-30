@@ -5,9 +5,10 @@
 
 .card{
     background-color: white;
-    border-radius: .5rem;
-    height: 12.8rem;
-    width: 12.8rem;
+    padding: .5rem;
+    border-radius: 1.5rem;
+    height: 18.5rem;
+    width: 18.5rem;
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
@@ -16,9 +17,9 @@
 
 .grid-card-img{
   
-  margin-top: 4.0rem;
-  width: 6.8rem;
-  height: 6.8rem;
+  margin-top: 3rem;
+  width: 10rem;
+  height: 10rem;
   object-fit: cover;
   border: .1rem solid rgba(128, 128, 128, 0.575);
   border-radius: 100%;
@@ -27,21 +28,20 @@
 .grid-card-name{
   color:#6F87EE;
   text-align: center;
-  margin-bottom: .1rem;
-  margin-top: 2.0rem;
-  font-size: 0.9rem;
+  margin-bottom: .5rem;
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
 .grid-card-text{
   color: rgb(161, 160, 160);
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   text-align: center;
-  padding-top: .1rem;
   margin-bottom: 3.0rem;
 }
 
 .card:hover{
-  box-shadow: 0 .5rem .8rem rgba(187, 183, 183, 0.623), 0 .3rem .3rem rgba(216, 213, 213, 0.637);
+  box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.19), 0 0 2rem rgba(0, 0, 0, 0.2);
 }

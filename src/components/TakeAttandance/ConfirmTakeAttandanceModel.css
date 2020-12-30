@@ -1,0 +1,50 @@
+
+
+
+
+
+
+#SaveAttandanceModel{
+    padding: 1rem;
+    width: 40rem;
+    height: 18.8rem;
+}
+
+p.some-text{
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: rgba(87, 86, 86, 0.781);
+    
+}
+
+.buttons-to-submit{
+    margin-top: 3rem;
+    margin-left: 10.5rem;
+    margin-bottom: 3rem;
+}
+
+.buttons-to-submit button{
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 6rem;
+    height: 3rem;
+    background-color: white;
+    color: rgba(128, 128, 128, 0.918);
+    border-radius: 1.0rem;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 .6rem rgba(0, 0, 0, 0.119);
+    border: .1rem solid rgba(128, 128, 128, 0.507);
+}
+
+.buttons-to-submit button:hover{
+    outline: 0;
+    background-color:  #8795d691;
+    color: white;
+}
+
+.buttons-to-submit button:focus{
+    outline: 0;
+    background-color:  #748ae9;
+    color: white;
+}

@@ -44,12 +44,12 @@ function RecievedLeave() {
 
         console.log("pendingRequestData: ", pendingRequestData);
 
-        if (pendingRequestData.length === 0) {
-            console.log("inside if of Pending Requests: ", pendingRequestData);
-            return obtainPendingRequestData();
-        };
+        // if (pendingRequestData.length === 0) {
+        //     console.log("inside if of Pending Requests: ", pendingRequestData);
+        //     return obtainPendingRequestData();
+        // };
 
-    }, []);
+    }, [disable]);
 
 
     const dateFormater = (rawDate) => {
@@ -83,7 +83,7 @@ function RecievedLeave() {
 
                     {/* ......................Name Arrey.................................... */}
                     {pendingRequestData.map((data, index) => (
-                        <div key={index} className="d-flex recieved-leaves-all-names p-2" onClick={() => setindexForEye(index)} {...disable ? `disabled` : ``}>
+                        <div key={index} className="d-flex recieved-leaves-all-names p-2" onClick={() => setindexForEye(index)}>
                             <span className="active-status"></span>
                             <img className='smallCard-Hierarchy-down-card-img' src="/images/pic_gautam.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
                             <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span>
@@ -97,7 +97,7 @@ function RecievedLeave() {
 
                 <div className="mt-3 combine-applied-chart">
                     <div className="ml-3">
-                        <AppliedLeaveRequestCard data={pendingRequestData} index={indexForEye} header={true} button={true} disable={() => setdisable(true)} />
+                        <AppliedLeaveRequestCard data={pendingRequestData} index={indexForEye} header={true} button={true} disable={() => setdisable(!disable)} />
                     </div>
                     <div className="mr-1">
                         <LeaveRequestChart />

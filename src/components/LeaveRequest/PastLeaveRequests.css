@@ -11,13 +11,30 @@
 .past-leave-requests{
     width: 70rem;
     padding-bottom: 2rem;
-    border-radius: 1.5rem;
+    border-radius: 1rem;
     background-color: white;
-    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2rem rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
+.past-leave-requests .leave-request-left-card-heading{
+    margin-left: 2.8rem;
+}
+
+
 .added-name-past-requests{
-    margin-left: 4rem;
+    margin-left: 2rem;
     padding-top: .5rem;
-    padding-right: 8rem;
+    padding-left: 4rem;
+    padding-right: 5rem;
+}
+
+.leave-request-left-data{
+    cursor: pointer;
+    margin-right: 4rem;
+    margin-left: 3.8rem;
+}
+
+.leave-request-left-data:hover{
+    background-color: rgba(96, 133, 218, 0.233);
+    border-radius: 1rem;
 }

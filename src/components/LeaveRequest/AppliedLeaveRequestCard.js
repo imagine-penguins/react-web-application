@@ -89,7 +89,7 @@ function AppliedLeaveRequestCard(props) {
                 </span>
 
                 {props.button && <span className="d-flex eye-filter-button-bottom mt-3 pt-3">
-                    <button className="eye-filter-decline-button mr-3" name="decline" data-id={data.id} onClick={applyChanges}>Decline</button>
+                    <button className="eye-filter-decline-button mr-3" name="decline" data-id={data.id} onClick={applyChanges} autofocus>Decline</button>
                     <button className="eye-filter-approve-button mr-5" name="accept" data-id={data.id} onClick={applyChanges}>Accept</button>
                 </span> }
 

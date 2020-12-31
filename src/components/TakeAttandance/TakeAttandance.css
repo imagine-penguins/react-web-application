@@ -41,7 +41,11 @@ input.list-check-box {
 
 
 span.attandance-slider:before {
-    content: "absent" !important;
+    content: "absent";
+}
+
+input:checked + span.attandance-slider:before {
+    content: "present";
 }
 
 

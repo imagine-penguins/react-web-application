@@ -1,0 +1,28 @@
+
+
+
+
+
+
+#AlertModel .inside-alert-modal{
+    width: 40rem;
+    height: 16rem;
+    background-color: rgb(211,211,211,0.2);
+}
+
+#AlertModel .inside-alert-modal p{
+    font-size: 1.5rem;
+    color: grey;
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+    margin-left: 2rem;
+}
+
+#AlertModel .inside-alert-modal .eye-filter-button-bottom{
+    margin-left: 15rem;
+}
+
+.focus{
+    background-color: #748ae9 !important;
+    color: white !important;
+}

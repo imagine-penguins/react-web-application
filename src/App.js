@@ -40,6 +40,7 @@ function App() {
 
 
   const [checkLogin, setcheckLogin] = useState(true);
+  const [reload, setreload] = useState(false);
   const [toogleListGrid, settoogleListGrid] = useState(false);
   const [hierarchyData, sethierarchyData] = useState([]);
 

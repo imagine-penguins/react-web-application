@@ -9,19 +9,19 @@ import "../ListViewUser.css";
 import "./TakeAttandance.css";
 import ConfirmTakeAttandanceModel from './ConfirmTakeAttandanceModel';
 
-
+const defaultState = {
+    totalPages: 0,
+    newPageNo: 0,
+    toSaveList: [],
+    dataList: [],
+    showModel: false,
+};
 
 class TakeAttandance extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            totalPages: 0,
-            newPageNo: 0,
-            toSaveList: [],
-            dataList: [],
-            showModel: false,
-        }
+        this.state = defaultState;
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -40,6 +40,10 @@ class TakeAttandance extends React.Component {
             totalPages: props.totalPages,
             showModel: state.showModel,
         };
+    }
+
+    componentDidMount() {
+        this.props.onRef(this);
     }
 
     changeHandler = (e) => {

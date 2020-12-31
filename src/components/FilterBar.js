@@ -11,76 +11,87 @@ import ApiCalls from "./ApiCalls";
 import FilterModel from './FilterModel';
 import ItemDetails from './ItemDetails';
 import TakeAttandance from './TakeAttandance/TakeAttandance';
-import ListOrGrid from './ListOrGrid';
 import GridViewUser from './GridView/GridViewUser';
 import ListViewUser from './ListViewUser';
 
+
+const defaultState = {
+    UserOrAttandanceApi: "",
+    listName: "",
+    size: "",
+    swiched: "",
+    showFilters: false,
+    totalPages: 1,
+    countPages: 0,
+    pageSize: 0,
+    totalElements: 0,
+    takeAttandanceListData: [],
+    searchTerm: '',
+    filterObj: {
+        userType: {
+            student: false,
+            teacher: false,
+            admin: false,
+            parent: false
+        },
+        departmant: {
+            botany: false,
+            chemistry: false,
+            zoology: false,
+            pmcs: false,
+            biochemistry: false,
+            biotechnology: false,
+            physics: false
+        },
+        userRoll: {
+            roleStudent: false,
+            pgtEnglish: false,
+            tgtBio: false,
+            tgtMaths: false
+        }
+    },
+    filterTerm: false,
+    toSendQuery: "",
+    ascDec: "ascending",
+    sortBy: "rollNumber"
+}
 
 class FilterBar extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            UserOrAttandanceApi: "",
-            listName: "",
-            size: "",
-            showFilters: false,
-            totalPages: 1,
-            countPages: 0,
-            pageSize: 0,
-            totalElements: 0,
-            takeAttandanceListData: [],
-            searchTerm: '',
-            filterObj: {
-                userType: {
-                    student: false,
-                    teacher: false,
-                    admin: false,
-                    parent: false
-                },
-                departmant: {
-                    botany: false,
-                    chemistry: false,
-                    zoology: false,
-                    pmcs: false,
-                    biochemistry: false,
-                    biotechnology: false,
-                    physics: false
-                },
-                userRoll: {
-                    roleStudent: false,
-                    pgtEnglish: false,
-                    tgtBio: false,
-                    tgtMaths: false
-                }
-            },
-            filterTerm: false,
-            toSendQuery: "",
-            ascDec: "ascending",
-            sortBy: "rollNumber"
-        }
+        this.state = defaultState;
+    }
+
+
+    componentDidMount() {
+        console.log("UserOrAttandanceApi, listName, size inside componentDidMount : ", this.UserOrAttandanceApi, this.listName, this.size);
+        this.takeAttandanceList(this.state.UserOrAttandanceApi, this.state.listName, this.state.size);
     }
     
     static getDerivedStateFromProps(props, state) {
         const UserOrAttandanceApi = props.takeAttandance ? ApiCalls.attendanceUsers : ApiCalls.listUsers;
         const listName = props.takeAttandance ? "userAttendanceResponseDTOList" : "userDTOList";
         const size = props.takeAttandance ? 6 : 10;
+
         console.log("UserOrAttandanceApi, listName, size inside getDerivedStateFromProps : ", UserOrAttandanceApi, listName, size);
         return {
             UserOrAttandanceApi: UserOrAttandanceApi,
             listName: listName,
-            size: size
+            size: size,
         }
     }
 
-    componentDidMount() {
-        // console.log("takeAttandanceListData inside componentDidMount: ", this.state.takeAttandanceListData);
-        console.log("UserOrAttandanceApi, listName, size inside componentDidMount : ", this.UserOrAttandanceApi, this.listName, this.size);
-        if (this.state.takeAttandanceListData.length === 0) {
-            console.log("inside if of componentDidMount: ", this.state.takeAttandanceListData);
-            this.takeAttandanceList(this.state.UserOrAttandanceApi, this.state.listName, this.state.size);
+    
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.UserOrAttandanceApi !== this.state.UserOrAttandanceApi) {
+          console.error('this.AttandanceChild, this.UserChild state has changed.', this.AttandanceChild, this.UserChild);
+          this.AttandanceChild.state.toSaveList = [];
+          this.setState(defaultState);
+          this.componentDidMount();
         };
-    }
+      }
 
 
     // ...........................Initial Attandance Api Data.....................................
@@ -92,6 +103,7 @@ class FilterBar extends React.Component {
                 .then(responce => {
                     console.log("AttandanceUsers responce:", responce);
                     this.setState({
+                        swiched: UserOrAttandanceApi,
                         totalPages: responce.data.page.totalPages,
                         pageSize: responce.data.page.size,
                         totalElements: responce.data.page.totalElements,
@@ -175,7 +187,7 @@ class FilterBar extends React.Component {
         e.stopPropagation();
         const name = e.target.name;
         const checked = e.target.checked;
-        const dataType = e.target.getAttribute("dataType");
+        const dataType = e.target.getAttribute("data-type");
         console.log(" dataType, name, checked inside handelBrowseFilter :", dataType, name, checked);
 
         let filterObj = this.state.filterObj;
@@ -242,9 +254,11 @@ class FilterBar extends React.Component {
 
         const { takeAttandance, toogleListGrid, hideGridView, listOrGrid } = this.props;
 
+        const {countPages, totalPages} = this.state;
+
         return (
 
-            <>  {console.log("inside filter return and count is : ", this.state.countPages)}
+            <>  {console.log("inside filter return and count is : ", countPages)}
                 <div className="d-flex ml-5 pt-2 mt-3 justify-content-between">
                     <div className="d-flex filter-text pl-1 mt-1">
                         <div className="mr-2 users-text-filter">Users</div>
@@ -260,72 +274,72 @@ class FilterBar extends React.Component {
                                         <p className="dropdown-item text-dark" aria-disabled><b>User Type</b></p>
                                         <span className="d-flex">
                                             {console.log("this.state.filterObj['student'] is:", this.state.filterObj)}
-                                            <input type="checkbox" name="student" id="c1" dataType="userType" checked={this.state.filterObj.userType.student} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c1" aria-disabled><p>Student</p></label>
+                                            <input type="checkbox" name="student" id="c1" data-type="userType" checked={this.state.filterObj.userType.student} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c1" aria-disabled><p>Student</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="teacher" id="c2" dataType="userType" checked={this.state.filterObj.userType.teacher} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c2" aria-disabled><p>Teacher</p></label>
+                                            <input type="checkbox" name="teacher" id="c2" data-type="userType" checked={this.state.filterObj.userType.teacher} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c2" aria-disabled><p>Teacher</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="admin" id="c3" dataType="userType" checked={this.state.filterObj.userType.admin} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c3" aria-disabled><p>Admin</p></label>
+                                            <input type="checkbox" name="admin" id="c3" data-type="userType" checked={this.state.filterObj.userType.admin} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c3" aria-disabled><p>Admin</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="parent" id="c4" dataType="userType" checked={this.state.filterObj.userType.parent} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c4" aria-disabled><p>Parent</p></label>
+                                            <input type="checkbox" name="parent" id="c4" data-type="userType" checked={this.state.filterObj.userType.parent} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c4" aria-disabled><p>Parent</p></label>
                                         </span>
                                     </div>
 
                                     <div className="col-4 pl-0 pb-5 mb-3">
                                         <p className="dropdown-item text-dark" aria-disabled><b>Department</b></p>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="botany" id="c5" dataType="departmant" checked={this.state.filterObj.departmant.botany} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c5" aria-disabled><p>Botany</p></label>
+                                            <input type="checkbox" name="botany" id="c5" data-type="departmant" checked={this.state.filterObj.departmant.botany} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c5" aria-disabled><p>Botany</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="chemistry" id="c6" dataType="departmant" checked={this.state.filterObj.departmant.chemistry} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c6" aria-disabled><p>Chemistry</p></label>
+                                            <input type="checkbox" name="chemistry" id="c6" data-type="departmant" checked={this.state.filterObj.departmant.chemistry} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c6" aria-disabled><p>Chemistry</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="zoology" id="c7" dataType="departmant" checked={this.state.filterObj.departmant.zoology} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c7" aria-disabled><p>Zoology</p></label>
+                                            <input type="checkbox" name="zoology" id="c7" data-type="departmant" checked={this.state.filterObj.departmant.zoology} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c7" aria-disabled><p>Zoology</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="pmcs" id="c8" dataType="departmant" checked={this.state.filterObj.departmant.pmcs} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c8" aria-disabled><p>PMCS</p></label>
+                                            <input type="checkbox" name="pmcs" id="c8" data-type="departmant" checked={this.state.filterObj.departmant.pmcs} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c8" aria-disabled><p>PMCS</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="biochemistry" id="c9" dataType="departmant" checked={this.state.filterObj.departmant.biochemistry} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c9" aria-disabled><p>Biochemistry</p></label>
+                                            <input type="checkbox" name="biochemistry" id="c9" data-type="departmant" checked={this.state.filterObj.departmant.biochemistry} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c9" aria-disabled><p>Biochemistry</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input className="error-check-box" type="checkbox" name="biotechnology" id="c10" dataType="departmant" checked={this.state.filterObj.departmant.biotechnology} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c10" aria-disabled><p>Biotechnology</p></label>
+                                            <input className="error-check-box" type="checkbox" name="biotechnology" id="c10" data-type="departmant" checked={this.state.filterObj.departmant.biotechnology} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c10" aria-disabled><p>Biotechnology</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="physics" id="c11" dataType="departmant" checked={this.state.filterObj.departmant.physics} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c11" aria-disabled><p>Physics</p></label>
+                                            <input type="checkbox" name="physics" id="c11" data-type="departmant" checked={this.state.filterObj.departmant.physics} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c11" aria-disabled><p>Physics</p></label>
                                         </span>
 
                                     </div>
                                     <div className="col-4 pr-5 pl-1">
                                         <p className="dropdown-item text-dark" aria-disabled><b>User Role</b></p>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="roleStudent" id="c12" dataType="userRoll" checked={this.state.filterObj.userRoll.roleStudent} onChange={this.handelBrowseFilter} dataType="userRoll" checked={this.state.filterObj.userRoll.roleStudent} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c12" aria-disabled><p>Student</p></label>
+                                            <input type="checkbox" name="roleStudent" id="c12" data-type="userRoll" checked={this.state.filterObj.userRoll.roleStudent} onChange={this.handelBrowseFilter} data-type="userRoll" checked={this.state.filterObj.userRoll.roleStudent} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c12" aria-disabled><p>Student</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="pgtEnglish" id="c13" dataType="userRoll" checked={this.state.filterObj.userRoll.pgtEnglish} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c13" aria-disabled><p>PGT Eng</p></label>
+                                            <input type="checkbox" name="pgtEnglish" id="c13" data-type="userRoll" checked={this.state.filterObj.userRoll.pgtEnglish} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c13" aria-disabled><p>PGT Eng</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="tgtBio" id="c14" dataType="userRoll" checked={this.state.filterObj.userRoll.tgtBio} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c14" aria-disabled><p>TGT Bio</p></label>
+                                            <input type="checkbox" name="tgtBio" id="c14" data-type="userRoll" checked={this.state.filterObj.userRoll.tgtBio} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c14" aria-disabled><p>TGT Bio</p></label>
                                         </span>
                                         <span className="d-flex">
-                                            <input type="checkbox" name="tgtMaths" id="c15" dataType="userRoll" checked={this.state.filterObj.userRoll.userRoll} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" for="c15" aria-disabled><p>TGT Maths</p></label>
+                                            <input type="checkbox" name="tgtMaths" id="c15" data-type="userRoll" checked={this.state.filterObj.userRoll.userRoll} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor="c15" aria-disabled><p>TGT Maths</p></label>
                                         </span>
                                     </div>
                                 </div>
@@ -344,24 +358,24 @@ class FilterBar extends React.Component {
                             <div className="dropdown-menu user-type-dropdown filter-dropdown2 take-attandance-filter" onClick={(e) => e.stopPropagation()} aria-labelledby="dropdownMenuButton">
                                 <span className="d-flex">
                                     <input type="radio" name="r" id="r1" value="firstName" checked={this.state.sortBy === "firstName"} onChange={this.handelSort} />
-                                    <label className="dropdown-item" for="r1" aria-disabled><p>First Name</p></label>
+                                    <label className="dropdown-item" htmlFor="r1" aria-disabled><p>First Name</p></label>
                                 </span>
                                 <span className="d-flex">
                                     <input type="radio" name="r" id="r2" value="lastName" checked={this.state.sortBy === "lastName"} onChange={this.handelSort} />
-                                    <label className="dropdown-item" for="r2" aria-disabled><p>Last Name</p></label>
+                                    <label className="dropdown-item" htmlFor="r2" aria-disabled><p>Last Name</p></label>
                                 </span>
                                 {takeAttandance && <span className="d-flex">
                                     <input type="radio" name="r" id="r3" value="rollNumber" checked={this.state.sortBy === "rollNumber"} onChange={this.handelSort} />
-                                    <label className="dropdown-item" for="r3" aria-disabled><p>Roll No</p></label>
+                                    <label className="dropdown-item" htmlFor="r3" aria-disabled><p>Roll No</p></label>
                                 </span>}
                                 <br />
                                 <span className="d-flex">
                                     <input type="radio" name="rd" id="r5" value="ascending" checked={this.state.ascDec === "ascending"} onChange={this.handelAscDec} />
-                                    <label className="dropdown-item" for="r5"><p>Ascending</p></label>
+                                    <label className="dropdown-item" htmlFor="r5"><p>Ascending</p></label>
                                 </span>
                                 <span className="d-flex">
                                     <input type="radio" name="rd" id="r6" value="decending" checked={this.state.ascDec === "decending"} onChange={this.handelAscDec} />
-                                    <label className="dropdown-item" for="r6" aria-disabled><p>Decending</p></label>
+                                    <label className="dropdown-item" htmlFor="r6" aria-disabled><p>Decending</p></label>
                                 </span>
                             </div>
                         </div>
@@ -400,7 +414,7 @@ class FilterBar extends React.Component {
 
                 </div>
 
-                {takeAttandance ? <TakeAttandance paginationData={this.dynamicData()} pageNo={this.state.countPages} totalPages={this.state.totalPages} /> : <> <ItemDetails /> {listOrGrid ? <GridViewUser paginationData={this.dynamicData()} pageNo={this.state.countPages} totalPages={this.state.totalPages} /> : <ListViewUser paginationData={this.dynamicData()} pageNo={this.state.countPages} totalPages={this.state.totalPages} />} </>}
+                {takeAttandance ? <TakeAttandance paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} switched={this.state.switched} onRef={(ref) => {this.AttandanceChild = ref}} /> : <> <ItemDetails /> {listOrGrid ? <GridViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} onRef={(ref) => {this.UseChild = ref}} /> : <ListViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} />} </>}
 
 
             </>

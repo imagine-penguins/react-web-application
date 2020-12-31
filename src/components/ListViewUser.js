@@ -12,10 +12,30 @@ import AlertModel from './AlertModel';
 function ListViewUser(props) {
 
     const [show, setshow] = useState(false);
+    const [dataList, setdataList] = useState([]);
+    const [checkedOrNot, setcheckedOrNot] = useState(false);
+
+    useEffect(() => {
+        console.log("props.paginationData inside ListViewUsers UseEffect :", props.paginationData);
+        setdataList(props.paginationData);
+    }, [props.paginationData])
+
+    const handelChange = (e) => {
+        const checked = e.target.checked;
+        const id = e.target.getAttribute("data-id");
+        const index = e.target.getAttribute("data-index");
+        console.log("index, id, checked are :", index, id, checked);
+        let xData =  dataList;
+        console.log("xData :", dataList, xData[index], xData[index].active);
+        xData[index].active = checked;
+
+        setcheckedOrNot(checked);
+        setdataList(xData);
+    }
 
 
     return (
-        <> { props.paginationData.map((userdata, index) => (
+        <> { dataList.map((userdata, index) => (
             <div key={index} className="d-flex user-card ml-5 mr-5 mt-4 bg-white">
 
                     {/* ..........................Name.............................. */}
@@ -29,8 +49,8 @@ function ListViewUser(props) {
 
                     {/* ..........................Contact.............................. */}
                     <div className="col-3">
-                        <div className="row pl-3 mt-1 pt-1"><i class="fa fa-envelope-o pt-2" aria-hidden="true"></i><i className="ml-3">{userdata.contact.email}</i></div>
-                        <div className="row pl-3 pb-2"><i class="fa fa-phone py-2" aria-hidden="true"></i><i className="ml-3">{userdata.contact.phone}</i></div>
+                        <div className="row pl-3 mt-1 pt-1"><i className="fa fa-envelope-o pt-2" aria-hidden="true"></i><i className="ml-3">{userdata.contact ? userdata.contact.email : `---`}</i></div>
+                        <div className="row pl-3 pb-2"><i className="fa fa-phone py-2" aria-hidden="true"></i><i className="ml-3">{userdata.contact ? userdata.contact.phone : `---`}</i></div>
                     </div>
 
                     {/* ..........................User Type.............................. */}
@@ -40,10 +60,10 @@ function ListViewUser(props) {
 
                     {/* ..........................User Status.............................. */}
                     <label className="switch mt-4 pl-4 ml-5">
-                        <input type="checkbox" name={userdata.id} onChange={() => setshow(true)} />
+                        <input type="checkbox" data-id={userdata.id} data-index={index} checked={userdata.active} onChange={handelChange} onClick={() => setshow(true)} />
                         <span className="slider round"></span>
                     </label>
-                    {/* <AlertModel show={show} hide={() => setshow(false)} /> */}
+                    <AlertModel show={show} hide={() => setshow(false)} checkedOrNot={checkedOrNot} />
 
             </div>
 

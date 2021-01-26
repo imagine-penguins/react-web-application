@@ -14,24 +14,38 @@ function ListViewUser(props) {
     const [show, setshow] = useState(false);
     const [dataList, setdataList] = useState([]);
     const [checkedOrNot, setcheckedOrNot] = useState(false);
+    const [userId, setuserId] = useState("");
+    const [stateIndex, setstateIndex] = useState("");
 
+    
     useEffect(() => {
         console.log("props.paginationData inside ListViewUsers UseEffect :", props.paginationData);
         setdataList(props.paginationData);
     }, [props.paginationData])
 
     const handelChange = (e) => {
-        const checked = e.target.checked;
+        let checked = e.target.checked;
         const id = e.target.getAttribute("data-id");
         const index = e.target.getAttribute("data-index");
         console.log("index, id, checked are :", index, id, checked);
-        let xData =  dataList;
-        console.log("xData :", dataList, xData[index], xData[index].active);
-        xData[index].active = checked;
 
         setcheckedOrNot(checked);
-        setdataList(xData);
+        setuserId(id);
+        setstateIndex(index);
     }
+
+    const afterHandel = (e) => {
+        let xData =  dataList;
+        console.log("xData :", dataList, xData[stateIndex], xData[stateIndex].active);
+        
+        //....If user Press No.....
+        if(!e){
+            console.log("INSIDE DINTUPDATE :");
+            xData[stateIndex].active = checkedOrNot;
+            setdataList(xData);
+        }
+    }
+
 
 
     return (
@@ -42,7 +56,7 @@ function ListViewUser(props) {
                     <div className="col-3">
                         <form className="form-user-list mr-auto">
                             <input type="checkbox" className="list-check-box mr-1" id="user-name" name="user-name" />
-                            <img className='list-img-icon ml-1 mr-2' src="/images/pic_gautam.png" alt="Avatar" />
+                            <img className='list-img-icon ml-1 mr-2' src="/images/No_Image.png" alt="Avatar" />
                             <label className='list-names pl-1'>{`${userdata.firstName} ${userdata.lastName}`}</label>
                         </form>
                     </div>
@@ -63,7 +77,7 @@ function ListViewUser(props) {
                         <input type="checkbox" data-id={userdata.id} data-index={index} checked={userdata.active} onChange={handelChange} onClick={() => setshow(true)} />
                         <span className="slider round"></span>
                     </label>
-                    <AlertModel show={show} hide={() => setshow(false)} checkedOrNot={checkedOrNot} />
+                    <AlertModel show={show} hide={() => setshow(false)} dontUpdate={(e) => afterHandel(e)} checkedOrNot={checkedOrNot} userId={userId} />
 
             </div>
 

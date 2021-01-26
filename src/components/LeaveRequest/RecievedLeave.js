@@ -43,7 +43,7 @@ function RecievedLeave() {
         }
 
         console.log("pendingRequestData: ", pendingRequestData);
-
+        obtainPendingRequestData();
         // if (pendingRequestData.length === 0) {
         //     console.log("inside if of Pending Requests: ", pendingRequestData);
         //     return obtainPendingRequestData();
@@ -85,7 +85,7 @@ function RecievedLeave() {
                     {pendingRequestData.map((data, index) => (
                         <div key={index} className="d-flex recieved-leaves-all-names p-2" onClick={() => setindexForEye(index)}>
                             <span className="active-status"></span>
-                            <img className='smallCard-Hierarchy-down-card-img' src="/images/pic_gautam.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
+                            <img className='smallCard-Hierarchy-down-card-img' src="/images/No_Image.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
                             <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span>
                             <span className="recieved-leaves-time pt-3 pl-3 ml-auto">{dateFormater(data.appliedOn)}</span>
                         </div>

@@ -9,11 +9,13 @@ import axios from '../axios';
 import ApiCalls from '../ApiCalls';
 
 import SmallCardAttandanceHistory from "./SmallCardAttandanceHistory";
-import TakeAttandance from "../TakeAttandance/TakeAttandance";
+// import TakeAttandance from "../TakeAttandance/TakeAttandance";
 import AttandanceHistoryChartCard from "./AttandanceHistoryChartCard";
 import FilterBar from "../FilterBar";
 
 function AttandanceHistory() {
+
+    const [edit, setedit] = useState(false);
 
     // .............History GraphApi Call......................................................
     const [graphData, setgraphData] = useState([]);
@@ -73,11 +75,12 @@ function AttandanceHistory() {
                 </span>
 
                 <span className="d-flex attandance-history-top-butons">
+                    <button className="dir-Add_user btn btn-outline-secondary edit-attandance p-0 ml-5 mr-4" onClick={() => setedit(true)}>Edit Attandance</button>
                     <button className="dir-Add_user btn btn-outline-secondary p-0 export-report mr-4">Export Report</button>
                     <button className="dir-dots btn btn-outline-secondary p-0 ml-4">...</button>
                 </span>
             </div>
-            <hr style={{ width: "70%", marginLeft: "3rem", marginTop: "0rem", color: "rgba(94, 143, 199, 0.65)" }} />
+            <hr style={{ width: "62%", marginLeft: "3rem", marginTop: "0rem", color: "rgba(94, 143, 199, 0.65)" }} />
 
 
             {/* ...............Pie Chart/ Small Card................................. */}
@@ -91,10 +94,9 @@ function AttandanceHistory() {
 
             {/* .................Filter bar.................................... */}
             <div className="mt-5 mb-2">
-                <FilterBar hideGridView={true} takeAttandance={true} />
+                <FilterBar hideGridView={true} takeAttandance={true} attandanceHistory={true} editAttandance={edit} />
             </div>
 
-            {/* .................Take Attandance.................................... */}
             {/* <div className="d-flex">
                 <div className="in-AH-take-attandnce">
                     <TakeAttandance />

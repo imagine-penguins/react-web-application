@@ -30,8 +30,8 @@ function Navbar(props) {
                             <i className="fa fa-sign-out top-fa-icon ml-5" id="signOut"
                                 onClick={() => {
                                     localStorage.removeItem("storedData");
-                                    props.login();
-                                    history.push("/");
+                                    // props.login();
+                                    window.location.href = '/login';
                                 }}></i>
 
                             {/* <!--............Notification Icon............--> */}

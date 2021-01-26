@@ -23,6 +23,7 @@
 }
 
 .list-names{
+  cursor: pointer;
   color: #6F87EE !important;
   font-weight: 700 !important;
 }
@@ -49,8 +50,13 @@
   border-radius: .5rem;
 }
 
+.user-card i{
+  cursor: text !important;
+}
+
 /* ................Inactive/active Slider.................................... */
 label.switch {
+  cursor: pointer;
   position: relative;
   display: inline-block;
   padding-top: .1rem;

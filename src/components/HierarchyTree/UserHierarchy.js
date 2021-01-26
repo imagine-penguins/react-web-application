@@ -32,9 +32,7 @@ function UserHierarchy(props) {
     //     }
 
     //     console.log("hierarchyData: ", hierarchyData);
-    //     if (hierarchyData === []) {
-    //         gethierarchyData();
-    //     };
+    //     gethierarchyData();
 
 
     // }, []);
@@ -43,13 +41,8 @@ function UserHierarchy(props) {
     return (
             <>
 
-            {/* .....................To show Path............................................................. */}
-            <div className="d-flex text-secondary ml-4" style={{ fontSize: "1.3rem" }}>
-                Users {`>`} Org hierarchy
-            </div>
-
             {/* ....................If Data Comes up........................................................... */}
-            { props.hierarchyData.firstName ? <>
+            { hierarchyData.firstName ? <>
 
             <div className="overlay">
                 
@@ -86,17 +79,17 @@ function UserHierarchy(props) {
                                     </div>
                                     <div className="d-flex">
                                         <i className="fas fa-briefcase text-secondary mt-1" aria-hidden="true"></i>
-                                        <p className="org-hierarchy-card-text" style={{ fontSize: "1.5rem" }}>{props.hierarchyData.designation}</p>
+                                        <p className="org-hierarchy-card-text" style={{ fontSize: "1.5rem" }}>{hierarchyData.designation}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="d-flex mt-3 ml-4 pl-2">
                                 <i className="fa fa-envelope-o text-secondary mt-1" aria-hidden="true"></i>
-                                <p className="org-hierarchy-card-text" style={{ marginBottom: "1.0rem" }}>{props.hierarchyData.email}</p>
+                                <p className="org-hierarchy-card-text" style={{ marginBottom: "1.0rem" }}>{hierarchyData.email}</p>
                             </div>
                             <div className="d-flex ml-4 pl-2">
                                 <i className="fa fa-phone text-secondary mt-1" aria-hidden="true"></i>
-                                <p className="org-hierarchy-card-text">{props.hierarchyData.phone}</p>
+                                <p className="org-hierarchy-card-text">{hierarchyData.phone}</p>
                             </div>
                         </div>
                     </div>

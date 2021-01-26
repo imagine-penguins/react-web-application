@@ -19,7 +19,7 @@ function UserProfile() {
     
             async function getData() {
                 try {
-                    const res = await axios.get(ApiCalls.usersProfile).then(responce => {
+                    await axios.get(ApiCalls.usersProfile).then(responce => {
                         console.log("User Profile responce", responce);
                         changeuserProfile(responce.data);
                         console.log("setting userProfile:", responce.data);

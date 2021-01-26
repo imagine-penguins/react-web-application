@@ -5,94 +5,88 @@
 
 
 .calander-div{
-    top: 41%;
-    left: 10%;
+    top: 36%;
+    left: 7%;
     position: absolute;
     z-index: 2;
     box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2.0rem rgba(0, 0, 0, 0.06);
 }
 
-/* .calander-apply-leave{
-    font-size: 1.0rem !important;
-    padding-top: .0rem !important;
-} */
 
 .calander-text{
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: 800;
-    padding-top: 1.2rem;
-    padding-bottom: .0rem;
-    color: grey;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding-top: 1.2rem;
+  padding-bottom: .0rem;
+  color: grey;
 }
 
-.rdrMonthAndYearWrapper{
-    padding-top: 0 !important;
-    height: 1.5rem !important;
+.dateContainer{
+  transform: translateX(-1.5rem);
+  top: 1.5rem;
+  width: 24.0rem !important;
+  height: 15.0rem !important;
 }
 
 
 
-/* .............Calander css...................... */
-:root {
-    --weekend: rgba(0, 0, 0, 0);
-    --date-light: #f8f9fa;
-    --date-primary: #5644c1;
-    --date-success: #37d37d;
-    --date-primaryLight: #eceaf5;
-    --date-primaryTitle: #dbd8f0;
-    --date-hover: #262769;
-    --date-highlight: #f83854;
-    --date-disabled:#c2c1ccdc;
-    --date-width: 26.0rem;
-    --date-height: 28.0rem;
+/* .............Range Picker css...................... */
 
-    /* ........range colors........ */
-    --date-rangebg:#8072d0;
-    --date-rangetext:#f8f9fa;
-    --date-rangeDateBg:#5644c1;
-  }
+.calander-div .rdrCalendarWrapper{
+  font-size: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
+}
 
+.calander-div .rdrMonthAndYearWrapper{
+  padding-top: 1.3rem;
+  padding-bottom: 0.9rem;
+  height: 1.5rem;
+}
 
-  .dateContainer{
-    transform: translateX(-1.5rem);
-    top: 1.5rem;
-    width: 24.0rem !important;
-    height: 15.0rem !important;
-  }
+.calander-div .rdrDateDisplayItem input{
+  height: 2.5rem;
+  line-height: 1rem;
+}
 
-  .dateContainer .header .next, .dateContainer .header .prev{
-      top: calc(50% - 1.5rem) !important;
-  }
+.calander-div  .rdrNextPrevButton{
+  outline: none;
+  border: none;
+}
+
+.dateContainer .header .next, .dateContainer .header .prev{
+    top: calc(50% - 1.5rem) !important;
+}
 
 
-  .dateContainer .header h1{
-    line-height: 2rem !important;
-    font-size: 1.5rem !important;
-  }
+.dateContainer .header h1{
+  line-height: 2rem !important;
+  font-size: 1.5rem !important;
+}
 
-  .dateContainer .weekdays div{
-      line-height: 1.5rem !important;
-  }
+.dateContainer .weekdays div{
+    line-height: 1.5rem !important;
+}
 
-  .dateContainer .weekdays{
-      height: 2.0rem !important;
-  }
+.dateContainer .weekdays{
+    height: 2.0rem !important;
+}
 
-  .dateContainer .days{
-    height: 100% !important;
-  }
+.dateContainer .days{
+  height: 100% !important;
+}
 
-  .dateContainer .days div{
-    font-size: 0.9rem !important;
-    line-height: 2rem !important;
-  }
+.dateContainer .days div{
+  font-size: 0.9rem !important;
+  line-height: 2rem !important;
+}
 
-  .dateContainer .header p{
-    line-height: 0.6rem !important;
-    font-size: 0.9rem !important;
-  }
+.dateContainer .header p{
+  line-height: 0.6rem !important;
+  font-size: 0.9rem !important;
+}
 
-  .dateContainer .header{
-      height: 4.0rem !important;
-  }
+.dateContainer .header{
+    height: 4.0rem !important;
+}

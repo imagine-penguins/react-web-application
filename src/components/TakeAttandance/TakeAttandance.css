@@ -25,16 +25,19 @@
 }
 
 .user-attandance-card-name{
+    cursor: pointer;
     color: #3b5ef7f1;
     font-weight: 700;
 }
 
 .user-attandance-card-rollno{
+    cursor: text;
     font-weight: 700;
     color: rgba(128, 128, 128, 0.726);
 }
 
 input.list-check-box {
+    cursor: pointer;
     width: 2.6rem; 
     height: 1.4rem;
 } 

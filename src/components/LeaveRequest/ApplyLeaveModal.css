@@ -5,7 +5,8 @@
 
 .inside-apply-modal{
     width: 50rem;
-    height: 38rem;
+    height: 40rem;
+    /* max-height: 45rem; */
     border-radius: 1rem;
     background-color: white;
     margin-top: 2.5rem;

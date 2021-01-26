@@ -15,6 +15,7 @@ const defaultState = {
     toSaveList: [],
     dataList: [],
     showModel: false,
+    editHistory: true,
 };
 
 class TakeAttandance extends React.Component {
@@ -26,6 +27,7 @@ class TakeAttandance extends React.Component {
 
     static getDerivedStateFromProps(props, state) {
             let newListData = state.toSaveList;
+            let editHistory;
             console.log("inside getDerivedStateFromProps newListData is", newListData, props.paginationData);
             if (!(state.toSaveList[props.pageNo]) && (props.paginationData.length > 0)) {
                 newListData = [];
@@ -33,6 +35,7 @@ class TakeAttandance extends React.Component {
                 newListData = state.toSaveList.concat([data]);
                 console.log("newListData to save in toSaveList : ", newListData);
             }
+            
         return {
             newPageNo: props.pageNo,
             toSaveList: newListData,
@@ -47,20 +50,22 @@ class TakeAttandance extends React.Component {
     }
 
     changeHandler = (e) => {
-        const id = e.target.name;
-        const status = e.target.checked;
-        console.log("id, status : ", id, status);
+        if(this.editHistory){
+            const id = e.target.name;
+            const status = e.target.checked;
+            console.log("id, status : ", id, status);
 
-        let toUpdateSaveList = this.state.toSaveList;
+            let toUpdateSaveList = this.state.toSaveList;
 
-        for (let i = 0; i < toUpdateSaveList[this.state.newPageNo].length; i++) {
-            if (toUpdateSaveList[this.state.newPageNo][i]["id"] == id) {
-                toUpdateSaveList[this.state.newPageNo][i]["status"] = status;
-            }
-        };
+            for (let i = 0; i < toUpdateSaveList[this.state.newPageNo].length; i++) {
+                if (toUpdateSaveList[this.state.newPageNo][i]["id"] == id) {
+                    toUpdateSaveList[this.state.newPageNo][i]["status"] = status;
+                }
+            };
 
-        console.log("after update toUpdateSaveList : ", toUpdateSaveList);
-        this.setState({toSaveList: toUpdateSaveList});
+            console.log("after update toUpdateSaveList : ", toUpdateSaveList);
+            this.setState({toSaveList: toUpdateSaveList});
+        }
 
     }
 
@@ -74,6 +79,8 @@ class TakeAttandance extends React.Component {
 
     render() {
 
+        const {attandanceHistory} = this.props;
+
         const slider = this.props.paginationData.map((data, index) => (
             <div key={index} className="d-flex user-attandance-card ml-5 pb-3 mt-4 bg-white">
 
@@ -81,7 +88,7 @@ class TakeAttandance extends React.Component {
                 <div className="col-4">
                     <form className="Form ml-4 user-attandance-form mt-2 pt-3 mr-auto">
                         <input type="checkbox" className="list-check-box mr-1" id="user-name" name="user-name" />
-                        <img className='list-img-icon ml-1 mr-4' src="/images/pic_gautam.png" alt="Avatar" style={{ width: "3.8rem", height: "3.8rem" }} />
+                        <img className='list-img-icon ml-1 mr-4' src="/images/No_Image.png" alt="Avatar" style={{ width: "3.8rem", height: "3.8rem" }} />
                         <label className='user-attandance-card-name'>{`${data.firstName} ${data.lastName}`}</label>
                     </form>
                 </div>
@@ -93,11 +100,12 @@ class TakeAttandance extends React.Component {
 
                 {/* ..........................Mark Attandance Status.............................. */}
                 <div className="col-4 pt-1">
-                    {console.log('defaultChecked inside return : ', this.state.toSaveList, this.state.dataList, this.state.newPageNo, index, this.state.toSaveList[this.state.newPageNo][index]["status"])}
+                    {/* {console.log('defaultChecked inside return : ', this.state.toSaveList, this.state.dataList, this.state.newPageNo, index, this.state.toSaveList[this.state.newPageNo][index]["status"])} */}
                     <label key={index + 10} className="switch mt-4 pl-4 ml-5">
                         <input type="checkbox" key={index + 2} name={data.userId} checked={this.returnChecked(data.userId, this.state.newPageNo)} onChange={this.changeHandler} />
                         <span className="slider round attandance-slider" />
                     </label>
+                    {attandanceHistory && <i className="fa fa-pencil ml-5 pl-5 text-secondary" aria-hidden="true" onClick={() => this.setState({ editHistory : true })}></i>}
                 </div>
 
             </div>
@@ -127,7 +135,7 @@ class TakeAttandance extends React.Component {
 
                 {/* ....................Save Button........................................... */}
                 {
-                    this.state.newPageNo === this.state.totalPages - 1 &&
+                    this.state.newPageNo === this.state.totalPages - 1 && !(attandanceHistory) &&
                     <>
                     <button className="attandance-list-button-save" onClick={() => this.setState({showModel: true})}>Save</button>
                     <ConfirmTakeAttandanceModel toSaveData={this.state.toSaveList} show={this.state.showModel} hide={() => this.setState({showModel: false})} />

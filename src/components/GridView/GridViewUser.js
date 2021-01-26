@@ -6,7 +6,6 @@
 
 import React, { useState, useEffect } from 'react';
 import "./GridViewUser.css";
-import enums from "../enums";
 import CardGrid from './CardGrid';
 
 

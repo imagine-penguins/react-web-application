@@ -1,0 +1,13 @@
+
+
+
+
+
+
+#AlertModel .inside-login-alert-model{
+    background-color: rgb(255, 255, 255) !important;
+}
+
+.button-login-alert-model:focus{
+    background-color: #748ae9;
+}

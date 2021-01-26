@@ -9,33 +9,35 @@ import Modal from "react-modal";
 import axios from '../axios';
 import ApiCalls from '../ApiCalls';
 import { Link, Redirect, Route, Router, useHistory } from 'react-router-dom';
+import LoginAlertModel from '../LoginAlertModel';
 
 function LoginModel(props) {
 
 
+    const [showAlert, setshowAlert] = useState(false);
     const [username, setuserName] = useState("");
     const [password, setpassword] = useState("");
-    const [showLoginModel, setshowLoginModel] = useState(true);
 
     let history = useHistory();
 
 
-    function checkExpiration() {
-        //check if past expiration date
-        var values = JSON.parse(localStorage.getItem('storedData'));
-        //check "my hour" index here
-        if (values[1] < new Date()) {
-            localStorage.removeItem("storedData");
-            props.showLogin();
-        }
-    }
+    // function checkExpiration() {
+    //     //check if past expiration date
+    //     var values = JSON.parse(localStorage.getItem('storedData'));
+    //     //check "my hour" index here
+    //     if (values[2] < new Date()) {
+    //         localStorage.removeItem("storedData");
+    //         props.showLogin();
+    //         window.location.href = '/';
+    //     }
+    // }
 
-    function myFunction() {
-        var myinterval = 15 * 60 * 1000; // 15 min interval
-        setInterval(function () { checkExpiration(); }, myinterval);
-    }
+    // function myFunction() {
+    //     var myinterval = 15 * 60 * 1000; // 15 min interval
+    //     setInterval(function () { checkExpiration(); }, myinterval);
+    // }
 
-    myFunction();
+    // myFunction();
 
 
 
@@ -51,26 +53,23 @@ function LoginModel(props) {
         try {
             const loginResponse = await axios.post("http://ec2-13-126-215-181.ap-south-1.compute.amazonaws.com:8083/auth/login", sendLoginData);
             const jwt_key = loginResponse.data.token;
+            const refreshToken = loginResponse.data.refreshToken;
             console.log('loginResponse :', loginResponse);
 
-            var myHour = new Date();
-            myHour.setHours(myHour.getHours() + 1); //one hour from now
-            var data = [jwt_key];
-            data.push(myHour);
-            localStorage.setItem('storedData', JSON.stringify(data));
-            console.log('jwt_key', jwt_key);
+            // var myHour = new Date();
+            // myHour = myHour.getTime() + 1000; //one hour from now
+            let data = [jwt_key];
+            data.push(refreshToken);
+            // console.log('data :', data);
+            localStorage.setItem('storedData', JSON.stringify(data));       // Setting Local Storage
+            // console.log('refreshToken :', refreshToken);
             console.log('storedData :', JSON.parse(localStorage.getItem('storedData')));
             axios.defaults.headers.common = { 'Authorization': `Bearer ${jwt_key}` };
-            // storing the Key in localStorage
-            // localStorage.setItem('jwt_key', jwt_key);
-            alert("You are now Signed In, Enjoy.....!");
-            setshowLoginModel(false);
+
             props.hideLogin();
 
         } catch (e) {
             console.log('error occured while SignIn with SignIn_data', e);
-            alert(`Wrong username or pasword, Please Try again.!`);
-            setshowLoginModel(true);
         }
 
     }
@@ -82,7 +81,7 @@ function LoginModel(props) {
         <>
             <Modal
                 id="LoginModel"
-                isOpen={showLoginModel}
+                isOpen={props.show}
                 shouldCloseOnOverlayClick={false}
                 style={
                     {
@@ -100,7 +99,7 @@ function LoginModel(props) {
                 <div className="yo-login">
                     <div className="d-flex login-close justify-content-end">
                         <p className="login-title">Sign In</p>
-                        <button className="btn btn-outline-none btn-sm">&times;</button>
+                        <button className="btn btn-outline-none btn-sm" onClick={props.hideLogin}>&times;</button>
                     </div>
 
                     <div className="d-flex justify-content-center">
@@ -112,7 +111,10 @@ function LoginModel(props) {
                             <label className="login-label">Password</label>
                             <input className="form-control form-control-lg" type="text" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Password" />
 
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn btn-primary" onClick={() => setshowAlert(!showAlert)}>Submit</button>
+                            {/* ..............Showing Alert Model........................ */}
+                            <LoginAlertModel show={showAlert} hide={() => setshowAlert(false)} success={false} />
+
 
                         </form>
                     </div>

@@ -13,7 +13,7 @@ const ApiCalls = {
     attendanceHistoryGraph : "/attendance/history/graph",
     attendanceHistory : "attendance/history",
 
-    leaveRequests : "/leave-requests",
+    leaveRequests : "/leave-requests",           //......POST--> To Apply leave request......and......GET--> to get applied leaves..........
     leaveRequestsHistory : "/leave-requests/history",
     leaveRequestsGraph : "/leave-requests/graph",
 

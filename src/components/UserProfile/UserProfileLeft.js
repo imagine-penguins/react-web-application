@@ -14,7 +14,7 @@ function UserProfileLeft(props) {
     return (
         <>
             < div className="User-Profile ml-4 bg-white mt-2" >
-                <div className="d-flex justify-content-center pt-4"><img className='User-Profile-img' src="/images/pic_gautam.png" alt="Avatar" /></div>
+                <div className="d-flex justify-content-center pt-4"><img className='User-Profile-img' src="/images/No_Image.png" alt="Avatar" /></div>
                 <div className="d-flex justify-content-center p-1"><h5 className="User-Profile-name">{userProfile ? `${props.data.generalInformation.firstName} ${props.data.generalInformation.lastName}` : `---`}</h5></div>
                 <div className="d-flex justify-content-center p-1"><p className="User-Profile-text" style={{ fontSize: "1.4rem", marginBottom: ".0rem" }}>Student</p></div>
                 <div className="d-flex justify-content-center p-1"><button className="User-Profile-button"><i className="fas fa-comments User-Profile-chat-icon mt-1 mr-3" aria-hidden="true"></i>Chat</button></div>
@@ -36,7 +36,7 @@ function UserProfileLeft(props) {
                 {/* .................Card at bottom................................... */}
                 <div className="d-flex justify-content-center User-Profile-end mt-2">
                     <div className="d-flex smallCard-User-Profile">
-                        <img className='smallCard-Hierarchy-down-card-img' src="/images/pic_gautam.png" alt="Avatar" />
+                        <img className='smallCard-Hierarchy-down-card-img' src="/images/No_Image.png" alt="Avatar" />
 
                         <div className="">
                             <div className="d-flex">

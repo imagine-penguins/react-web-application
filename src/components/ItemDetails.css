@@ -20,6 +20,7 @@
 }
 
 input.item-detail-checkbox{
+    cursor: pointer;
     margin-top: .42rem !important;
     width: 1.4rem !important;
     height: 1.4rem !important;

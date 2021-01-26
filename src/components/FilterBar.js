@@ -70,9 +70,9 @@ class FilterBar extends React.Component {
     }
     
     static getDerivedStateFromProps(props, state) {
-        const UserOrAttandanceApi = props.takeAttandance ? ApiCalls.attendanceUsers : ApiCalls.listUsers;
-        const listName = props.takeAttandance ? "userAttendanceResponseDTOList" : "userDTOList";
-        const size = props.takeAttandance ? 6 : 10;
+        const UserOrAttandanceApi = props.attandanceHistory ? ApiCalls.leaveRequestsHistory : props.takeAttandance ? ApiCalls.attendanceUsers : ApiCalls.listUsers;
+        const listName = props.attandanceHistory ? "leaveResponseDTOList" : props.takeAttandance ? "userAttendanceResponseDTOList" : "userDTOList";
+        const size = props.attandanceHistory ? 10 : props.takeAttandance ? 6 : 10;
 
         console.log("UserOrAttandanceApi, listName, size inside getDerivedStateFromProps : ", UserOrAttandanceApi, listName, size);
         return {
@@ -252,7 +252,7 @@ class FilterBar extends React.Component {
 
     render() {
 
-        const { takeAttandance, toogleListGrid, hideGridView, listOrGrid } = this.props;
+        const { takeAttandance, attandanceHistory, toogleListGrid, hideGridView, listOrGrid } = this.props;
 
         const {countPages, totalPages} = this.state;
 
@@ -385,6 +385,7 @@ class FilterBar extends React.Component {
                         <span className="fa fa-search search-icon"></span>
                         <input type="text" className="form-control" placeholder="Search User" value={this.state.searchTerm} onChange={this.editSearchTerm} style={{ fontSize: "1.4rem" }} />
                     </div>
+
                     {/* .......................Paginations.............................. */}
                     <div className="d-flex pagination mr-5">
                         <div className="pagination-text mr-4 mt-1">{this.state.countPages == 0 ? 1 : (this.state.countPages * this.state.pageSize) + 1} to {this.state.countPages == this.state.totalPages ? this.state.totalPages : this.state.pageSize * (this.state.countPages + 1)} of {this.state.totalPages * this.state.pageSize}</div>
@@ -414,7 +415,7 @@ class FilterBar extends React.Component {
 
                 </div>
 
-                {takeAttandance ? <TakeAttandance paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} switched={this.state.switched} onRef={(ref) => {this.AttandanceChild = ref}} /> : <> <ItemDetails /> {listOrGrid ? <GridViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} onRef={(ref) => {this.UseChild = ref}} /> : <ListViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} />} </>}
+                {takeAttandance ? <TakeAttandance paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} switched={this.state.switched} onRef={(ref) => {this.AttandanceChild = ref}} attandanceHistory={attandanceHistory} /> : <> <ItemDetails /> {listOrGrid ? <GridViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} onRef={(ref) => {this.UseChild = ref}} /> : <ListViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} />} </>}
 
 
             </>

@@ -90,7 +90,7 @@ function PastLeaveRequests(props) {
                         <div key={index} className="d-flex p-1 pl-2 leave-request-left-data justify-content-between mt-3" onClick={() => setindexForEye(index)}>
 
                             <div className="d-flex">
-                                <img className='smallCard-Hierarchy-down-card-img mt-2' src="/images/pic_gautam.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
+                                <img className='smallCard-Hierarchy-down-card-img mt-2' src="/images/No_Image.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
                                 <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span>
                             </div>
                             <p className="ml-3 pt-3 pl-5">{dateFormater(data.appliedOn)}</p>

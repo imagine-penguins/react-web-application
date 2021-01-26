@@ -18,14 +18,31 @@ function AppliedLeaves(props) {
 
 
     const dateFormater = (rawDate) => {
-        var oldDate = rawDate.slice(0, 2);
+        // var oldDate = rawDate.slice(0, 2);
+        rawDate = rawDate.split(" ")[0].split("-");
+        let x = rawDate[0];
+        rawDate[0] = rawDate[1];
+        rawDate[1] = x;
+        console.log("rawDate :", rawDate);
+        rawDate = rawDate.toString().replaceAll(",", "/");
+        console.log("rawDate :", rawDate);
 
-        var todaysDate = new Date();
-        todaysDate = todaysDate.getDate();
+        var oldDate = new Date(rawDate).getTime();
+        console.log("oldDate :", oldDate);
 
-        const showDate = todaysDate - oldDate
+        var dateObj = new Date();
 
-        return `${showDate} d`;
+        let newdate = (parseInt(dateObj.getMonth() + 1) < 10 ? "0" + (dateObj.getMonth() + 1) : (dateObj.getMonth() + 1)) + "/" + (parseInt(dateObj.getDate()) < 10 ? "0" + dateObj.getDate() : dateObj.getDate()) + "/" + dateObj.getFullYear();
+        console.log("newdate :", newdate);
+
+        let todaysDate = new Date(newdate).getTime();
+        console.log("todaysDate:", todaysDate);
+
+        let dateDiff = (todaysDate - oldDate) / (1000 * 60 * 60 * 24);
+
+        console.log("diff :", dateDiff);
+
+        return `${dateDiff} d`;
     }
 
 
@@ -54,10 +71,10 @@ function AppliedLeaves(props) {
                 {props.data.map((data, index) => (
                     <div key={index} className="d-flex ml-5 leave-request-left-data justify-content-between mt-3 pt-3">
                         
-                        {props.showName && <div className="d-flex"><img className='smallCard-Hierarchy-down-card-img mt-2' src="/images/pic_gautam.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
+                        {props.showName && <div className="d-flex"><img className='smallCard-Hierarchy-down-card-img mt-2' src="/images/No_Image.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
                         <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span></div>}
                         <p className="ml-3 pl-5">{dateFormater(data.appliedOn)}</p>
-                        <p className="pl-5">{data.startDate.split("-")[0]} {months[data.startDate.split("-")[1]]}, {(data.startDate.split("-")[2]).split(" ")[0]}</p>
+                        <p className="pl-5">{data.appliedOn.split("-")[0]} {months[data.appliedOn.split("-")[1]]}, {(data.appliedOn.split("-")[2]).split(" ")[0]}</p>
                         <div className="d-flex">
                             <p className="mr-4">{data.status}</p>
                             <i className="far fa-eye pr-3" onClick={() => {setclickEyeIcon(true); setindexForEye(index)}}></i>

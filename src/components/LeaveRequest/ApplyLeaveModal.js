@@ -51,10 +51,21 @@ function ApplyLeaveModal(props) {
         let endDate = date[(date.length) - 1] + " " + (parseInt(time.getHours()) < 10 ? ("0" + time.getHours()) : time.getHours()) + ":" + (parseInt(time.getMinutes()) < 10 ? ("0" + time.getMinutes()) : time.getMinutes());
         // console.log("startDate, endDate inside applyChanges :", startDate, endDate);
 
+        let options = {
+            "Sick Leave" : "SL",
+            "Earned Leave" : "EL",
+            "Comp. Off" : "CO",
+            "Personal Leave" : "PL",
+            "Vacation Leave" : "VL",
+        }
+
+        let leaveType = options[leaveInputTitle] ? options[leaveInputTitle] : "";
+
         let payload = {
+            "title": leaveInputTitle,
             "startDate": startDate,
             "endDate": endDate,
-            "title": leaveInputTitle,
+            "leaveType": leaveType,
             "leaveReason": leaveInputDescription
             }
 
@@ -96,8 +107,16 @@ function ApplyLeaveModal(props) {
                 
                 {/* ............Title................ */}
                 <div className="d-flex">
-                    <input className="form-control apply-leave-modal-title mt-5" type="text" name="title" value={leaveInputTitle} onChange={(e) => {setleaveInputTitle(e.target.value)}} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, titleBlur : e.target.name}) : setonblurEvent({...onblurEvent, titleBlur : ""})}} />
+                    <input className="form-control apply-leave-modal-title mt-5" type="text" list="titleSelect" name="title" value={leaveInputTitle} onChange={(e) => {setleaveInputTitle(e.target.value)}} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, titleBlur : e.target.name}) : setonblurEvent({...onblurEvent, titleBlur : ""})}} />
                     <span className={`apply-leave-modal-span span-first apply-blur-${onblurEvent.titleBlur}`}>Title</span>
+                    {/* ..............Options for Title.................. */}
+                    <datalist id="titleSelect">
+                        <option>Sick Leave</option>
+                        <option>Earned Leave</option>
+                        <option>Comp. Off</option>
+                        <option>Personal Leave</option>
+                        <option>Vacation Leave</option>
+                    </datalist>
                 </div>
                 
                 {/* ............Calander................ */}

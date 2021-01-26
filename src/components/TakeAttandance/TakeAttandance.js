@@ -27,7 +27,6 @@ class TakeAttandance extends React.Component {
 
     static getDerivedStateFromProps(props, state) {
             let newListData = state.toSaveList;
-            let editHistory;
             console.log("inside getDerivedStateFromProps newListData is", newListData, props.paginationData);
             if (!(state.toSaveList[props.pageNo]) && (props.paginationData.length > 0)) {
                 newListData = [];
@@ -50,22 +49,20 @@ class TakeAttandance extends React.Component {
     }
 
     changeHandler = (e) => {
-        if(this.editHistory){
-            const id = e.target.name;
-            const status = e.target.checked;
-            console.log("id, status : ", id, status);
+        const id = e.target.name;
+        const status = e.target.checked;
+        console.log("id, status : ", id, status);
 
-            let toUpdateSaveList = this.state.toSaveList;
+        let toUpdateSaveList = this.state.toSaveList;
 
-            for (let i = 0; i < toUpdateSaveList[this.state.newPageNo].length; i++) {
-                if (toUpdateSaveList[this.state.newPageNo][i]["id"] == id) {
-                    toUpdateSaveList[this.state.newPageNo][i]["status"] = status;
-                }
-            };
+        for (let i = 0; i < toUpdateSaveList[this.state.newPageNo].length; i++) {
+            if (toUpdateSaveList[this.state.newPageNo][i]["id"] == id) {
+                toUpdateSaveList[this.state.newPageNo][i]["status"] = status;
+            }
+        };
 
-            console.log("after update toUpdateSaveList : ", toUpdateSaveList);
-            this.setState({toSaveList: toUpdateSaveList});
-        }
+        console.log("after update toUpdateSaveList : ", toUpdateSaveList);
+        this.setState({toSaveList: toUpdateSaveList});
 
     }
 

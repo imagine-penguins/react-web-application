@@ -39,7 +39,7 @@ function LoginAlertModel(props) {
             >
                 {/* ....................Modal close Button...................................... */}
                 <div className="modal-close-div">
-                    <button className="modal-close-button" onClick={props.hide}>&times;</button>
+                    <button className="modal-close-button" onClick={handelOk}>&times;</button>
                 </div>
 
                 {/* .......................Modal content....................................... */}

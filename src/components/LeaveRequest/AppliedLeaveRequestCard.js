@@ -12,15 +12,14 @@ import ApiCalls from '../ApiCalls';
 
 function AppliedLeaveRequestCard(props) {
 
-    const [disable, setdisable] = useState(false);
-
     if (props.data === undefined || props.data.length === 0) {
         return false
     }
 
-    const data = props.data[props.index];
+    const data = props.data[props.index] ? props.data[props.index] : props.data[props.index ? (props.index - 1) : 0];
+    // console.log("data at begning of AppliedLeaveRequestCard : ", props.data, data);
 
-    const dateDiff = data.endDate.slice(0, 2) - data.startDate.slice(0, 2);
+    const dateDiff = data.endDate.slice(0, 2) - data.startDate.slice(0, 2) + 1;
 
     const appliedOn = data.appliedOn.split(" ");
     var appliedDate = appliedOn[0].replaceAll("-", ",");
@@ -41,30 +40,45 @@ function AppliedLeaveRequestCard(props) {
     const startDate = sDate[0] + " " + sDate[1] + ", " + sDate[2].split(" ")[0];
     const endDate = eDate[0] + " " + eDate[1] + ", " + eDate[2].split(" ")[0];
 
-    console.log("props.index : ", props.index);
-    console.log("startDate, endDate, appliedtime : ", startDate, ",", endDate, ",");
+    // console.log("props.index : ", props.index);
+    // console.log("startDate, endDate, appliedtime : ", startDate, ",", endDate, ",");
 
     const applyChanges = (e) => {
         e.preventDefault();
-        console.log("data-id :", e.target.getAttribute("data-id"));
 
         const name = e.target.name;
+        const id = e.target.getAttribute("data-id");
         const param = name === "accept" ? "/A" : "/R";
-        console.log("name, param :", name, param);
+        // console.log("id, name, param :", id, name, param);
 
-        axios.put(ApiCalls.leaveRequests + `/${e.target.name}` + `/status` + param);
-        props.disable();
-        setdisable(true);
-        alert(`Application has been ${name === "accept"? `Approved.` : `Rejected.`}`);
+        if(param === "/A"){
+            axios.put(ApiCalls.leaveRequests + `/${id}` + `/status` + param)
+            .then(res => console.log("Successfully Submitted"))
+            .catch(e => console.log("Error caught while accepting pending request", e));
+        }
+        else if(param === "/R"){
+            axios.put(ApiCalls.leaveRequests + `/${id}` + `/status` + param + `?reason="not fisible"`)
+            .then((res) => {
+                console.log("Successfully Submitted", res);
+            })
+            .catch((e) => {
+                console.log("Error caught while declining pending request", e);
+            });
+        }
+        
+        setTimeout(function() {
+            alert(`Application has been ${name === "accept"? `Approved.` : `Rejected.`}`);
+            props.disable();
+        }, 1000);              //........Wait For 1sec...............
+        
+        // props.disable();
     }
-
-    console.log("disabled in recieved :", disable);
 
 
     return (
         <>
             
-            <div className={props.header ? `inside-eye-filter-with-header ml-2` : `inside-eye-filter ml-2` } {...disable ? `disabled` : ``}>
+            <div className={props.header ? `inside-eye-filter-with-header ml-2` : `inside-eye-filter ml-2` }>
                     
                 { props.header ? 
                 //.........If props.header......................

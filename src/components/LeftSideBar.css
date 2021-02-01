@@ -33,3 +33,43 @@
     color: white !important;
 }
 
+.drop-users >p{
+    margin-bottom: .6rem;
+}
+
+.drop-users .drop{
+    width: 19rem;
+    padding: .1rem;
+    padding-left: .6rem;
+    margin-left: .5rem;
+    border-radius: .8rem;
+}
+
+.drop-attadance .drop{
+    width: 30rem;
+    padding: .1rem;
+    padding-left: .6rem;
+    margin-left: .5rem;
+    border-radius: .8rem;
+}
+
+.drop-users .drop p,
+.drop-attadance .drop p{
+    margin-bottom: 0rem;
+    padding-top: .45rem;
+}
+
+.drop-users .drop .fas,
+.drop-attadance .drop .fas{
+    line-height: 3.2rem !important;
+}
+
+.drop:hover{
+    background-color: rgba(96, 133, 218, 0.233);
+    cursor: pointer;
+}
+
+.drop:focus{
+    background-color: rgba(96, 133, 218, 0.233);
+    outline: none;
+}

@@ -70,11 +70,11 @@ class FilterBar extends React.Component {
     }
     
     static getDerivedStateFromProps(props, state) {
-        const UserOrAttandanceApi = props.attandanceHistory ? ApiCalls.leaveRequestsHistory : props.takeAttandance ? ApiCalls.attendanceUsers : ApiCalls.listUsers;
+        const UserOrAttandanceApi = props.attandanceHistory ? ApiCalls.attendanceHistory : props.takeAttandance ? ApiCalls.attendanceUsers : ApiCalls.listUsers;
         const listName = props.attandanceHistory ? "leaveResponseDTOList" : props.takeAttandance ? "userAttendanceResponseDTOList" : "userDTOList";
         const size = props.attandanceHistory ? 10 : props.takeAttandance ? 6 : 10;
 
-        console.log("UserOrAttandanceApi, listName, size inside getDerivedStateFromProps : ", UserOrAttandanceApi, listName, size);
+        console.log("UserOrAttandanceApi, listName, size inside getDerivedStateFromProps in FilterBar : ", UserOrAttandanceApi, listName, size);
         return {
             UserOrAttandanceApi: UserOrAttandanceApi,
             listName: listName,
@@ -97,8 +97,8 @@ class FilterBar extends React.Component {
     // ...........................Initial Attandance Api Data.....................................
     takeAttandanceList(UserOrAttandanceApi, listName, size) {
         try {
-            console.log("takeAttandanceListData at the very begning is: ", this.state.takeAttandanceListData);
-            console.log("url:", "attandance/takeattandance, ", UserOrAttandanceApi);
+            console.log("FilterData at the very begning is: ", this.state.takeAttandanceListData);
+            console.log("url in filterbar :", UserOrAttandanceApi);
             axios.get(UserOrAttandanceApi + `?size=` + size)
                 .then(responce => {
                     console.log("AttandanceUsers responce:", responce);
@@ -111,11 +111,11 @@ class FilterBar extends React.Component {
                     });
                 })
                 .catch(error => {
-                    console.log("Something went wrong with AttandanceUsers Api", error);
+                    console.log("Something went wrong with FilterBar Api", error);
                 });
         }
         catch (error) {
-            console.log("Error catched while calling AttandanceUsers Api", error);
+            console.log("Error catched while calling FilterBar Api", error);
         }
     }
 

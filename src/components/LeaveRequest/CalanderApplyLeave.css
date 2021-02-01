@@ -5,13 +5,12 @@
 
 
 .calander-div{
-    top: 36%;
-    left: 7%;
-    position: absolute;
-    z-index: 2;
-    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2.0rem rgba(0, 0, 0, 0.06);
+  top: 20rem;
+  left: 3.5rem;
+  position: absolute;
+  z-index: 2;
+  box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.06), 0 0 2.0rem rgba(0, 0, 0, 0.06);
 }
-
 
 .calander-text{
   justify-content: center;

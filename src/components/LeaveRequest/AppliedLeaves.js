@@ -3,46 +3,100 @@
 
 
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState } from 'react';
 import EyeLeaveRequestModel from './EyeLeaveRequestModel';
 import "./AppliedLeaves.css";
+import dateDiff from '../DateDifference';
+import axios from '../axios';
+import ApiCalls from '../ApiCalls';
 
 import {months} from "../enums";
 
 
 function AppliedLeaves(props) {
 
-
     const [clickEyeIcon, setclickEyeIcon] = useState(false);
     const [indexForEye, setindexForEye] = useState(0);
+    const [countPages, setcountPages] = useState(0);
+    const [totalPages, settotalPages] = useState(0);
+    const [pageSize, setpageSize] = useState(0);
+    const [totalElements, settotalElements] = useState(0);
+
+    const [appliedLeavesData, setappliedLeavesData] = useState([]);
 
 
-    const dateFormater = (rawDate) => {
-        // var oldDate = rawDate.slice(0, 2);
-        rawDate = rawDate.split(" ")[0].split("-");
-        let x = rawDate[0];
-        rawDate[0] = rawDate[1];
-        rawDate[1] = x;
-        console.log("rawDate :", rawDate);
-        rawDate = rawDate.toString().replaceAll(",", "/");
-        console.log("rawDate :", rawDate);
+    useEffect(() => {
+        
+        async function obtainApisData() {
 
-        var oldDate = new Date(rawDate).getTime();
-        console.log("oldDate :", oldDate);
+            // ..................Applied leaves Api.....................................
+            try {
+                await axios.get(ApiCalls.leaveRequests)
+                .then(responce => {
+                    console.log("appliedLeavesData responce:", responce);
+                    setappliedLeavesData(responce.data._embedded.leaveResponseDTOList);
+                    settotalPages(responce.data.page.totalPages);
+                    setpageSize(responce.data.page.size);
+                    settotalElements(responce.data.page.totalElements);
+                })
+                .catch(error => {
+                    setappliedLeavesData([]);
+                    console.log("Something went wrong with appliedLeavesData Api", error);
+                });
+            }
+            catch (error) {
+                setappliedLeavesData([]);
+                console.log("Error catched while calling appliedLeavesData Api", error);
+            }
+        }
 
-        var dateObj = new Date();
+        console.log("appliedLeavesData: ", appliedLeavesData);
+        obtainApisData();
 
-        let newdate = (parseInt(dateObj.getMonth() + 1) < 10 ? "0" + (dateObj.getMonth() + 1) : (dateObj.getMonth() + 1)) + "/" + (parseInt(dateObj.getDate()) < 10 ? "0" + dateObj.getDate() : dateObj.getDate()) + "/" + dateObj.getFullYear();
-        console.log("newdate :", newdate);
+    }, [props.triger]);
 
-        let todaysDate = new Date(newdate).getTime();
-        console.log("todaysDate:", todaysDate);
 
-        let dateDiff = (todaysDate - oldDate) / (1000 * 60 * 60 * 24);
+    const paginationAppliedLeft = () => {
+        let xCount = countPages - 1;
+        console.log("clicked pagination and countPage, totalPages is : ", xCount, totalPages);
+        if (xCount >= 0) {
+            axios.get(ApiCalls.leaveRequests + `?size=10&page=${xCount}`)
+            .then(responce => {
+                console.log("response on leftPagination :", responce);
+                setappliedLeavesData(responce.data._embedded.leaveResponseDTOList);
+                setcountPages(xCount);
+                settotalElements(responce.data.page.totalElements);
+            })
+            .catch(error => {
+                setappliedLeavesData([]);
+                console.log("error occured in leftPagination :", error);
+            });
+        }
+        else {
+            console.log("countPages reaches limit :", countPages);
+        }
+    }
 
-        console.log("diff :", dateDiff);
+    const paginationAppliedRight = () => {
+        let xCount = countPages + 1;
+        console.log("clicked handelPagintionRight and countPage, totalPages is : ", xCount, totalPages);
 
-        return `${dateDiff} d`;
+        if (xCount <= (totalPages - 1)) {
+            axios.get(ApiCalls.leaveRequests + `?size=10&page=${xCount}`)
+            .then(responce => {
+                console.log("response on rightPagination :", responce);
+                setappliedLeavesData(responce.data._embedded.leaveResponseDTOList);
+                setcountPages(xCount);
+                settotalElements(responce.data.page.totalElements);
+            })
+            .catch(error => {
+                setappliedLeavesData([]);
+                console.log("error occured in rightPagination :", error);
+            });
+        }
+        else {
+            console.log("countPages reaches limit :", countPages);
+        }
     }
 
 
@@ -51,10 +105,15 @@ function AppliedLeaves(props) {
 
             <div className={`${props.showName ? `past-leave-requests mr-4` : `leave-attandance-left`} ml-4 mt-4`}>
                 <div className="d-flex mt-3">
+
+                    {/* ..................Heading........................ */}
                     <div className="heading-leave-request ml-4 pl-1">Leave requests</div>
-                    <div className="pagination-text mr-4 mt-1 ml-auto">1 to 6 of 6</div>
-                    <button className="pagination-button-leave-request bg-white ml-5"><i className="fa fa-chevron-left pagination-i"></i></button>
-                    <button className="pagination-button-leave-request bg-white ml-1"><i className="fa fa-chevron-right pagination-i"></i></button>
+                    <div className="pagination-text mr-4 mt-1 ml-auto">{countPages === 0 ? 1 : (countPages * pageSize) + 1} to {(countPages + 1) === totalPages ? totalElements : pageSize * (countPages + 1)} of {totalElements}</div>
+                    
+                    {/* ..................Pagination........................ */}
+                    <button className="pagination-button-leave-request bg-white ml-5" onClick={paginationAppliedLeft}><span><i className="fa fa-chevron-left pagination-i"></i></span></button>
+                    <button className="pagination-button-leave-request bg-white ml-1" onClick={paginationAppliedRight}><i className="fa fa-chevron-right pagination-i"></i></button>
+                    
                     {/* .......................Filter Icons.............................. */}
                     <i className="fas fa-filter mr-2 pr-5 pl-4" style={{ fontSize: "2.5rem" }}></i>
                 </div>
@@ -68,16 +127,16 @@ function AppliedLeaves(props) {
                 </div>
                 
                 {/* .......................Data Parced.............................. */}
-                {props.data.map((data, index) => (
-                    <div key={index} className="d-flex ml-5 leave-request-left-data justify-content-between mt-3 pt-3">
+                {appliedLeavesData.map((data, index) => (
+                    <div key={index} tabindex={index + 1} className="d-flex ml-5 leave-request-left-data justify-content-between mt-3 pt-3">
                         
                         {props.showName && <div className="d-flex"><img className='smallCard-Hierarchy-down-card-img mt-2' src="/images/No_Image.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
                         <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span></div>}
-                        <p className="ml-3 pl-5">{dateFormater(data.appliedOn)}</p>
-                        <p className="pl-5">{data.appliedOn.split("-")[0]} {months[data.appliedOn.split("-")[1]]}, {(data.appliedOn.split("-")[2]).split(" ")[0]}</p>
-                        <div className="d-flex">
+                        <p className="col-4 ml-3">{dateDiff(data.appliedOn)}</p>
+                        <p className="col-4 pl-5">{data.appliedOn.split("-")[0]} {months[data.appliedOn.split("-")[1]]}, {(data.appliedOn.split("-")[2]).split(" ")[0]}</p>
+                        <div className="col-4 ml-4 pl-5 d-flex">
                             <p className="mr-4">{data.status}</p>
-                            <i className="far fa-eye pr-3" onClick={() => {setclickEyeIcon(true); setindexForEye(index)}}></i>
+                            <i className="far fa-eye pr-4" onClick={() => {setclickEyeIcon(true); setindexForEye(index)}}></i>
                         </div>
 
                     </div>
@@ -85,7 +144,7 @@ function AppliedLeaves(props) {
                 ))}
 
                 {/* .......................AppliedLeaves Model when clicked eye........................................ */}
-                <EyeLeaveRequestModel show={clickEyeIcon} hide={() => setclickEyeIcon(false)} data={props.data} index={indexForEye} />
+                <EyeLeaveRequestModel show={clickEyeIcon} hide={() => setclickEyeIcon(false)} data={appliedLeavesData} index={indexForEye} />
                 
             </div>
         

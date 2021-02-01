@@ -27,19 +27,23 @@ function LeftSideBar(props) {
                     {/* <!--........................User.............................--> */}
                     <li className="attandance-dropdown d-flex">
                         <Link to="/users/users-list"><i className={`fas fa-user-friends ${focusCss.users}`} onClick={() => setfocusCss({ users: "focusNow" })}></i></Link>
-                        <div className="attandance-dropdown-content mt-2 pl-2" style={{ fontSize: "1.6rem", width: "21rem", height: "15rem" }}>
+                        <div className="attandance-dropdown-content drop-users mt-2 pl-2" style={{ fontSize: "1.6rem", width: "21rem", height: "15rem" }}>
                             <p>Users</p>
                             {/* ..................Users List.............. */}
                             <div onClick={() => setfocusCss({ users: "focusNow" })}>
-                                <div className="d-flex">
-                                    <i className="fas fa-user-friends ml-4 mr-3"></i>
-                                    <Link to="/users/users-list"><p>Users</p></Link>
-                                </div>
+                                <Link to="/users/users-list">
+                                    <div tabIndex="100" className="d-flex drop">
+                                        <i className="fas fa-user-friends ml-2 mr-3"></i>
+                                        <p>Users</p>
+                                    </div>
+                                </Link>
                                 {/* ..................Hierarchy................ */}
-                                <div className="d-flex">
-                                    <i className="fas fa-sitemap ml-4 mr-3"></i>
-                                    <Link to="/users/hierarchy"><p>Hierarchy chart</p></Link>
-                                </div>
+                                <Link to="/users/hierarchy">
+                                    <div tabIndex="101" className="d-flex drop mt-1">
+                                        <i className="fas fa-sitemap ml-2 mr-3"></i>
+                                        <p>Hierarchy chart</p>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </li>
@@ -50,23 +54,29 @@ function LeftSideBar(props) {
                     {/* <!--........................Attandance.............................--> */}
                     <li className="attandance-dropdown d-flex">
                         <Link to="/attandance/take-attandance"><i className={`fas fa-user-check attandance-dropbtn ${focusCss.attandance}`} onClick={() => setfocusCss({ attandance: "focusNow" })}></i></Link>
-                        <div className="attandance-dropdown-content mt-2 pl-2" style={{ fontSize: "1.6rem" }}>
+                        <div className="attandance-dropdown-content drop-attadance mt-2 pl-2" style={{ fontSize: "1.6rem" }}>
                             <p>Attandance</p>
 
                             {/* ...........Take Attandance............ */}
                             <div onClick={() => setfocusCss({ attandance: "focusNow" })}>
-                                <div className="d-flex pt-1">
-                                    <i className="fas fa-user-friends ml-4 mr-3"></i>
-                                    <Link to="/attandance/take-attandance"><p>Take attandance</p></Link>
-                                </div>
-                                <div className="d-flex mt-1">
-                                    <i className="fas fa-user-plus ml-4 mr-3"></i>
-                                    <Link to="/attandance/leave-request"><p>Leave request</p></Link>
-                                </div>
-                                <div className="d-flex mt-1">
-                                    <i className="fas fa-history ml-4 mr-3"></i>
-                                    <Link to="/attandance/history"><p>Attandance History</p></Link>
-                                </div>
+                                <Link to="/attandance/take-attandance">
+                                    <div tabIndex="103" className="d-flex drop pt-1">
+                                        <i className="fas fa-user-friends ml-2 mr-3"></i>
+                                        <p>Take attandance</p>
+                                    </div>
+                                </Link>
+                                <Link to="/attandance/leave-request">
+                                    <div tabIndex="104" className="d-flex drop mt-1">
+                                        <i className="fas fa-user-plus ml-2 mr-3"></i>
+                                        <p>Leave request</p>
+                                    </div>
+                                </Link>
+                                <Link to="/attandance/history">
+                                    <div tabIndex="105" className="d-flex drop mt-1">
+                                        <i className="fas fa-history ml-2 mr-3"></i>
+                                        <p>Attandance History</p>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
                     </li>

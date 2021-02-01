@@ -38,3 +38,21 @@ button.edit-attandance{
     margin-left: 1.8rem;
     width: 96rem;
 }
+
+.attandance-history-top .dropdown #dropdownMenuButtonLeaveRequest{
+    font-size: 1.8rem;
+    margin-left: 1rem;
+    font-weight: 600;
+}
+
+.attandance-history-top .dropdown .filter-dropdown3::after{
+    left: 7.5rem;
+}
+
+.attandance-history-top .dropdown .filter-dropdown3{
+    transform: translate3d(-1px, 28px, 0px) !important;
+}
+
+.attandance-history-top .dropdown .filter-dropdown3 p{
+    padding-right: 2.8rem;
+}

@@ -46,11 +46,20 @@ button.pagination-button-leave-request{
     font-size: 1.4rem;
 }
 
+button .pagination-button-leave-request:focus {
+    box-shadow: none !important;
+}
+
+button .pagination-button-leave-request:hover{
+    color: gray;
+}
+
 .leave-request-left-data{
     font-size: 1.2rem;
     font-weight: 600;
     color: rgba(128, 128, 128, 0.74);
     margin-left: 4.5rem;
+    margin-right: 3.5rem;
 }
 
 .leave-request-left-data .fa-eye{

@@ -58,8 +58,21 @@ function AttandanceHistory() {
             <div className="d-flex attandance-history-top justify-content-between ml-5 mr-5">
                 <span className="d-flex attandance-history-top-drop1">
                     <p className="generate-report">Generate Report of</p>
-                    <p className="generate-report-dropdown ml-3">Class 10A</p>
-                    <span className="triangle-icon-at-bottom"></span>
+                    {/* <p className="generate-report-dropdown ml-3">Class 10A</p> */}
+                    <div className="dropdown">
+                        <button className="btn btn-lg btn-outline-none p-0 align-top dropdown-toggle" type="button" id="dropdownMenuButtonLeaveRequest" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Class 10A
+                        </button>
+                        <div className="dropdown-menu filter-dropdown3" aria-labelledby="dropdownMenuButton">
+                            <label className="dropdown-item" aria-disabled><p>Class 1A</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Class 1B</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Class 2A</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Class 2B</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Class 3A</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Class 3B</p></label>
+                        </div>
+                    </div>
+                    {/* <span className="triangle-icon-at-bottom"></span> */}
                 </span>
 
                 <span className="d-flex attandance-history-top-drop2">
@@ -70,8 +83,19 @@ function AttandanceHistory() {
 
                 <span className="d-flex attandance-history-top-drop3">
                     <p className="select-perticular-user">Select Perticular User</p>
-                    <p className="generate-report-dropdown ml-3">Gautam</p>
-                    <span className="triangle-icon-at-bottom"></span>
+                    <div className="dropdown">
+                        <button className="btn btn-lg btn-outline-none p-0 align-top dropdown-toggle" type="button" id="dropdownMenuButtonLeaveRequest" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gautam
+                        </button>
+                        <div className="dropdown-menu filter-dropdown3" aria-labelledby="dropdownMenuButton">
+                            <label className="dropdown-item" aria-disabled><p>Mayank</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Amit</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Naman</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Nishi</p></label>
+                            <label className="dropdown-item" aria-disabled><p>Gaurav</p></label>
+                        </div>
+                    </div>
+                    {/* <span className="triangle-icon-at-bottom"></span> */}
                 </span>
 
                 <span className="d-flex attandance-history-top-butons">

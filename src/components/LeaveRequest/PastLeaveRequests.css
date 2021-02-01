@@ -38,3 +38,10 @@
     background-color: rgba(96, 133, 218, 0.233);
     border-radius: 1rem;
 }
+
+.leave-request-left-data:focus{
+    background-color: rgba(96, 133, 218, 0.233);
+    outline: none;
+    border-radius: 1rem;
+}
+

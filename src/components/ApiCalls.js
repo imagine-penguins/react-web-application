@@ -16,6 +16,7 @@ const ApiCalls = {
     leaveRequests : "/leave-requests",           //......POST--> To Apply leave request......and......GET--> to get applied leaves..........
     leaveRequestsHistory : "/leave-requests/history",
     leaveRequestsGraph : "/leave-requests/graph",
+    leaveRequestsHistoryGraph : "/leave-requests/history/graph",
 
     updateAppliedRequests : "/leave-requests/{leaveRequestId}",
     ApproveRecievedLeaves : "/leave-requests/{leaveRequestId}/status/{status}{&reason(only if status is R which is Rejected)}",

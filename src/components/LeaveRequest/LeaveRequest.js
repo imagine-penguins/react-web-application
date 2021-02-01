@@ -13,9 +13,9 @@ import LeaveRequestChart from './LeaveRequestChart';
 import ApplyLeaveModal from './ApplyLeaveModal';
 import RecievedLeave from './RecievedLeave';
 import PastLeaveRequests from './PastLeaveRequests';
-import AppliedLeaveRequestCard from './AppliedLeaveRequestCard';
-import axios from '../axios';
-import ApiCalls from '../ApiCalls';
+// import AppliedLeaveRequestCard from './AppliedLeaveRequestCard';
+// import axios from '../axios';
+// import ApiCalls from '../ApiCalls';
 
 function LeaveRequest() {
 
@@ -23,70 +23,9 @@ function LeaveRequest() {
     const [showRecievedLeave, setshowRecievedLeave] = useState(true);
     const [showAppliedLeave, setshowAppliedLeave] = useState(false);
     const [showPendingRequest, setshowPendingRequest] = useState(false);
-    const [showDropdown, setshowDropdown] = useState("");
 
 
-    const [barGraphData, setbarGraphData] = useState([]);
-    const [appliedLeavesData, setappliedLeavesData] = useState([]);
-
-    useEffect(() => {
-        
-        async function obtainApisData() {
-
-            // ..................Bar Graph Api.....................................
-            try {
-                await axios.get(ApiCalls.leaveRequestsGraph)
-                .then(responce => {
-                    console.log("barGraphData responce:", responce);
-                    setbarGraphData(responce.data._embedded.graphDataList.concat({month: "", leaveCount: 0}, {month: "", leaveCount: 0}));
-                })
-                .catch(error => {
-                    console.log("Something went wrong with LeaveRequestChart Api", error);
-                });
-            }
-            catch (error) {
-                setbarGraphData([]);
-                console.log("Error catched while calling LeaveRequestChart Api", error);
-            }
-
-            // ..................Applied leaves Api.....................................
-            try {
-                await axios.get(ApiCalls.leaveRequests)
-                .then(responce => {
-                    console.log("appliedLeavesData responce:", responce);
-                    setappliedLeavesData(responce.data._embedded.leaveResponseDTOList);
-                })
-                .catch(error => {
-                    setappliedLeavesData([]);
-                    console.log("Something went wrong with appliedLeavesData Api", error);
-                });
-            }
-            catch (error) {
-                setappliedLeavesData([]);
-                console.log("when error appliedLeavesData: ", appliedLeavesData);
-                console.log("Error catched while calling appliedLeavesData Api", error);
-            }
-
-
-        }
-
-
-        console.log("appliedLeavesData: ", appliedLeavesData);
-        console.log("barGraphData: ", barGraphData);
-        
-        if (appliedLeavesData.length === 0) {
-            console.log("inside if of Applied Leaves: ", appliedLeavesData);
-            return obtainApisData();
-        };
-
-        if (barGraphData.length === 0) {
-            console.log("inside if of BarGraph: ", barGraphData);
-            return obtainApisData();
-        };
-
-    }, []);
-
-
+    const [triger, settriger] = useState(false);
 
 
     return (
@@ -99,7 +38,7 @@ function LeaveRequest() {
                 <button className="leave-request-button mr-5">...</button>
 
                 {/* .......................LeaveRequest Model when clicked eye......................................... */}
-                <ApplyLeaveModal show={showApplyLeaveModal} hide={() => setshowApplyLeaveModal(false)} />
+                <ApplyLeaveModal show={showApplyLeaveModal} hide={() => setshowApplyLeaveModal(false)} triger={() => settriger(!triger)} />
             
             </div>
 
@@ -116,23 +55,13 @@ function LeaveRequest() {
                         <label className="dropdown-item" onClick={() => setshowPendingRequest(false)} aria-disabled><p>Pending Requests</p></label>
                     </div>
                 </div>
-                {/* <span className="browse-text pl-3">Browse</span>
-                <button className="test-pending-request attandance-dropdown ml-3 pl-1 pr-1">{showPendingRequest ? `Past Leave Requests` : `Pending Requests (45)`}</button>
-                <div className="attandance-dropdown-content" style={{ fontSize: "1.6rem" }}>
-
-                    // ...........Browse Bropdown............
-                    <p className="mb-2 mt-3 ml-3 mr-3 p-1 pl-2" >Past Leave Requests</p>
-                    <p className="m-2 ml-3 mr-3 p-1 pl-2" >Pending Requests</p>
-
-                </div> */}
-                {/* <span className="triangle-icon-at-bottom"></span> */}
             </div>}
 
 
             <div className="d-flex pr-5">
 
-                {showAppliedLeave && <><AppliedLeaves showName={false} data={appliedLeavesData} /> <LeaveRequestChart chartData={barGraphData} /></>}
-                {showRecievedLeave && (showPendingRequest ? <PastLeaveRequests /> : <RecievedLeave />)}
+                {showAppliedLeave && <><AppliedLeaves showName={false} triger={triger} /> <LeaveRequestChart appliedLeaves={true} /></>}
+                {showRecievedLeave && (showPendingRequest ? <PastLeaveRequests /> : <RecievedLeave triger={triger} />)}
 
             </div>
 

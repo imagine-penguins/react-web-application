@@ -71,8 +71,14 @@ function ApplyLeaveModal(props) {
 
         console.log("payload for appling leave :", payload);
         axios.post(ApiCalls.leaveRequests, payload)
-        .then(res => console.log(res))
-        .catch(e => console.log(e));
+        .then(res => console.log("SuccessFully applied for leave", res))
+        .catch(e => console.log("There is something wrong with applying leave api :", e));
+
+        setTimeout(function() {
+            props.hide();
+            props.triger();
+        }, 1000);              //........Wait For 1sec...............
+        
     }
 
     return (
@@ -106,7 +112,7 @@ function ApplyLeaveModal(props) {
             <div className="inside-apply-modal ml-2">
                 
                 {/* ............Title................ */}
-                <div className="d-flex">
+                <div className="d-flex" onClick={() => setshowCalander(false)}>
                     <input className="form-control apply-leave-modal-title mt-5" type="text" list="titleSelect" name="title" value={leaveInputTitle} onChange={(e) => {setleaveInputTitle(e.target.value)}} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, titleBlur : e.target.name}) : setonblurEvent({...onblurEvent, titleBlur : ""})}} />
                     <span className={`apply-leave-modal-span span-first apply-blur-${onblurEvent.titleBlur}`}>Title</span>
                     {/* ..............Options for Title.................. */}
@@ -128,13 +134,13 @@ function ApplyLeaveModal(props) {
                 </span>
                 
                 {/* ............Description................ */}
-                <div className="d-flex">
+                <div className="d-flex" onClick={() => setshowCalander(false)}>
                     <textarea className="form-control apply-leave-calander-description mt-5" name="description" value={leaveInputDescription} onChange={(e) => {setleaveInputDescription(e.target.value)}} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, descriptionBlur : e.target.name}) : setonblurEvent({...onblurEvent, descriptionBlur : ""})}} />
                     <span className={`apply-leave-modal-span span-third apply-blur-${onblurEvent.descriptionBlur}`}>Description</span>
                 </div>
 
                 {/* ............Apply Button................ */}
-                <span className="d-flex eye-filter-button-bottom apply-leave-request-model mt-5 pt-3">
+                <span className="d-flex eye-filter-button-bottom apply-leave-request-model mt-5 pt-3" onClick={() => setshowCalander(false)}>
                     <button className="eye-filter-decline-button mr-3" onClick={() => setshow(true)}>Apply</button>
                     <CommonSaveChanges show={show} hide={() => setshow(false)} applySave={applyChanges} />
                 </span>

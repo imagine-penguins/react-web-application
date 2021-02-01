@@ -16,12 +16,24 @@
 
 .recieved-leaves{
     width: 30rem;
+    max-height: 60.5rem;
     margin-left: 3rem;
     margin-top: 2.5rem;
     padding: 1rem 2.2rem;
     border-radius: 1rem;
     background-color: white;
     box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
+}
+
+.recieved-leaves-data{
+    width: 27.5rem;
+    max-height: 53.5rem;
+    overflow-x: hidden; 
+    overflow-y: auto; 
+}
+
+.recieved-leaves-all-names{
+    margin-right: 1.2rem;
 }
 
 .recieved-leaves-names{
@@ -32,24 +44,59 @@
 }
 
 .recieved-leaves-time{
+    padding-right: 0.5rem;
     color: rgba(112, 111, 111, 0.589);
     line-height: 1.8rem;
     font-size: 1.1rem;
     font-weight: 500;
 }
 
+.recieved-leaves-all-names img{
+    margin-left: 0rem;
+}
+
 .recieved-leaves-all-names:hover{
-    padding-top: 0.5rem;
     background-color:  rgba(96, 133, 218, 0.233);
     border-radius: 1rem;
     cursor: pointer;
 }
 
+.recieved-leaves-all-names:focus{
+    background-color:  rgba(96, 133, 218, 0.233);
+    border-radius: 1rem;
+    outline: none;
+}
+
 .active-status{
-    position: absolute;
-    margin: .5rem;
+    transform: translate3d(5px, 5px, 0px);
     width: .7rem;
     height: .7rem;
     border-radius: 100%;
     background-color: rgb(115, 219, 115);
+}
+
+/* ..........Scrollbar Css................... */
+
+
+/* width */
+
+::-webkit-scrollbar {
+    width: .6rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 20rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(167, 165, 165); 
+    border-radius: 20rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(110, 110, 110); 
 }

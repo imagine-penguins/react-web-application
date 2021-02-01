@@ -54,6 +54,8 @@ function Login(props) {
             console.log('error occured while SignIn with SignIn_data', e);
             setsuccess(false);
         }
+        
+        setshowAlert(true);
 
     }
 
@@ -75,7 +77,7 @@ function Login(props) {
                         <label className="login-label">Password</label>
                         <input className="form-control form-control-lg" type="text" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Password" />
 
-                        <button type="submit" className="btn btn-primary" onClick={() => setshowAlert(true)}>Submit</button>
+                        <button type="submit" className="btn btn-primary">Submit</button>
                         {/* ..............Showing Alert Model........................ */}
                         <LoginAlertModel show={showAlert} hide={() => setshowAlert(false)} success={success} />
 

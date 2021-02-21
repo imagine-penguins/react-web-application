@@ -7,13 +7,32 @@
 import React, { useState } from 'react';
 import "./LoginAlertModel.css";
 import Modal from "react-modal";
+import axios from './axios';
+import ApiCalls from './ApiCalls';
 
 
 function LoginAlertModel(props) {
 
     const handelOk = () => {
+        
+        // .............Calling User Profile API.......................
+        axios.get(ApiCalls.usersProfile)
+        .then(res => {
+            console.log("User Profile responce", res);
+            // .....Parsing localStorage to set user Profile.........
+            let localStorageData = JSON.parse(localStorage.getItem('storedData'));
+            localStorageData.push(res.data);
+            console.log("localStorage :", localStorageData);
+            // .....setting again localStorage.........
+            localStorage.setItem('storedData', JSON.stringify(localStorageData));
+            
+            props.success && (res.data.userType === 'E' ? (window.location.href = '/users/users-list') : (window.location.href = '/profile'));
+        })
+        .catch(error => {
+            console.log("Something went wrong with Profile Api", error);
+        });
+        
         props.hide();
-        props.success && (window.location.href = '/users/users-list');
     }
 
 

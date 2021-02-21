@@ -7,6 +7,7 @@
 const enums = {
     E : "Employee",
     S : "Student",
+    T : "Teacher",
     P : "Parent",
     SL : "Sick Leave",
     VL : "Vaccation Leave",

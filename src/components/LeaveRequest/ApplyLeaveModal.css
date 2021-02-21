@@ -42,7 +42,7 @@
 }
 
 /* ........Text Area........................... */
-.inside-apply-modal textarea{
+.inside-apply-modal textarea.apply-leave-calander-description{
     font-size: 1.5rem;
     font-weight: 700;
     height: 70%;
@@ -107,7 +107,7 @@
     color: rgba(128, 128, 128, 0.411);
 }
 
-.inside-apply-modal textarea:focus ~ .span-third,
+.inside-apply-modal textarea.apply-leave-calander-description:focus ~ .span-third,
 .apply-blur-description{
     padding-top: 1.4rem;
     padding-left: .8rem;
@@ -116,6 +116,6 @@
 }
 
 .inside-apply-modal input:focus,
-textarea:focus{
+textarea.apply-leave-calander-description:focus{
     box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2rem rgba(0, 0, 0, 0.08);
 }

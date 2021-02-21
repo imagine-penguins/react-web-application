@@ -12,6 +12,7 @@
 
 import React, { useState } from 'react';
 import Modal from "react-modal";
+import "./CommonSaveChanges.css";
 
 function CommonSaveChanges(props) {
 
@@ -19,6 +20,8 @@ function CommonSaveChanges(props) {
         no: "focus",
         yes: ""
     });
+
+    const [textArea, settextArea] = useState("");
 
 
     return (
@@ -47,12 +50,17 @@ function CommonSaveChanges(props) {
                 </div>
 
                 {/* .......................Modal content....................................... */}
-                <div className="inside-apply-modal inside-alert-modal ml-2">
+                <div className={`inside-apply-modal inside-alert-modal ml-2 ${props.rejected && `rejected-apply-modal`}`}>
 
-                    <p>Are you Sure you want to save changes :</p>
+                    {props.rejected ?
+                    (<><p>Are you Sure you want to Reject this Application? Please give the reasion if yes.</p>
+                        <textarea className="text-area-reject-leave" placeholder="Give Reasion" value={textArea} onChange={(e) => settextArea(e.target.value)}></textarea>
+                    </>)
+                    :
+                    (<p>Are you Sure you want to save changes?</p>)}
                     <span className="d-flex eye-filter-button-bottom mt-3 pt-3">
                         <button className={`eye-filter-decline-button mr-5 ${focusCss.no}`} name="no" onClick={() => {setfocusCss({no: "focus"}); props.hide();}}>No</button>
-                        <button className={`eye-filter-approve-button mr-5 ${focusCss.yes}`} name="yes" onClick={() => {setfocusCss({yes: "focus"}); props.applySave(); props.hide();}}>Yes</button>
+                        <button className={`eye-filter-approve-button mr-5 ${focusCss.yes}`} name="yes" onClick={() => {setfocusCss({yes: "focus"}); props.applySave(textArea); props.hide();}}>Yes</button>
                     </span>
 
                 </div>

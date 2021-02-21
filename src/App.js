@@ -6,7 +6,7 @@
 
 import './App.css';
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 // import NavbarUser from "./components/NavbarUser";
 import Navbar from './components/TopNavBar/Navbar';
@@ -36,7 +36,7 @@ import Login from './components/Login/Login';
 
 
 
-function App() {
+function App(props) {
 
   const [toogleListGrid, settoogleListGrid] = useState(false);
 
@@ -95,14 +95,14 @@ function App() {
                 </PrivateRoute>
 
                 <PrivateRoute exact path="/attandance/leave-request" isAuth={CheckAuth()}>
-                  <> <ToShowTopPath path={"Attandance / Leave Request"} /> <LeaveRequest /> </>
+                  <LeaveRequest />
                 </PrivateRoute>
 
                 <PrivateRoute exact path="/attandance/history" isAuth={CheckAuth()}>
                   <> <ToShowTopPath path={"Attandance / Attandance History"} /> <AttandanceHistory /> </>
                 </PrivateRoute>
 
-                <PrivateRoute exact path="/addnew" isAuth={CheckAuth()}>
+                <PrivateRoute path="/addnew/:type" isAuth={CheckAuth()}>
                   <AddNew />
                 </PrivateRoute>
 

@@ -58,7 +58,6 @@ function AttandanceHistory() {
             <div className="d-flex attandance-history-top justify-content-between ml-5 mr-5">
                 <span className="d-flex attandance-history-top-drop1">
                     <p className="generate-report">Generate Report of</p>
-                    {/* <p className="generate-report-dropdown ml-3">Class 10A</p> */}
                     <div className="dropdown">
                         <button className="btn btn-lg btn-outline-none p-0 align-top dropdown-toggle" type="button" id="dropdownMenuButtonLeaveRequest" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Class 10A
@@ -72,7 +71,6 @@ function AttandanceHistory() {
                             <label className="dropdown-item" aria-disabled><p>Class 3B</p></label>
                         </div>
                     </div>
-                    {/* <span className="triangle-icon-at-bottom"></span> */}
                 </span>
 
                 <span className="d-flex attandance-history-top-drop2">
@@ -95,16 +93,14 @@ function AttandanceHistory() {
                             <label className="dropdown-item" aria-disabled><p>Gaurav</p></label>
                         </div>
                     </div>
-                    {/* <span className="triangle-icon-at-bottom"></span> */}
                 </span>
 
                 <span className="d-flex attandance-history-top-butons">
-                    <button className="dir-Add_user btn btn-outline-secondary edit-attandance p-0 ml-5 mr-4" onClick={() => setedit(true)}>Edit Attandance</button>
-                    <button className="dir-Add_user btn btn-outline-secondary p-0 export-report mr-4">Export Report</button>
+                    <button className="dir-import btn btn-outline-secondary p-0 export-report mr-4">Export Report</button>
                     <button className="dir-dots btn btn-outline-secondary p-0 ml-4">...</button>
                 </span>
             </div>
-            <hr style={{ width: "62%", marginLeft: "3rem", marginTop: "0rem", color: "rgba(94, 143, 199, 0.65)" }} />
+            <hr style={{ width: "71%", marginLeft: "3rem", marginTop: "0rem", color: "rgba(94, 143, 199, 0.65)" }} />
 
 
             {/* ...............Pie Chart/ Small Card................................. */}
@@ -120,15 +116,6 @@ function AttandanceHistory() {
             <div className="mt-5 mb-2">
                 <FilterBar hideGridView={true} takeAttandance={true} attandanceHistory={true} editAttandance={edit} />
             </div>
-
-            {/* <div className="d-flex">
-                <div className="in-AH-take-attandnce">
-                    <TakeAttandance />
-                </div>
-                <div className="in-AH-button">
-                    <button className="dir-Add_user btn btn-outline-secondary p-0 ml-3 mt-4 mr-5 edit-attandance">Edit Attandance</button>
-                </div>
-            </div> */}
 
         </>
     )

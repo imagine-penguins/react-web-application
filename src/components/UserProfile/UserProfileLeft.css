@@ -60,11 +60,11 @@
     transform: scale(1.03);
 }
 
-.smallCard-User-Profile{
+.User-Profile .smallCard-User-Profile{
+    padding: .85rem .5rem .85rem .8rem;
     border-radius: 1.0rem;
     height: 6rem;
     width: 100%;
-    padding-top: 0.7rem;
     margin: 1rem 1.6rem;
     background-color: #ffffff;
     transition: transform 450ms;

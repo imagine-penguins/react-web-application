@@ -91,10 +91,11 @@
     padding-right: 4.8rem;
     padding-top: 0rem;
     line-height: 2.2rem;
+    color:#172B4D !important;
 }
 
 .filter-dropdown3 .dropdown-item:hover{
-    background-color:  #8795d641;
+    background-color:  #EBECF0;
     border-radius: 1rem;
 }
 

@@ -105,7 +105,7 @@ button.add-user-top:hover{
 .attandance-dropdown-content {
     list-style-type: none;
     width: 28.0rem;
-    height: 19.0rem;
+    height: auto !important;
     position: absolute;
     margin-left: 7.5rem;
     background-color: white;

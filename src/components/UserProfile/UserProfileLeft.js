@@ -14,9 +14,9 @@ function UserProfileLeft(props) {
     return (
         <>
             < div className="User-Profile ml-4 bg-white mt-2" >
-                <div className="d-flex justify-content-center pt-4"><img className='User-Profile-img' src="/images/No_Image.png" alt="Avatar" /></div>
+                <div className="d-flex justify-content-center pt-4"><img className='User-Profile-img' src={userProfile ? props.data.profilePic ? `${props.data.profilePic}` : `/images/No_Image.png` : `/images/No_Image.png`} alt="Avatar" /></div>
                 <div className="d-flex justify-content-center p-1"><h5 className="User-Profile-name">{userProfile ? `${props.data.generalInformation.firstName} ${props.data.generalInformation.lastName}` : `---`}</h5></div>
-                <div className="d-flex justify-content-center p-1"><p className="User-Profile-text" style={{ fontSize: "1.4rem", marginBottom: ".0rem" }}>Student</p></div>
+                <div className="d-flex justify-content-center p-1"><p className="User-Profile-text" style={{ fontSize: "1.4rem", marginBottom: ".0rem" }}>{userProfile ? props.data.generalInformation.designation ? props.data.generalInformation.designation : `---` : `---`}</p></div>
                 <div className="d-flex justify-content-center p-1"><button className="User-Profile-button"><i className="fas fa-comments User-Profile-chat-icon mt-1 mr-3" aria-hidden="true"></i>Chat</button></div>
 
                 {/* ......................Contact details.......................... */}
@@ -27,7 +27,7 @@ function UserProfileLeft(props) {
                 </div>
                 <div className="d-flex justify-content-left pl-3">
                     <i className="fa fa-phone text-secondary pt-3" style={{ fontSize: "1.8rem" }} aria-hidden="true"></i>
-                    <p className="User-Profile-text pt-2 ml-3" style={{ fontSize: "1.4rem" }}>{userProfile ? props.data.generalInformation.contactDTO.phone : `---`}</p>
+                    <p className="User-Profile-text pt-2 ml-3" style={{ fontSize: "1.3rem" }}>{userProfile ? props.data.generalInformation.contactDTO.phone : `---`}</p>
                 </div>
 
                 {/* ......................Reporting Manager.......................... */}
@@ -36,18 +36,19 @@ function UserProfileLeft(props) {
                 {/* .................Card at bottom................................... */}
                 <div className="d-flex justify-content-center User-Profile-end mt-2">
                     <div className="d-flex smallCard-User-Profile">
-                        <img className='smallCard-Hierarchy-down-card-img' src="/images/No_Image.png" alt="Avatar" />
+                        <img className='smallCard-Hierarchy-down-card-img' src={userProfile ? props.data.generalInformation.reportingManagerProfilePic ? `${props.data.generalInformation.reportingManagerProfilePic}` : `/images/No_Image.png` : `/images/No_Image.png`} alt="Avatar" />
 
                         <div className="">
                             <div className="d-flex">
                                 <h5 className="smallCard-Hierarchy-down-card-name" style={{fontSize: "1.5rem", marginBottom: ".3rem" }}>{userProfile ? props.data.generalInformation.reportingManagerName : `---`}</h5>
                             </div>
                             <div className="d-flex">
-                                <p className="smallCard-Hierarchy-down-card-text" style={{ fontSize: "1.1rem", fontWeight: "650" }}>Student</p>
+                                <p className="smallCard-Hierarchy-down-card-text" style={{ fontSize: "1.1rem", fontWeight: "650" }}>{userProfile ? props.data.generalInformation.reportingManagerDesignation ? props.data.generalInformation.reportingManagerDesignation : `---` : `---` }</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div >
 
         </>

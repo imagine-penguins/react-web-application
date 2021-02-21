@@ -17,3 +17,9 @@
     border: .001rem solid;
     border-color: rgba(128, 128, 128, 0.3);
 } */
+
+
+.focus{
+    background-color: #0052CC;
+    color: white;
+}

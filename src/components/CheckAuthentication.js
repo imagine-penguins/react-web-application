@@ -11,6 +11,7 @@ const CheckAuth = () => {
     // const isAuthenticated = false;
     const token = JSON.parse(localStorage.getItem("storedData")) ? JSON.parse(localStorage.getItem("storedData"))[0] : '';
     const refreshToken = JSON.parse(localStorage.getItem("storedData")) ? JSON.parse(localStorage.getItem("storedData"))[1] : '';
+    const userProfile = JSON.parse(localStorage.getItem("storedData")) ? JSON.parse(localStorage.getItem("storedData"))[2] : '';
 
     if(!token || !refreshToken){
         localStorage.removeItem('storedData');
@@ -29,7 +30,7 @@ const CheckAuth = () => {
         }
     }
     catch(e) {
-        console.log("Inside Catch of CheckAuth :", e);
+        console.log("Inside Catch of CheckAuthentication :", e);
         return false;
     }
 

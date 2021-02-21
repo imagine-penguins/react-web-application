@@ -17,10 +17,12 @@ p.Add-New-personal-heading{
 }
 
 
-i.fa-user-circle{
-    font-size: 10rem;
-    color: rgba(128, 128, 128, 0.849);
-    margin-bottom: 2.0rem;
+img.upload-img_icon{
+    width: 10rem;
+    height: 10rem;
+    border: .1rem solid rgb(153, 152, 152);
+    border-radius: 100%;
+    margin-bottom: 1rem;
 }
 
 p.Add-New-text{
@@ -32,7 +34,22 @@ p.Add-New-text:first-child{
     width: 12rem;
 }
 
-i.fa-upload:nth-child(1){
+input.upload-input_icon{
+    width: 16rem !important;
+
+}
+
+input[type="file" i]{
+    font-size: .9rem !important;
+    margin-bottom: 4.5rem;
+}
+
+select.Add-New-input.select-gender{
+    width: 30rem !important;
+}
+
+
+/* i.fa-upload:nth-child(1){
     margin-left: 3.3rem;
     margin-top: 4rem;
     position: absolute;
@@ -44,4 +61,4 @@ i.fa-upload{
     margin-top: 4rem;
     position: absolute;
     font-size: 3.0rem;
-}
+} */

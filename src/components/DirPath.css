@@ -24,7 +24,7 @@ button.dir-dots{
 }
 
 button.dir-import,
-button.dir-Add_user{
+.dropdown button.dir-Add_user{
     margin-left: 2rem;
     width: 10rem;
     height: 2.8rem;
@@ -68,4 +68,26 @@ button.dir-Add_user:focus{
 .dir-import-menu.show .dis:hover{
     background-color: white;
     color: rgba(88, 87, 87, 0.555);
+}
+
+.filter-dropdown3 .dis{
+    padding-left: .8rem;
+    color: rgba(53, 52, 52, 0.726);
+}
+
+.dir-buttons .filter-dropdown3 p{
+    margin-bottom: 0rem !important;
+    padding-right: .3rem;
+}
+
+.dir-buttons .filter-dropdown3{
+    left: -4rem !important;
+}
+
+.dir-buttons .filter-dropdown3:after{
+    left: 9.7rem;
+}
+
+.dir-buttons .add-user-dir{
+    left: -0.9rem !important;
 }

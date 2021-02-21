@@ -12,7 +12,7 @@ function CardGrid(props) {
 
     return (
             <div className="card" style={{ border: "none" }}>
-                <img className='grid-card-img' src="/images/pic_gautam.png" alt="Avatar" />
+                <img className='grid-card-img' src={props.data.profilePic ? `${props.data.profilePic}` : `/images/No_Image.png`} alt="Avatar" />
                 <div className="grid-card-body">
                     <h6 className="grid-card-name text-primary">{props.data.firstName}</h6>
                     <p className="grid-card-text">{enums[`${props.data.userType}`]}</p>

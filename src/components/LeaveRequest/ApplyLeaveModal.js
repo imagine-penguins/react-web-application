@@ -10,7 +10,7 @@ import axios from "../axios";
 import ApiCalls from "../ApiCalls";
 import Modal from "react-modal";
 import CommonSaveChanges from '../CommonSaveChanges';
-
+import moment from "moment";
 
 function ApplyLeaveModal(props) {
 
@@ -31,14 +31,11 @@ function ApplyLeaveModal(props) {
     });
 
     const filterDate = (date) => {
-        // console.log("date : ", date);
-        let startDateObj = new Date(date[0]["startDate"]);
-        let endDateObj = new Date(date[0]["endDate"]);
-        
-        let startDate = (parseInt(startDateObj.getDate()) < 10 ? "0" + startDateObj.getDate() : startDateObj.getDate()) + "-" + (parseInt(startDateObj.getMonth() + 1) < 10 ? "0" + (startDateObj.getMonth() + 1) : (startDateObj.getMonth() + 1)) + "-" + startDateObj.getFullYear();
-        let endDate = (parseInt(endDateObj.getDate()) < 10 ? "0" + endDateObj.getDate() : endDateObj.getDate()) + "-" + (parseInt(endDateObj.getMonth() + 1) < 10 ? "0" + (endDateObj.getMonth() + 1) : (endDateObj.getMonth() + 1)) + "-" + endDateObj.getFullYear();
 
-        let dateToPost = startDate + "  to  " + endDate;
+        let startDateObj = moment(date[0]["startDate"]).format("DD-MM-YYYY");
+        let endDateObj = moment(date[0]["endDate"]).format("DD-MM-YYYY");
+
+        let dateToPost = startDateObj + "  to  " + endDateObj;
         console.log("dateToPost : ", dateToPost);
         
         setleaveInputDate(dateToPost);
@@ -47,8 +44,8 @@ function ApplyLeaveModal(props) {
     const applyChanges = () => {
         let time = new Date();
         let date = leaveInputDate.split(" ");
-        let startDate = date[0] + " " + (parseInt(time.getHours()) < 10 ? ("0" + time.getHours()) : time.getHours()) + ":" + (parseInt(time.getMinutes()) < 10 ? ("0" + time.getMinutes()) : time.getMinutes());
-        let endDate = date[(date.length) - 1] + " " + (parseInt(time.getHours()) < 10 ? ("0" + time.getHours()) : time.getHours()) + ":" + (parseInt(time.getMinutes()) < 10 ? ("0" + time.getMinutes()) : time.getMinutes());
+        let startDate = date[0] + " 00:00";
+        let endDate = date[(date.length) - 1] + " 23:59";
         // console.log("startDate, endDate inside applyChanges :", startDate, endDate);
 
         let options = {
@@ -72,7 +69,7 @@ function ApplyLeaveModal(props) {
         console.log("payload for appling leave :", payload);
         axios.post(ApiCalls.leaveRequests, payload)
         .then(res => console.log("SuccessFully applied for leave", res))
-        .catch(e => console.log("There is something wrong with applying leave api :", e));
+        .catch(e => {console.log("There is something wrong with applying leave api :", e);alert("Something is wrong please enter valid date :");});
 
         setTimeout(function() {
             props.hide();
@@ -105,7 +102,7 @@ function ApplyLeaveModal(props) {
         >
             {/* ....................Modal close Button...................................... */}
             <div className="modal-close-div">
-                <button className="modal-close-button" onClick={() => {props.hide(); setleaveInputTitle(""); setleaveInputDate(""); setleaveInputDescription("");}}>&times;</button>
+                <button className="modal-close-button" onClick={() => {props.hide();setshowCalander(false);setleaveInputTitle(""); setleaveInputDate(""); setleaveInputDescription("");}}>&times;</button>
             </div>
 
             {/* .......................Modal content....................................... */}
@@ -128,7 +125,7 @@ function ApplyLeaveModal(props) {
                 {/* ............Calander................ */}
                 <span className="d-flex apply-leave-calander">
                     <i className="fas fa-calendar-alt apply-leave-calander-icon pt-1" onClick={() => {setshowCalander(!showCalander);setonblurEvent({...onblurEvent, dateBlur : "calander"});}} />
-                    <input className="form-control apply-leave-calander-input mt-5 mb-4" type="text" name="calander" value={leaveInputDate} onChange={(e) => {setleaveInputDate(e.target.value)}} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, dateBlur : e.target.name}) : setonblurEvent({...onblurEvent, dateBlur : ""})}} />
+                    <input className="form-control apply-leave-calander-input mt-5 mb-4" type="text" name="calander" value={leaveInputDate} onClick={() => setshowCalander(!showCalander)} onBlur={e => {e.target.value? setonblurEvent({...onblurEvent, dateBlur : e.target.name}) : setonblurEvent({...onblurEvent, dateBlur : ""})}} readonly />
                     <span className={`apply-leave-modal-span span-second apply-blur-${onblurEvent.dateBlur}`}>Time Period</span>
                     {showCalander && <div className=""><CalanderApplyLeave obtainDates={(date) => filterDate(date)} /></div>}
                 </span>
@@ -141,7 +138,7 @@ function ApplyLeaveModal(props) {
 
                 {/* ............Apply Button................ */}
                 <span className="d-flex eye-filter-button-bottom apply-leave-request-model mt-5 pt-3" onClick={() => setshowCalander(false)}>
-                    <button className="eye-filter-decline-button mr-3" onClick={() => setshow(true)}>Apply</button>
+                    <button className="eye-filter-decline-button mr-3" onClick={() => {setshow(true);setshowCalander(false);}}>Apply</button>
                     <CommonSaveChanges show={show} hide={() => setshow(false)} applySave={applyChanges} />
                 </span>
                 

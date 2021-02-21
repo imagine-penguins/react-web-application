@@ -18,28 +18,6 @@ function LoginModel(props) {
     const [username, setuserName] = useState("");
     const [password, setpassword] = useState("");
 
-    let history = useHistory();
-
-
-    // function checkExpiration() {
-    //     //check if past expiration date
-    //     var values = JSON.parse(localStorage.getItem('storedData'));
-    //     //check "my hour" index here
-    //     if (values[2] < new Date()) {
-    //         localStorage.removeItem("storedData");
-    //         props.showLogin();
-    //         window.location.href = '/';
-    //     }
-    // }
-
-    // function myFunction() {
-    //     var myinterval = 15 * 60 * 1000; // 15 min interval
-    //     setInterval(function () { checkExpiration(); }, myinterval);
-    // }
-
-    // myFunction();
-
-
 
     const submitHandel = async e => {
         e.preventDefault();
@@ -56,8 +34,6 @@ function LoginModel(props) {
             const refreshToken = loginResponse.data.refreshToken;
             console.log('loginResponse :', loginResponse);
 
-            // var myHour = new Date();
-            // myHour = myHour.getTime() + 1000; //one hour from now
             let data = [jwt_key];
             data.push(refreshToken);
             // console.log('data :', data);
@@ -66,7 +42,7 @@ function LoginModel(props) {
             console.log('storedData :', JSON.parse(localStorage.getItem('storedData')));
             axios.defaults.headers.common = { 'Authorization': `Bearer ${jwt_key}` };
 
-            props.hideLogin();
+            props.hide();
 
         } catch (e) {
             console.log('error occured while SignIn with SignIn_data', e);

@@ -11,6 +11,7 @@ import LeaveRequestChart from './LeaveRequestChart';
 import axios from '../axios';
 import ApiCalls from '../ApiCalls';
 import dateDiff from '../DateDifference';
+import setActiveClass from '../ActiveCss';
 
 
 function RecievedLeave(props) {
@@ -68,13 +69,16 @@ function RecievedLeave(props) {
                     <div className="recieved-leaves-data">
                         {/* ......................Name Arrey.................................... */}
                         {pendingRequestData.map((data, index) => (
-                            <div key={index} tabIndex={index} className="d-flex recieved-leaves-all-names mt-1 p-2" onClick={() => setindexForEye(index)}>
+                            <div key={index} className="d-flex recieved-leaves-all-names mt-1 p-2 navlink" onClick={(e) => {setindexForEye(index);setActiveClass(e);}}>
                                 <span className="active-status"></span>
-                                <img className='smallCard-Hierarchy-down-card-img' src="/images/No_Image.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
-                                <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span>
-                                <span className="recieved-leaves-time pt-3 pl-3 ml-auto">{dateDiff(data.appliedOn)}</span>
+                                <img className='smallCard-Hierarchy-down-card-img' src={data.profilePic ? `${data.profilePic}` : `/images/No_Image.png`} alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
+                                <span className="recieved-leaves-names pt-2 ml-3">{data.firstName} {data.lastName}</span>
+                                <span className="recieved-leaves-time pt-2 pl-3 ml-auto">{dateDiff(data.appliedOn)}</span>
                             </div>
                         ))}
+
+                        {/* ......................If List is empty.............................. */}
+                        {(pendingRequestData.length <= 0) && <><p className="empty-list mx-4 mt-5">There are no pending requests left.</p></>}
                     </div>
 
                 </div>

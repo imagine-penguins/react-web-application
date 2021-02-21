@@ -23,10 +23,10 @@
     border-radius: .5rem;
 } */
 
-
+/* 
 #leftNavIcon li i:hover {
     background-color:  #8795d64d;
-}
+} */
 
 .focusNow{
     background-color:  #748ae9;
@@ -46,7 +46,7 @@
 }
 
 .drop-attadance .drop{
-    width: 30rem;
+    width: 22rem;
     padding: .1rem;
     padding-left: .6rem;
     margin-left: .5rem;
@@ -65,11 +65,7 @@
 }
 
 .drop:hover{
-    background-color: rgba(96, 133, 218, 0.233);
+    background-color: #EBECF0;
     cursor: pointer;
 }
 
-.drop:focus{
-    background-color: rgba(96, 133, 218, 0.233);
-    outline: none;
-}

@@ -3,7 +3,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./CalanderApplyLeave.css";
 import { DateRange } from 'react-date-range';
 
@@ -18,7 +18,9 @@ function CalanderApplyLeave(props) {
         }
     ]);
 
-    props.obtainDates(dateRange);
+    useEffect(() => {
+        props.obtainDates(dateRange);
+    }, [dateRange])
 
     return (
         <div className="calander-div">

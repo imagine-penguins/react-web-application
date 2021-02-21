@@ -6,6 +6,9 @@
 #filterModel{
     width: 28%;
     height: auto;
+    padding-top: 1rem !important;
+    border-radius: .5rem !important;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.2), 0 0 2.0rem rgba(0, 0, 0, 0.2);
 }
 
 .inside-filter{
@@ -13,21 +16,40 @@
     grid-template-columns: auto;
 }
 
+.cross-button{
+    transform: translateX(1rem);
+    font-size: 1.5rem !important;
+}
+
 #apply-filter >button {
     border-radius: 1.0rem;
     justify-content: end;
+    border-radius: 0.5rem;
+    font-size: 1.5rem;
     box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
 }
 
 #apply-filter >input {
-    margin: 2.0rem 0;
-    outline: none;
-    font-size: 1.6rem;
-    padding-top: 1.0rem;
-    padding-bottom: 1.0rem;
-    font-weight: 1.0rem;
-    border-radius: 1.0rem;
-
+    margin: .5rem 0rem 2rem 0rem;
+    width: auto;
     box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+}
 
+#apply-filter >select.filter-model-main {
+    width: 32rem !important;
+    box-shadow: 0 0 .8rem rgba(0, 0, 0, 0.08), 0 0 2.0rem rgba(0, 0, 0, 0.08);
+}
+
+.label-input-filter-main{
+    color: #6B778C;
+    margin-bottom: 0rem;
+    font-weight: 700;
+}
+
+/* .......browse-filters....... */
+
+.filter-dropdown1 .browse-filters{
+    padding-left: 2rem;
+    padding-bottom: 4rem;
+    padding-right: 3rem;
 }

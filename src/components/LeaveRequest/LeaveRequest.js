@@ -13,26 +13,36 @@ import LeaveRequestChart from './LeaveRequestChart';
 import ApplyLeaveModal from './ApplyLeaveModal';
 import RecievedLeave from './RecievedLeave';
 import PastLeaveRequests from './PastLeaveRequests';
-// import AppliedLeaveRequestCard from './AppliedLeaveRequestCard';
-// import axios from '../axios';
-// import ApiCalls from '../ApiCalls';
+import ToShowTopPath from '../ToShowTopPath';
+
 
 function LeaveRequest() {
 
     const [showApplyLeaveModal, setshowApplyLeaveModal] = useState(false);
-    const [showRecievedLeave, setshowRecievedLeave] = useState(true);
+    const [showRecievedLeave, setshowRecievedLeave] = useState(false);
     const [showAppliedLeave, setshowAppliedLeave] = useState(false);
     const [showPendingRequest, setshowPendingRequest] = useState(false);
-
+    const [userProfile, setuserProfile] = useState(JSON.parse(localStorage.getItem('storedData'))[2]);
 
     const [triger, settriger] = useState(false);
+
+    useEffect(() => {
+        if (JSON.parse(localStorage.getItem('storedData'))[2].userType === 'E'){
+            setshowRecievedLeave(true);
+        }
+        else{
+            setshowAppliedLeave(true);
+        }
+    }, [])
 
 
     return (
         <>
+            <ToShowTopPath path={`Attandance / Leave Request / ${showRecievedLeave ? (showPendingRequest ? `Recieved Leaves / Past Leave Requests` : `Recieved Leaves / Pending Requests`) : `Applied Leaves`}`} />
+            
             {/* .......................Buttons on top............................................. */}
             <div className="d-flex leave-request ml-4 my-4">
-                <button className={`leave-request-button ${showRecievedLeave && `focusCss`}`} onClick={() => {setshowRecievedLeave(true); setshowAppliedLeave(false); setshowPendingRequest(false);}}>Recieved Leaves</button>
+                {(userProfile.userType === 'E') && <button className={`leave-request-button ${showRecievedLeave && `focusCss`}`} onClick={() => {setshowRecievedLeave(true); setshowAppliedLeave(false); setshowPendingRequest(false);}}>Recieved Leaves</button>}
                 <button className={`leave-request-button ${showAppliedLeave && `focusCss`}`} onClick={() => {setshowAppliedLeave(true); setshowRecievedLeave(false); setshowPendingRequest(false);}}>Applied Leaves</button>
                 <button className="leave-request-button ml-auto" onClick={() => setshowApplyLeaveModal(true)}>Apply Leave</button>
                 <button className="leave-request-button mr-5">...</button>
@@ -60,8 +70,8 @@ function LeaveRequest() {
 
             <div className="d-flex pr-5">
 
-                {showAppliedLeave && <><AppliedLeaves showName={false} triger={triger} /> <LeaveRequestChart appliedLeaves={true} /></>}
-                {showRecievedLeave && (showPendingRequest ? <PastLeaveRequests /> : <RecievedLeave triger={triger} />)}
+                {(userProfile.userType === 'E') && showRecievedLeave && (showPendingRequest ? <PastLeaveRequests /> : <RecievedLeave triger={triger} />)}
+                {showAppliedLeave && <><AppliedLeaves triger={triger} /> <LeaveRequestChart appliedLeaves={true} /></>}
 
             </div>
 

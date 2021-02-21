@@ -9,8 +9,12 @@ import "./AppliedLeaveRequestCard.css";
 import {months} from "../enums";
 import axios from '../axios';
 import ApiCalls from '../ApiCalls';
+import CommonSaveChanges from '../CommonSaveChanges';
 
 function AppliedLeaveRequestCard(props) {
+
+    const [show, setshow] = useState(false);
+    const [sId, setsId] = useState("");
 
     if (props.data === undefined || props.data.length === 0) {
         return false
@@ -55,23 +59,33 @@ function AppliedLeaveRequestCard(props) {
             axios.put(ApiCalls.leaveRequests + `/${id}` + `/status` + param)
             .then(res => console.log("Successfully Submitted"))
             .catch(e => console.log("Error caught while accepting pending request", e));
+
+            setTimeout(function() {
+                alert(`Application has been Approved`);
+                props.disable();
+            }, 1000);              //........Wait For 1sec...............
         }
+
         else if(param === "/R"){
-            axios.put(ApiCalls.leaveRequests + `/${id}` + `/status` + param + `?reason="not fisible"`)
+            setsId(id);
+            setshow(true);
+        }
+    }
+
+    function handelRejection(rejectMessage) {
+        console.log("rejectMessage :", rejectMessage);
+        axios.put(ApiCalls.leaveRequests + `/${sId}` + `/status/R?reason=${rejectMessage}`)
             .then((res) => {
-                console.log("Successfully Submitted", res);
+                console.log("Successfully Rejected :", res);
             })
             .catch((e) => {
                 console.log("Error caught while declining pending request", e);
             });
-        }
-        
+
         setTimeout(function() {
-            alert(`Application has been ${name === "accept"? `Approved.` : `Rejected.`}`);
+            alert("Application has been Rejected.");
             props.disable();
         }, 1000);              //........Wait For 1sec...............
-        
-        // props.disable();
     }
 
 
@@ -113,6 +127,7 @@ function AppliedLeaveRequestCard(props) {
 
                 {props.button && <span className="d-flex eye-filter-button-bottom mt-3 pt-3">
                     <button className="eye-filter-decline-button mr-3" name="decline" data-id={data.id} onClick={applyChanges}>Decline</button>
+                    <CommonSaveChanges show={show} hide={() => {setshow(false)}} rejected={true} applySave={(e) => {handelRejection(e)}} />
                     <button className="eye-filter-approve-button mr-5" name="accept" data-id={data.id} onClick={applyChanges}>Accept</button>
                 </span> }
 

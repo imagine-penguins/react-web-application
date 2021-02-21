@@ -30,18 +30,17 @@
 
 .leave-request-left-data{
     cursor: pointer;
-    margin-right: 4rem;
+    margin-right: 3.8rem;
     margin-left: 3.8rem;
 }
 
 .leave-request-left-data:hover{
-    background-color: rgba(96, 133, 218, 0.233);
+    background-color: #EBECF0;
     border-radius: 1rem;
 }
 
-.leave-request-left-data:focus{
+.active{
     background-color: rgba(96, 133, 218, 0.233);
-    outline: none;
     border-radius: 1rem;
 }
 

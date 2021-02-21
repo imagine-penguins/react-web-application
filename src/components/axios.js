@@ -23,9 +23,12 @@ const validatingRefresh = () => {
     var localToken = JSON.parse(localStorage.getItem('storedData'));
     // console.log("recieved token by axios: ", typeof (localToken), localToken);
     var token = "";
+    var userProfile = "";
 
     if (localToken) {
         token = localToken[0];
+        userProfile = localToken[2];
+        
         const exp = decode(localToken[0]).exp;
         console.log("expire Time, currentTime: ", exp, new Date().getTime() / 1000);
 
@@ -43,12 +46,13 @@ const validatingRefresh = () => {
                     let data = [];
                     data.push(token);
                     data.push(refreshToken);
+                    data.push(userProfile);
                     localStorage.removeItem('storedData');
                     localStorage.setItem('storedData', JSON.stringify(data));
                     instance.defaults.headers.common = { 'Authorization': `Bearer ${token}` };
                 })
                 .catch(e => {
-                    console.log("Error caught while rfreshing token :", e.response.status, e);
+                    console.log("Error caught while rfreshing token :", e);
                     window.location.href = '/login';
                     clearInterval(myVar);
                     localStorage.removeItem('storedData');

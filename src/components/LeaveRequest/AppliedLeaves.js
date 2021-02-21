@@ -11,6 +11,7 @@ import axios from '../axios';
 import ApiCalls from '../ApiCalls';
 
 import {months} from "../enums";
+import setActiveClass from '../ActiveCss';
 
 
 function AppliedLeaves(props) {
@@ -103,7 +104,7 @@ function AppliedLeaves(props) {
     return (
         <>
 
-            <div className={`${props.showName ? `past-leave-requests mr-4` : `leave-attandance-left`} ml-4 mt-4`}>
+            <div className="leave-attandance-left ml-4 mt-4">
                 <div className="d-flex mt-3">
 
                     {/* ..................Heading........................ */}
@@ -120,7 +121,6 @@ function AppliedLeaves(props) {
                 <hr style={{ width:"91%", marginTop:"1.0rem", borderTop: ".1rem solid rgb(239 244 247, 0.3)" }} />
                 {/* .......................Details heading.............................. */}
                 <div className="d-flex leave-request-left-card-heading justify-content-between col-11 mb-4">
-                    {props.showName && <p className="added-name-past-requests">Name</p>}
                     <p className="pt-2 pl-4 pr-2 pb-2">No. of Days</p>
                     <p className="pt-2 pr-3 pb-2">Date applied on</p>
                     <p className="pt-2 pr-5 mr-4 pb-2">Action</p>
@@ -128,23 +128,22 @@ function AppliedLeaves(props) {
                 
                 {/* .......................Data Parced.............................. */}
                 {appliedLeavesData.map((data, index) => (
-                    <div key={index} tabindex={index + 1} className="d-flex ml-5 leave-request-left-data justify-content-between mt-3 pt-3">
-                        
-                        {props.showName && <div className="d-flex"><img className='smallCard-Hierarchy-down-card-img mt-2' src="/images/No_Image.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
-                        <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span></div>}
+                    <div key={index} className="d-flex ml-5 leave-request-left-data justify-content-between mt-3 pt-3 navlink" onClick={(e) => {setActiveClass(e)}}>
                         <p className="col-4 ml-3">{dateDiff(data.appliedOn)}</p>
                         <p className="col-4 pl-5">{data.appliedOn.split("-")[0]} {months[data.appliedOn.split("-")[1]]}, {(data.appliedOn.split("-")[2]).split(" ")[0]}</p>
-                        <div className="col-4 ml-4 pl-5 d-flex">
+                        <div className="col-2 ml-4 pl-5 d-flex">
                             <p className="mr-4">{data.status}</p>
-                            <i className="far fa-eye pr-4" onClick={() => {setclickEyeIcon(true); setindexForEye(index)}}></i>
                         </div>
-
+                        <i className="col-2 far fa-eye ml-5 px-0" onClick={() => {setclickEyeIcon(true); setindexForEye(index)}}></i>
                     </div>
 
                 ))}
 
                 {/* .......................AppliedLeaves Model when clicked eye........................................ */}
                 <EyeLeaveRequestModel show={clickEyeIcon} hide={() => setclickEyeIcon(false)} data={appliedLeavesData} index={indexForEye} />
+
+                {/* ......................If List is empty.............................. */}
+                {(appliedLeavesData.length <= 0) && <><div className="d-flex empty-list justify-content-center mt-5">No applied leaves.</div></>}
                 
             </div>
         

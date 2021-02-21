@@ -17,7 +17,7 @@ function EyeLeaveRequestModel(props) {
             style={
                 {
                     content: {
-                        top: '35rem',
+                        top: '28rem',
                         left: '50%',
                         right: 'auto',
                         bottom: 'auto',

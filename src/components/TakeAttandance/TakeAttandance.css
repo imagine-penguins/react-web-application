@@ -40,7 +40,18 @@ input.list-check-box {
     cursor: pointer;
     width: 2.6rem; 
     height: 1.4rem;
-} 
+}
+
+.take-attandance-leave p{
+    /* color: rgba(56, 56, 56, 0.842); */
+    padding-left: 9rem;
+    padding-top: 1.5rem;
+    padding-right: 5rem;
+}
+
+.take-attandance-leave i{
+    padding-top: 2rem;
+}
 
 
 span.attandance-slider:before {

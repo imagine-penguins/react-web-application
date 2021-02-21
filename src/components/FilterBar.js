@@ -7,12 +7,15 @@ import React from 'react';
 
 import "./FilterBar.css";
 import axios from "./axios";
+import enums from "./enums";
 import ApiCalls from "./ApiCalls";
 import FilterModel from './FilterModel';
 import ItemDetails from './ItemDetails';
 import TakeAttandance from './TakeAttandance/TakeAttandance';
 import GridViewUser from './GridView/GridViewUser';
 import ListViewUser from './ListViewUser';
+import moment from "moment";
+import CalanderApplyLeave from './LeaveRequest/CalanderApplyLeave';
 
 
 const defaultState = {
@@ -28,32 +31,21 @@ const defaultState = {
     takeAttandanceListData: [],
     searchTerm: '',
     filterObj: {
-        userType: {
-            student: false,
-            teacher: false,
-            admin: false,
-            parent: false
-        },
-        departmant: {
-            botany: false,
-            chemistry: false,
-            zoology: false,
-            pmcs: false,
-            biochemistry: false,
-            biotechnology: false,
-            physics: false
-        },
-        userRoll: {
-            roleStudent: false,
-            pgtEnglish: false,
-            tgtBio: false,
-            tgtMaths: false
-        }
+        userType: [],
+        department: [],
+        class: [],
+        subject: [],
+        role: [],
     },
+    allFilters: {},
     filterTerm: false,
-    toSendQuery: "",
+    toSendQuery: "&search=userType:S",
+    mainFilterQuery: "",
+    timeQuery: "",
     ascDec: "ascending",
-    sortBy: "rollNumber"
+    sortBy: "rollNumber",
+    showDateRangePicker: false,
+    dateToPost: ""
 }
 
 class FilterBar extends React.Component {
@@ -63,15 +55,16 @@ class FilterBar extends React.Component {
         this.state = defaultState;
     }
 
-
+    
     componentDidMount() {
         console.log("UserOrAttandanceApi, listName, size inside componentDidMount : ", this.UserOrAttandanceApi, this.listName, this.size);
         this.takeAttandanceList(this.state.UserOrAttandanceApi, this.state.listName, this.state.size);
+        this.callFilterApi();
     }
     
     static getDerivedStateFromProps(props, state) {
         const UserOrAttandanceApi = props.attandanceHistory ? ApiCalls.attendanceHistory : props.takeAttandance ? ApiCalls.attendanceUsers : ApiCalls.listUsers;
-        const listName = props.attandanceHistory ? "leaveResponseDTOList" : props.takeAttandance ? "userAttendanceResponseDTOList" : "userDTOList";
+        const listName = props.attandanceHistory ? "userAttendanceResponseDTOList" : props.takeAttandance ? "userAttendanceResponseDTOList" : "userDTOList";
         const size = props.attandanceHistory ? 10 : props.takeAttandance ? 6 : 10;
 
         console.log("UserOrAttandanceApi, listName, size inside getDerivedStateFromProps in FilterBar : ", UserOrAttandanceApi, listName, size);
@@ -99,15 +92,15 @@ class FilterBar extends React.Component {
         try {
             console.log("FilterData at the very begning is: ", this.state.takeAttandanceListData);
             console.log("url in filterbar :", UserOrAttandanceApi);
-            axios.get(UserOrAttandanceApi + `?size=` + size)
+            axios.get(UserOrAttandanceApi + `?size=${size}${this.state.toSendQuery}${this.state.mainFilterQuery}`)
                 .then(responce => {
                     console.log("AttandanceUsers responce:", responce);
                     this.setState({
                         swiched: UserOrAttandanceApi,
-                        totalPages: responce.data.page.totalPages,
-                        pageSize: responce.data.page.size,
-                        totalElements: responce.data.page.totalElements,
-                        takeAttandanceListData: responce.data._embedded[listName]
+                        totalPages: this.props.attandanceHistory ? 1 : responce.data.page.totalPages,
+                        pageSize: this.props.attandanceHistory ? 10 : responce.data.page.size,
+                        totalElements: this.props.attandanceHistory ? 10 : responce.data.page.totalElements,
+                        takeAttandanceListData: responce.data._embedded ? responce.data._embedded[listName] : []
                     });
                 })
                 .catch(error => {
@@ -119,18 +112,72 @@ class FilterBar extends React.Component {
         }
     }
 
+    // ..............Getting filters.............................
+    async callFilterApi() {
+        let res = await axios.get("/filters")
+            .catch(e => console.log("Caught error in /filters api:", e));
+
+        console.log("responce from /filter api:", res);
+
+        try{
+            let filterObj = res.data;
+
+            let userType = filterObj.userTypes.map((data) => {
+                const obj = Object.assign({}, data);
+                obj.name = data === "S" ? true : false;
+                return obj;
+            });
+
+            let department = filterObj.departments.map((data) => {
+                const obj = Object.assign({}, data);
+                obj.name = false;
+                return obj;
+            });
+
+            let clas = filterObj.classes.map((data) => {
+                const obj = Object.assign({}, data);
+                obj.name = false;
+                return obj;
+            });
+
+            let subject = filterObj.subjects.map((data) => {
+                const obj = Object.assign({}, data);
+                obj.name = false;
+                return obj;
+            });
+
+            let role = filterObj.roles.map((data) => {
+                const obj = Object.assign({}, data);
+                obj.name = false;
+                return obj;
+            });
+
+            filterObj = {userType : userType, department : department, role: role, subject: subject, class: clas};
+
+            console.log("inside /filter api filterObj is :", filterObj);
+
+            this.setState({allFilters: res.data, filterObj: filterObj});
+        }
+        catch(e){
+            console.log("Error caught in callFilterApi :", e);
+        }
+    }
+
+
     // ............Handling right Pagination.....................
     handelPagintionRight = () => {
         let xCount = this.state.countPages + 1;
         console.log("in handelPagintionRight countPages, totalPAges are :", xCount, this.state.totalPages);
         if (xCount <= (this.state.totalPages - 1)) {
-            axios.get(this.state.UserOrAttandanceApi + `?size=${this.state.size}&page=${xCount}`)
+            axios.get(this.state.UserOrAttandanceApi + `?size=${this.state.size}&page=${xCount}${this.state.toSendQuery}${this.state.mainFilterQuery}`)
                 .then(res => {
                     console.log("response on rightPagination : ", res);
                     this.setState({
                         countPages: xCount,
-                        totalElements: res.data.page.totalElements,
-                        takeAttandanceListData: res.data._embedded[this.state.listName]
+                        totalPages: this.props.attandanceHistory ? 1 : res.data.page.totalPages,
+                        pageSize: this.props.attandanceHistory ? 10 : res.data.page.size,
+                        totalElements: this.props.attandanceHistory ? 10 : res.data.page.totalElements,
+                        takeAttandanceListData: res.data._embedded ? res.data._embedded[this.state.listName] : []
                     });
                 })
                 .catch(e => {
@@ -147,13 +194,15 @@ class FilterBar extends React.Component {
         let xCount = this.state.countPages - 1;
         if (xCount >= 0) {
             console.log("clicked handelPagintionLeft and countPage is : ", xCount);
-            axios.get(this.state.UserOrAttandanceApi + `?size=${this.state.size}&page=${xCount}`)
+            axios.get(this.state.UserOrAttandanceApi + `?size=${this.state.size}&page=${xCount}${this.state.toSendQuery}${this.state.mainFilterQuery}`)
                 .then(res => {
                     console.log("response on leftPagination : ", res);
                     this.setState({
                         countPages: xCount,
-                        totalElements: res.data.page.totalElements,
-                        takeAttandanceListData: res.data._embedded[this.state.listName]
+                        totalPages: this.props.attandanceHistory ? 1 : res.data.page.totalPages,
+                        pageSize: this.props.attandanceHistory ? 10 : res.data.page.size,
+                        totalElements: this.props.attandanceHistory ? 10 : res.data.page.totalElements,
+                        takeAttandanceListData: res.data._embedded ? res.data._embedded[this.state.listName] : []
                     });
                 })
                 .catch(e => {
@@ -169,13 +218,13 @@ class FilterBar extends React.Component {
         this.setState({ searchTerm: e.target.value });
     }
 
-    // ............Data to be displayed / Search filter....................
+    // ............Data passed as prop in TakeAttandance / Search filter....................
     dynamicData = () => {
         return (this.state.searchTerm ?
             this.state.takeAttandanceListData.filter(ob => (
                 ob.firstName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
                 ob.lastName.toLowerCase().includes(this.state.searchTerm.toLowerCase()) ||
-                ob.userId && ob.userId.toString().includes(this.state.searchTerm.toString())
+                (ob.userId && ob.userId.toString().includes(this.state.searchTerm.toString()))
             ))
             :
             this.state.takeAttandanceListData
@@ -185,46 +234,43 @@ class FilterBar extends React.Component {
     // ............Browse Filter Handel....................
     handelBrowseFilter = (e) => {
         e.stopPropagation();
-        const name = e.target.name;
         const checked = e.target.checked;
+        const id = e.target.getAttribute("id");
+        const index = e.target.getAttribute("index");
         const dataType = e.target.getAttribute("data-type");
-        console.log(" dataType, name, checked inside handelBrowseFilter :", dataType, name, checked);
+        console.log(" dataType, index, id, checked inside handelBrowseFilter :", dataType, index, id, checked);
 
         let filterObj = this.state.filterObj;
-        filterObj[dataType][name] = checked;
+        filterObj[dataType][index].name = checked;
 
+        // ........Parameters to send along with api................
         let query = this.state.toSendQuery;
+
         if (checked) {
-            query = query.concat(`&search=${dataType}:${name}`);
+            query = query.concat(`&search=${dataType}:${id}`);
         }
         else {
-            query = query.replace(`&search=${dataType}:${name}`, '');
+            query = query.replace(`&search=${dataType}:${id}`, '');
         }
         console.log("query, filterObj inside handelBrowseFilter :", query, filterObj);
 
         // .........Getting Filtered Data form Api..................
-        axios.get(this.state.UserOrAttandanceApi + `?size=${this.state.size}${query}`)
-            .then(res => console.log("responce of Filter is :", res))
+        axios.get(this.state.UserOrAttandanceApi + `?size=${this.state.size}${query}${this.state.mainFilterQuery}${this.state.timeQuery}`)
+            .then(res => {
+                console.log("responce of Filter is :", res);
+                this.setState({
+                    countPages: 0,
+                    filterObj: filterObj,
+                    filterTerm: true,
+                    toSendQuery: query,
+                    totalPages: this.props.attandanceHistory ? 1 : res.data.page.totalPages,
+                    pageSize: this.props.attandanceHistory ? 10 : res.data.page.size,
+                    totalElements: this.props.attandanceHistory ? 10 : res.data.page.totalElements,
+                    takeAttandanceListData: res.data._embedded ? res.data._embedded[this.state.listName] : []
+                });
+            })
             .catch(e => console.log("An eror occured while calling filter Attandace Api :", e));
 
-        this.setState({ filterObj: filterObj, filterTerm: true, toSendQuery: query });
-    }
-
-
-    handelSort = (e) => {
-        const value = e.target.value;
-        const sortType = this.state.ascDec;
-        this.helpSort(value, sortType);
-
-        this.setState({ sortBy: value });
-    }
-
-    handelAscDec = (e) => {
-        const value = e.target.value;
-        const sortBy = this.state.sortBy;
-        this.helpSort(sortBy, value);
-
-        this.setState({ ascDec: value });
     }
 
 
@@ -247,6 +293,77 @@ class FilterBar extends React.Component {
         }
         console.log("sortedList after helpSort is : ", sortedList);
     }
+    
+    handelSort = (e) => {
+        const value = e.target.value;
+        const sortType = this.state.ascDec;
+        this.helpSort(value, sortType);
+
+        this.setState({ sortBy: value });
+    }
+
+    handelAscDec = (e) => {
+        const value = e.target.value;
+        const sortBy = this.state.sortBy;
+        this.helpSort(sortBy, value);
+
+        this.setState({ ascDec: value });
+    }
+
+
+    filterByDate = () => {
+        // ............Empty the toSaveList in child(takeAttandance)......................
+        this.AttandanceChild.state.toSaveList = [];
+
+        let date = this.state.dateToPost.split(" ");
+        let startDate = date[0];
+        let endDate = date[4];
+        let responceData = [];
+        console.log("startDate, endDate", date, startDate, endDate);
+
+        let timeQuery = `&period=C&value=${startDate + "," + endDate}`;
+
+        axios.get(`${this.state.UserOrAttandanceApi}?${this.state.toSendQuery}${this.state.mainFilterQuery}${timeQuery}`)
+        .then(res => {
+            responceData = res.data._embedded[this.state.listName];
+            console.log("Responce Inside filterByDate :", res, responceData);
+        })
+        .catch(e => {
+            console.log("error catched Inside filterByDate :", e);
+        });
+
+        setTimeout(() => {
+            this.setState({showDateRangePicker: false, timeQuery: timeQuery, takeAttandanceListData: responceData, totalPages: 1});
+        }, 1000);
+    }
+
+    filterDate = (date) => {
+
+        let startDateObj = moment(date[0]["startDate"]).format("DD-MM-YYYY");
+        let endDateObj = moment(date[0]["endDate"]).format("DD-MM-YYYY");
+
+        let dateToPost = startDateObj + "  to  " + endDateObj;
+        console.log("dateToPost : ", dateToPost);
+        
+        this.setState({dateToPost : dateToPost});
+    }
+
+    //.............This function is called when query come from mainFilter...................
+    mainFilterQuery = (query) => {
+        axios.get(this.state.UserOrAttandanceApi + `?size=${this.state.size}${this.state.toSendQuery}${query}${this.state.timeQuery}`)
+            .then(res => {
+                console.log("responce of Filter is :", res);
+                this.setState({
+                    totalPages: this.props.attandanceHistory ? 1 : res.data.page.totalPages,
+                    pageSize: this.props.attandanceHistory ? 10 : res.data.page.size,
+                    totalElements: this.props.attandanceHistory ? 10 : res.data.page.totalElements,
+                    takeAttandanceListData: res.data._embedded ? res.data._embedded[this.state.listName] : []
+                });
+            })
+            .catch(e => console.log("An eror occured while calling filter Attandace Api :", e));
+
+        this.setState({mainFilterQuery : query});
+    }
 
 
 
@@ -254,103 +371,94 @@ class FilterBar extends React.Component {
 
         const { takeAttandance, attandanceHistory, toogleListGrid, hideGridView, listOrGrid } = this.props;
 
-        const {countPages, totalPages} = this.state;
+        const {countPages, totalPages, allFilters} = this.state;
+
+        let userTypes = allFilters.userTypes && (
+                            <div className="filter-userTypes mx-2">
+                                <p className="dropdown-item text-dark" aria-disabled><b>User Type</b></p>
+                                {allFilters.userTypes.map((data, index) => (
+                                    <span key={"userType" + index} className="d-flex">
+                                        <input type="checkbox" name={enums[data].toLowerCase()} id={data} index={index} data-type="userType" checked={this.state.filterObj.userType[index].name} onChange={this.handelBrowseFilter} />
+                                        <label className="dropdown-item" htmlFor={data} aria-disabled><p>{enums[data]}</p></label>
+                                    </span>
+                                ))}
+                            </div>
+                        );
+
+        let departments = allFilters.departments && (
+                                <div className="filter-departments mx-2">
+                                    <p className="dropdown-item text-dark" aria-disabled><b>Department</b></p>
+                                    {allFilters.departments.map((data, index) => (
+                                        <span key={"departments" + index} className="d-flex">
+                                            <input type="checkbox" name={data.name.toLowerCase()} id={data.id} index={index} data-type="department" checked={this.state.filterObj.department[index].name} onChange={this.handelBrowseFilter} />
+                                            <label className="dropdown-item" htmlFor={data.id} aria-disabled><p>{data.name.charAt(0).toUpperCase() + data.name.slice(1).toLowerCase()}</p></label>
+                                        </span>
+                                    ))}
+                                </div>
+                            );
+
+        let classes = allFilters.classes && (
+                            <div className="filter-classes mx-2">
+                                <p className="dropdown-item text-dark" aria-disabled><b>Classes</b></p>
+                                {allFilters.classes.map((data, index) => (
+                                    <span key={"classes" + index} className="d-flex">
+                                        <input type="checkbox" name={data.name} id={data.id} index={index} data-type="class" checked={this.state.filterObj.class[index].name} onChange={this.handelBrowseFilter} />
+                                        <label className="dropdown-item" htmlFor={data.id} aria-disabled><p>{data.name}</p></label>
+                                    </span>
+                                ))}
+                            </div>
+                        );
+
+        let subjects = allFilters.subjects && (
+                            <div className="filter-subjects mx-2">
+                                <p className="dropdown-item text-dark" aria-disabled><b>Subjects</b></p>
+                                {allFilters.subjects.map((data, index) => (
+                                    <span key={"subjects" + index} className="d-flex">
+                                        <input type="checkbox" name={data.name} id={data.id} index={index} data-type="subject" checked={this.state.filterObj.subject[index].name} onChange={this.handelBrowseFilter} />
+                                        <label className="dropdown-item" htmlFor={data.id} aria-disabled><p>{data.name}</p></label>
+                                    </span>
+                                ))}
+                            </div>
+                        );
+
 
         return (
 
             <>  {console.log("inside filter return and count is : ", countPages)}
-                <div className="d-flex ml-5 pt-2 mt-3 justify-content-between">
+                <div className="d-flex ml-5 pt-2 mt-3 justify-content-between whole-filter">
+
+                    {/* .....................................Browse............................................... */}
                     <div className="d-flex filter-text pl-1 mt-1">
                         <div className="mr-2 users-text-filter">Users</div>
-                        {/* ......................Dropdown 1........................ */}
+                        {/* .................Dropdown 1................... */}
                         <div className="dropdown browse">
                             <button className="btn btn-sm browse-button btn-outline-none align-top p-0 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Browse
                             </button>
                             <div className="dropdown-menu filter-dropdown1" onClick={(e) => e.stopPropagation()}>
-                                <div className="d-flex">
+                                <div className="d-flex browse-filters justify-content-space-between">
+                                    {/* ............UserType............ */}
+                                    {userTypes}
+                                    
+                                    {/* ............Departments............ */}
+                                    {departments}
 
-                                    <div className="col-4">
-                                        <p className="dropdown-item text-dark" aria-disabled><b>User Type</b></p>
-                                        <span className="d-flex">
-                                            {console.log("this.state.filterObj['student'] is:", this.state.filterObj)}
-                                            <input type="checkbox" name="student" id="c1" data-type="userType" checked={this.state.filterObj.userType.student} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c1" aria-disabled><p>Student</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="teacher" id="c2" data-type="userType" checked={this.state.filterObj.userType.teacher} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c2" aria-disabled><p>Teacher</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="admin" id="c3" data-type="userType" checked={this.state.filterObj.userType.admin} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c3" aria-disabled><p>Admin</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="parent" id="c4" data-type="userType" checked={this.state.filterObj.userType.parent} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c4" aria-disabled><p>Parent</p></label>
-                                        </span>
-                                    </div>
+                                    {/* ............Classes............ */}
+                                    {classes}
 
-                                    <div className="col-4 pl-0 pb-5 mb-3">
-                                        <p className="dropdown-item text-dark" aria-disabled><b>Department</b></p>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="botany" id="c5" data-type="departmant" checked={this.state.filterObj.departmant.botany} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c5" aria-disabled><p>Botany</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="chemistry" id="c6" data-type="departmant" checked={this.state.filterObj.departmant.chemistry} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c6" aria-disabled><p>Chemistry</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="zoology" id="c7" data-type="departmant" checked={this.state.filterObj.departmant.zoology} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c7" aria-disabled><p>Zoology</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="pmcs" id="c8" data-type="departmant" checked={this.state.filterObj.departmant.pmcs} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c8" aria-disabled><p>PMCS</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="biochemistry" id="c9" data-type="departmant" checked={this.state.filterObj.departmant.biochemistry} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c9" aria-disabled><p>Biochemistry</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input className="error-check-box" type="checkbox" name="biotechnology" id="c10" data-type="departmant" checked={this.state.filterObj.departmant.biotechnology} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c10" aria-disabled><p>Biotechnology</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="physics" id="c11" data-type="departmant" checked={this.state.filterObj.departmant.physics} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c11" aria-disabled><p>Physics</p></label>
-                                        </span>
+                                    {/* ............Subjects............ */}
+                                    {subjects}
 
-                                    </div>
-                                    <div className="col-4 pr-5 pl-1">
-                                        <p className="dropdown-item text-dark" aria-disabled><b>User Role</b></p>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="roleStudent" id="c12" data-type="userRoll" checked={this.state.filterObj.userRoll.roleStudent} onChange={this.handelBrowseFilter} data-type="userRoll" checked={this.state.filterObj.userRoll.roleStudent} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c12" aria-disabled><p>Student</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="pgtEnglish" id="c13" data-type="userRoll" checked={this.state.filterObj.userRoll.pgtEnglish} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c13" aria-disabled><p>PGT Eng</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="tgtBio" id="c14" data-type="userRoll" checked={this.state.filterObj.userRoll.tgtBio} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c14" aria-disabled><p>TGT Bio</p></label>
-                                        </span>
-                                        <span className="d-flex">
-                                            <input type="checkbox" name="tgtMaths" id="c15" data-type="userRoll" checked={this.state.filterObj.userRoll.userRoll} onChange={this.handelBrowseFilter} />
-                                            <label className="dropdown-item" htmlFor="c15" aria-disabled><p>TGT Maths</p></label>
-                                        </span>
-                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    {console.log("this.state.sortBy, this.state.ascDec", this.state.sortBy, this.state.ascDec)}
+
+                    {/* .....................................Sort By............................................... */}
                     <div className="d-flex filter-text ml-5 mt-1">
                         <div className="ml-1 mr-2 users-text-filter">Sort by</div>
-                        {/* ......................Dropdown 2........................ */}
+                        {/* .............Dropdown 2.............. */}
                         <div className="dropdown">
                             <button className="btn btn-sm btn-outline-none p-0 align-top dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 User Type
@@ -386,11 +494,29 @@ class FilterBar extends React.Component {
                         <input type="text" className="form-control" placeholder="Search User" value={this.state.searchTerm} onChange={this.editSearchTerm} style={{ fontSize: "1.4rem" }} />
                     </div>
 
+                    {/* .......................Date Range Picker.............................. */}
+                    {attandanceHistory && 
+                        <>
+                            <div className="d-flex date-picker">
+                                <i className="fas fa-calendar-alt date-picker-icon pt-1" onClick={() => this.setState({showDateRangePicker : !(this.state.showDateRangePicker)})} />
+                                <input className="form-control date-picker-input" type="text" name="date-range" value={this.state.dateToPost} onClick={() => this.setState({showDateRangePicker : !(this.state.showDateRangePicker)})} readOnly />
+                                <button className="dir-dots apply-date-range-button" onClick={this.filterByDate}>Apply</button>
+                            </div>
+
+                            {this.state.showDateRangePicker && <CalanderApplyLeave obtainDates={(date) => this.filterDate(date)} />}
+                            
+                        </>
+                    }
+
                     {/* .......................Paginations.............................. */}
                     <div className="d-flex pagination mr-5">
-                        <div className="pagination-text mr-4 mt-1">{this.state.countPages == 0 ? 1 : (this.state.countPages * this.state.pageSize) + 1} to {this.state.countPages == this.state.totalPages ? this.state.totalPages : this.state.pageSize * (this.state.countPages + 1)} of {this.state.totalPages * this.state.pageSize}</div>
-                        <button className="btn btn-sm btn-outline-secondary pagination-button bg-white ml-4" onClick={this.handelPagintionLeft}><i className="fa fa-chevron-left pagination-i"></i></button>
-                        <button className="btn btn-sm btn-outline-secondary pagination-button bg-white" onClick={this.handelPagintionRight}><i className="fa fa-chevron-right pagination-i"></i></button>
+                        {!(attandanceHistory) && 
+                            <>
+                                <div className="pagination-text mr-4 mt-1">{this.state.countPages === 0 ? 1 : (this.state.countPages * this.state.pageSize) + 1} to {(this.state.countPages === 0) ? (this.state.takeAttandanceListData.length) : (this.state.countPages * this.state.pageSize) + (this.state.takeAttandanceListData.length) } of {this.state.totalPages * this.state.pageSize}</div>
+                                <button className="btn btn-sm btn-outline-secondary pagination-button bg-white ml-4" onClick={this.handelPagintionLeft}><i className="fa fa-chevron-left pagination-i"></i></button>
+                                <button className="btn btn-sm btn-outline-secondary pagination-button bg-white" onClick={this.handelPagintionRight}><i className="fa fa-chevron-right pagination-i"></i></button>
+                            </>
+                        }
 
                         {/* .......................List/Grid view Icon.............................. */}
                         {hideGridView ? <div className="mr-5 pr-3"></div>
@@ -409,13 +535,17 @@ class FilterBar extends React.Component {
                         <i className="fas fa-filter mr-2" onClick={() => this.setState({ showFilters: true })} style={{ position: "inherit", fontSize: "2.5rem", cursor: "pointer" }}></i>
 
                         {/* .......................Filter model.............................. */}
-                        <FilterModel show={this.state.showFilters} hide={() => this.setState({ showFilters: false })} />
+                        <FilterModel show={this.state.showFilters} allFilters={allFilters} query={(query) => {this.mainFilterQuery(query)}} hide={() => this.setState({ showFilters: false })} />
 
                     </div>
 
                 </div>
 
-                {takeAttandance ? <TakeAttandance paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} switched={this.state.switched} onRef={(ref) => {this.AttandanceChild = ref}} attandanceHistory={attandanceHistory} /> : <> <ItemDetails /> {listOrGrid ? <GridViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} onRef={(ref) => {this.UseChild = ref}} /> : <ListViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} />} </>}
+                {takeAttandance ? 
+                    <TakeAttandance paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} switched={this.state.switched} onRef={(ref) => {this.AttandanceChild = ref}} attandanceHistory={attandanceHistory} />
+                : 
+                    <> <ItemDetails /> {listOrGrid ? <GridViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} onRef={(ref) => {this.UseChild = ref}} /> : <ListViewUser paginationData={this.dynamicData()} pageNo={countPages} totalPages={totalPages} />} </>
+                }
 
 
             </>

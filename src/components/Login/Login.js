@@ -5,7 +5,7 @@
 
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './LoginModel.css';
 import './Login.css';
 import axios from '../axios';
@@ -21,7 +21,9 @@ function Login(props) {
     const [username, setuserName] = useState("");
     const [password, setpassword] = useState("");
 
-    // let history = useHistory();
+    useEffect(() => {
+        localStorage.removeItem("storedData");
+    }, [])
 
     const submitHandel = async e => {
         e.preventDefault();
@@ -34,12 +36,10 @@ function Login(props) {
         //...........Getting Token from login Api........................................
         try {
             const loginResponse = await axios.post("http://ec2-13-126-215-181.ap-south-1.compute.amazonaws.com:8083/auth/login", sendLoginData);
+            console.log('loginResponse :', loginResponse);
             const jwt_key = loginResponse.data.token;
             const refreshToken = loginResponse.data.refreshToken;
-            console.log('loginResponse :', loginResponse);
 
-            // var myHour = new Date();
-            // myHour = myHour.getTime() + 1000; //one hour from now
             let data = [jwt_key];
             data.push(refreshToken);
             localStorage.setItem('storedData', JSON.stringify(data));       // Setting Local Storage

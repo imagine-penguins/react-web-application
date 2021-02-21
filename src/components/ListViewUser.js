@@ -56,7 +56,7 @@ function ListViewUser(props) {
                     <div className="col-3">
                         <form className="form-user-list mr-auto">
                             <input type="checkbox" className="list-check-box mr-1" id="user-name" name="user-name" />
-                            <img className='list-img-icon ml-1 mr-2' src="/images/No_Image.png" alt="Avatar" />
+                            <img className='list-img-icon ml-1 mr-2' src={userdata.profilePic ? `${userdata.profilePic}` : `/images/No_Image.png`} alt="Avatar" />
                             <label className='list-names pl-1'>{`${userdata.firstName} ${userdata.lastName}`}</label>
                         </form>
                     </div>

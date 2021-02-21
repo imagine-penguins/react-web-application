@@ -11,6 +11,7 @@ import AppliedLeaveRequestCard from './AppliedLeaveRequestCard';
 import "./PastLeaveRequests.css";
 import dateDiff from '../DateDifference';
 import {months} from "../enums";
+import setActiveClass from '../ActiveCss';
 
 function PastLeaveRequests(props) {
 
@@ -121,25 +122,24 @@ function PastLeaveRequests(props) {
 
                     {/* .......................Data Parsed.............................. */}
                     {pastLeaveRequestsData.map((data, index) => (
-                        <div key={index} tabIndex={index} className="d-flex p-1 pl-2 leave-request-left-data justify-content-between mt-3" onClick={() => setindexForEye(index)}>
+                        <div key={index} className="d-flex p-1 pl-2 leave-request-left-data justify-content-between mt-3 navlink" onClick={(e) => {setindexForEye(index);setActiveClass(e);}}>
 
                             <div className="d-flex pl-0 col-4">
-                                <img className='smallCard-Hierarchy-down-card-img mt-2' src="/images/No_Image.png" alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
+                                <img className='smallCard-Hierarchy-down-card-img ml-2 mt-2' src={data.profilePic ? `${data.profilePic}` : `/images/No_Image.png`} alt="Avatar" style={{ height: "3.0rem", width: "3.0rem" }} />
                                 <span className="recieved-leaves-names pt-3 ml-3">{data.firstName} {data.lastName}</span>
                             </div>
                             <p className="col-3 pl-5 pt-3">{dateDiff(data.appliedOn)}</p>
                             <p className="col-3 pt-3">{data.appliedOn.split("-")[0]} {months[data.appliedOn.split("-")[1]]}, {(data.appliedOn.split("-")[2]).split(" ")[0]}</p>
                             <div className="d-flex col-2 pl-0 pt-3">
                                 <p className="ml-4 pr-2">{data.status}</p>
-                                {/* <i className="far fa-eye mr-2 pr-2" onClick={() => { setclickEyeIcon(true); setindexForEye(index) }}></i> */}
                             </div>
 
                         </div>
 
                     ))}
 
-                    {/* .......................AppliedLeaves Model when clicked eye........................................ */}
-                    {/* <EyeLeaveRequestModel show={clickEyeIcon} hide={() => setclickEyeIcon(false)} data={pastLeaveRequestsData} index={indexForEye} /> */}
+                    {/* ......................If List is empty.............................. */}
+                    {(pastLeaveRequestsData.length <= 0) && <><div className="d-flex empty-list justify-content-center my-5">There are no past leave requests.</div></>}
 
                 </div>
 
